@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Duración de la Película</title>
+</head>
+<body>
+  <h1>Duración de la Película</h1>
+  <p id="duration"></p>
+
+  <script>
+    function obtenerDuracionPelicula() {
+      const API_KEY = 'fd7402172ca9f36816c7691becaf455f';
+      const BASE_URL = 'https://api.themoviedb.org/3';
+      const LANG_EN = '&language=en-US';
+      const movieId = '80271';
+
+      const request = new XMLHttpRequest();
+      request.open('GET', `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`);
+
+      request.onload = function() {
+        if (request.status === 200) {
+          const response = JSON.parse(request.responseText);
+          const duration = response.runtime;
+          const hours = Math.floor(duration / 60);
+          const minutes = duration % 60;
+
+          const durationElement = document.getElementById('duration');
+          durationElement.textContent = `${hours}h ${minutes}m.`;
+        } else {
+          console.error('Ooops, ocurrió un error:', request.status);
+        }
+      };
+
+      request.onerror = function() {
+        console.error('Ooops, ocurrió un error en la solicitud.');
+      };
+
+      request.send();
+    }
+
+    obtenerDuracionPelicula();
+  </script>
+</body>
+</html>

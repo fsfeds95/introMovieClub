@@ -1,0 +1,46 @@
+        <div class="movie-card">
+                        <div class="movie-card__header" style="background-image: url(https://image.tmdb.org/t/p/w500${backdropPath})">
+                                <span class="movie-card_genre">
+                                        ID: ${id}
+                                </span>
+                                <span class="movie-card_genre">
+                                        <a href="https://watermark-astropeliculas-final.onrender.com/p?url=https://image.tmdb.org/t/p/original${posterPath}" target="_blank">
+                                                Poster
+                                        </a>
+                                </span>
+                                <span class="movie-card_genre">
+                                        <a href="https://watermark-astropeliculas-final.onrender.com/b?url=https://image.tmdb.org/t/p/original${backdropPath}" target="_blank">
+                                                Backdrop
+                                        </a>
+                                </span>
+                                <span class="movie-card_genre">
+                                        <a href="https://www.themoviedb.org/movie/${id}/" target="_blank">
+                                                Toda la información
+                                        </a>
+                                </span>
+                        </div>
+                <div class="movie-card_content">
+                                <div class="movie-card__poster" data-src="${IMG_500+posterPath}"></div>
+                        <div class="d">
+
+        <button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
+                                <div class="contenedor border" id="peli_${id}_2">
+                                        <div class="titulo_es">
+                                                <b>
+                                                        🍿&nbsp;${title} (${releaseYear})
+                                                </b>
+                                        </div>
+                                        <div class="titulo_en"><b>📽&nbsp;<i>${originalTitle}</i></b></div>
+                                        <div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
+                                        <div class="genero"><b>🎭&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Género&nbsp;|</b>&nbsp;${getGenres(movie.genre_ids)}</div><div>&nbsp;</div>
+                                        <div class="calidad"><b>📺&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calidad&nbsp;|&nbsp;HD</b></div><div>&nbsp;</div>
+                                        <div class="idioma"><b>🗣&nbsp;Idioma Original&nbsp;|&nbsp;${getLanguage(language)}</b></div><div>&nbsp;</div>
+                                        <div class="audio"><b>🎧&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Audio&nbsp;|&nbsp;🇲🇽&nbsp;Latino</b></div><div>&nbsp;</div>
+                                        <div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
+                                        <div class="descarga">⬇️&nbsp;<b>Ver / Descargar&nbsp;|&nbsp;</b></div><div>&nbsp;</div>
+                                        <div class="trailer">🎞️&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Trailer&nbsp;|&nbsp;<a href="https://youtu.be/${getTrailerKey(id)}">https://youtu.be/${getTrailerKey(id)}</a></b></div></div>
+                                
+                                
+                        </div>
+                </div>
+        </div>

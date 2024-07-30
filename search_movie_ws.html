@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>👩‍🚀💀 AsᴛʀᴏPᴇʟɪᴄᴜʟᴀsOғ 💀👩‍🚀 - BUSCADOR DE PELÍCULAS WHATSAPP</title>
+ <link rel="icon" type="image/x-icon" href="./favicon.ico">
+ <link rel="stylesheet" href="./CSS/style.css">
+ <link rel="stylesheet" href="./CSS/preloader.css">
+ <link rel="stylesheet" href="./CSS/nav.css">
+ <link rel="stylesheet" href="./CSS/copy.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" >
+</head>
+<body>
+  <div class="loader-section">
+    <div class="loader__filmstrip"></div>
+    <p class="loader__text">loading</p>
+  </div>
+<!------------------------->
+<nav class="navbar dark-mode" role="navigation">
+  <div class="navbar_logo">
+    👩‍🚀💀 AsᴛʀᴏPᴇʟɪᴄᴜOғ 💀👩‍🚀
+  </div>
+  <ul class="navbar_links">
+    <li class="navbar_link uno">
+      <a href="index.html">
+        <i class="fa-solid fa-house"></i> Home
+      </a>
+    </li>
+    <li class="navbar_link dos">
+      <a href="search_movie_tlg.html">
+        <i class="fa-solid fa-magnifying-glass"></i> Search Movies Telegram
+      </a>
+    </li>
+    <li class="navbar_link dos">
+      <a href="search_movie_ws.html">
+        <i class="fa-solid fa-magnifying-glass"></i> Search Movies WhatsApp
+      </a>
+    </li>
+    <li class="navbar_link dos">
+      <a href="search_serie_ws.html">
+        <i class="fa-solid fa-magnifying-glass"></i> Search Serie WhatsApp
+      </a>
+    </li>
+    <li class="navbar_link tres">
+      <a href="colection.html">
+        <i class="fa-solid fa-magnifying-glass"></i> Search Collections
+      </a>
+    </li>
+    <li class="navbar_link cuatro">
+      <a href="random.html">
+        <i class="fa-solid fa-shuffle"></i> Random Movies
+      </a>
+    </li>
+    <li class="navbar_link cinco">
+      <a href="popular.html">
+        <i class="fa-solid fa-star"></i> Populars Movies
+      </a>
+    </li>
+    <li class="navbar_link seis">
+      <a href="poster.html">
+        <i class="fa-regular fa-image"></i> Posters
+      </a>
+    </li>
+    <li class="navbar_link siete">
+      <a href="backdrop.html">
+        <i class="fa-regular fa-image"></i> Backdrops
+      </a>
+    </li>
+  </ul>
+  <button class="burger">
+    <span class="bar"></span>
+  </button>
+</nav>
+<!------------------------>
+  <header id="header_2">
+    <div id="text">
+        Buscador de peliculas para Whatsapp
+      </div>
+    <input type="text" id="searchInput" placeholder="Ingrese el título de la película">
+    <button type="button" id="searchButton">Buscar</button>
+  </header>
+  
+  <div id="results"></div>
+
+  <div id="messageContainer" class="message-container"></div>
+ 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script  src="./js/preloader.js"></script>
+  <script  src="./js/nav.js"></script>
+  <script  src="./js/copy.js"></script>
+  <script  src="./js/search_tmdb_ws.js"></script>
+</body>
+</html>
