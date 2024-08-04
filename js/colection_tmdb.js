@@ -9,8 +9,8 @@ const IMG_500 = 'https://image.tmdb.org/t/p/w500';
 
 
 const API_KEY = 'api_key=74dc824830c7f93dc61b03e324070886';
-const LANG_ES = 'language=es';
-const LANG_EN = 'language=en';
+const LANG_ES = 'language=es-MX';
+const LANG_EN = 'language=en-US';
 
 $(document).ready(function() {
  $("#searchButton").click(function() {
