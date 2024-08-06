@@ -15,63 +15,63 @@ const LANG_ES = 'language=es-MX';
 const LANG_EN = 'language=en-US';
 
 $(document).ready(function() {
- $("#searchButton").click(function() {
-  var searchQuery = $("#searchInput").val();
-  searchMovies(searchQuery);
- });
- $("#searchInput").on("keypress", function(event) {
-  if (event.key === "Enter") {
-   var searchQuery = $("#searchInput").val();
-   searchMovies(searchQuery);
-  }
- });
-
-
-
- function searchMovies(query) {
-  if (query == "") {
-   $("#results").html("<p>Ingrese un título de película para buscar.</p>");
-  } else {
-   $.getJSON(
-    BASE_URL + "/search/movie?" + API_KEY + "&query=" +
-    query +
-    "&" + LANG_ES,
-    function(data) {
-     var movies = data.results;
-
-     if (movies.length === 0) {
-      $("#results").html("<p>No se encontraron películas con ese título.</p>");
-     } else {
-      displayMovies(movies);
-     }
+   $("#searchButton").click(function() {
+    var searchQuery = $("#searchInput").val();
+    searchMovies(searchQuery);
+   });
+   $("#searchInput").on("keypress", function(event) {
+    if (event.key === "Enter") {
+     var searchQuery = $("#searchInput").val();
+     searchMovies(searchQuery);
     }
-   );
-  }
- }
+   });
 
- function displayMovies(movies) {
-  var resultsHtml = "";
 
-  movies.forEach(function(movie) {
-   var id = movie.id;
 
-   var title = movie.title;
+   function searchMovies(query) {
+    if (query == "") {
+     $("#results").html("<p>Ingrese un título de película para buscar.</p>");
+    } else {
+     $.getJSON(
+      BASE_URL + "/search/movie?" + API_KEY + "&query=" +
+      query +
+      "&" + LANG_ES,
+      function(data) {
+       var movies = data.results;
 
-   var originalTitle = movie.original_title;
+       if (movies.length === 0) {
+        $("#results").html("<p>No se encontraron películas con ese título.</p>");
+       } else {
+        displayMovies(movies);
+       }
+      }
+     );
+    }
+   }
 
-   var tagline = movie.tagline;
+   function displayMovies(movies) {
+    var resultsHtml = "";
 
-   var releaseYear = movie.release_date.split("-")[0];
+    movies.forEach(function(movie) {
+       var id = movie.id;
 
-   var posterPath = movie.poster_path;
+       var title = movie.title;
 
-   var backdropPath = movie.backdrop_path;
+       var originalTitle = movie.original_title;
 
-   var language = movie.original_language;
+       var tagline = movie.tagline;
 
-   var overview = movie.overview;
+       var releaseYear = movie.release_date.split("-")[0];
 
-   var duration = movie.runtime;
+       var posterPath = movie.poster_path;
+
+       var backdropPath = movie.backdrop_path;
+
+       var language = movie.original_language;
+
+       var overview = movie.overview;
+
+       var duration = movie.runtime;
 
    resultsHtml += `<div class="movie-card">
 <div class="movie-card__header" style="background-image: url(${IMG_300+getBackdropMovie(id)})">
@@ -101,55 +101,35 @@ $(document).ready(function() {
 <div class="contenedor border" id="peli_${id}">
 
 
+<div class="initial"><b>⟨🔠⟩‎ #${title.substring(1, 0)}</b></div>
 
+<div class="title_es"><b>⟨🍿⟩‎ ${title}</b></div>
 
-<div class="titulo_es"><b>🍿‎ *${title}*‎ _(${releaseYear})_</b></div>
+<div class="title_or"><b>⟨🎥⟩‎ ${originalTitle}</b></div>
 
+<div class="year"><b>⟨🎟⟩‎ Estreno:‎ #Año${releaseYear}</b></div>
 
-<div class="titulo_en"><b>📽‎ <i>_${originalTitle}_</i></b></div>
+<div class="lang"><b>⟨🗣️⟩‎ Idioma‎ Original:‎ ${getLanguage(language)}</b></div>
 
+<div class="audio"><b>⟨🔊⟩‎ Audio:‎ Audio‎ [SUB]</b></div>
 
+<div class="duration"><b>⟨⏳⟩‎ Duración:‎ ${getDurationMovie(id)}</b></div>
 
+<div class="genre"><b>⟨🎭⟩‎ Género:‎ ${getGenres(movie.genre_ids)}</b></div>
 
-<div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
+<div class="titulo_es"><b>⟨👤⟩‎ Reparto:‎ ${showMovieCredits(id)}</b></div>
 
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
+<div class="sinopsis"><b>⟨💭⟩‎ Sinopsis:‎ ${overview}</b></div>
 
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
+<div class="trailer"><b>⟨🎞️⟩‎ Trailer:‎ <a href="https://youtu.be/${getTrailerKey(id)}">https://youtu.be/${getTrailerKey(id)}</a></b></div>
 
-<div>⏳‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ <b>*Duración*</b>‎ |‎ ${getDurationMovie(id)}
-</div><div>‎ </div>
+<div class=""><b>‎ </b></div>
 
-<div class="genero"><b>🎭‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Género*‎ |</b>‎ ${getGenres(movie.genre_ids)}</div><div>‎ </div>
-
-
-<div><b>👤‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Reparto*‎ |</b>‎ ${showMovieCredits(id)}</div><div>‎ </div>
-
-
-<div class="calidad"><b>📺‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Calidad*‎ |‎ *HD*</b></div><div>‎ </div>
-
-
-<div class="idioma"><b>🗣‎ *Idioma Original*‎ |‎ ${getLanguage(language)}</b></div><div>‎ </div>
-
-
-<div class="audio"><b>🎧‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Audio*‎ |‎ 🇲🇽‎ Latino</b></div><div>‎ </div>
-
-
-<div class="Sinopsis"><code>&#96;&#96;&#96;📝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sinopsis&nbsp;|<br>${overview}&#96;&#96;&#96;</code></div>
-
-
-
-
-<div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
-
-
-
-
-<div class="trailer">
-🎞️‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ <b>*Trailer*‎ |‎ <a href="https://youtu.be/${getTrailerKey(id)}">https://youtu.be/${getTrailerKey(id)}</a></b></div><div>‎ </div>
-
-
-<div class="descarga">🔗‎ <b>*Ver / Descargar*‎ |‎ </div>
+<div class="view_download"><b>⟨🔗⟩‎ Ver/Descargar:&nbsp;</b></div>
 
 </div>
 </div>
@@ -187,7 +167,7 @@ $(document).ready(function() {
   });
  }
 
-// Funcion: Obtener key del trailer de youtube
+ // Funcion: Obtener key del trailer de youtube
  function getTrailerKey(movieId) {
   var trailerKey = "";
 
@@ -214,7 +194,7 @@ $(document).ready(function() {
   return trailerKey;
  }
 
-// Funcion: Traducir los generos
+ // Funcion: Traducir los generos
  function getGenres(genreIds) {
   var genres = {
    28: "Accion",
@@ -285,7 +265,7 @@ $(document).ready(function() {
   return genreList.join(",‎ ");
  }
 
-// Función: Traducir el lenguaje
+ // Función: Traducir el lenguaje
  function getLanguage(languageCode) {
   var languages = {
    en: "🇺🇸‎ Ingles",
@@ -364,8 +344,8 @@ function getPosterMovie(movieId) {
    var posterPath = posters.find(function(poster) {
     return (
      poster.iso_639_1 === "en"
- // ||poster.iso_639_1 === "en"
-  //|| poster.iso_639_1 === "null"
+     // ||poster.iso_639_1 === "en"
+     //|| poster.iso_639_1 === "null"
     );
    });
 
@@ -449,4 +429,71 @@ function getDurationMovie(movieId) {
  });
 
  return movieDuration;
+}
+
+function videoTitle(frase) {
+ return frase
+  .replace(/\*/g, '')
+  .replace(/-/g, '')
+  .replace(/\$/g, '')
+  .replace(/¡/g, '')
+  .replace(/!/g, '')
+  .replace(/,/g, '')
+  .replace(/\?/g, '')
+  .replace(/¿/g, '')
+  .replace(/%/g, '')
+  .replace(/&/g, '')
+  .replace(/\'/g, '')
+  .replace(/:/g, '')
+
+  .replace(/ñ/g, 'n')
+  .replace(/ń/g, 'n')
+
+  .replace(/ć/g, 'c')
+  .replace(/ç/g, 'c')
+  .replace(/č/g, 'c')
+
+  .replace(/á/g, 'a')
+  .replace(/æ/g, 'a')
+  .replace(/ā/g, 'a')
+  .replace(/â/g, 'a')
+  .replace(/ã/g, 'a')
+  .replace(/å/g, 'a')
+  .replace(/ą/g, 'a')
+  .replace(/ä/g, 'a')
+  .replace(/à/g, 'a')
+
+  .replace(/é/g, 'e')
+  .replace(/ė/g, 'e')
+  .replace(/ê/g, 'e')
+  .replace(/ę/g, 'e')
+  .replace(/ē/g, 'e')
+  .replace(/è/g, 'e')
+  .replace(/é/g, 'e')
+  .replace(/ë/g, 'e')
+
+  .replace(/í/g, 'i')
+  .replace(/ī/g, 'i')
+  .replace(/î/g, 'i')
+  .replace(/į/g, 'i')
+  .replace(/ì/g, 'i')
+  .replace(/ï/g, 'i')
+  .replace(/í/g, 'i')
+
+  .replace(/ó/g, 'o')
+  .replace(/õ/g, 'o')
+  .replace(/ō/g, 'o')
+  .replace(/œ/g, 'o')
+  .replace(/ø/g, 'o')
+  .replace(/õ/g, 'o')
+  .replace(/ô/g, 'o')
+  .replace(/ö/g, 'o')
+  .replace(/ò/g, 'o')
+
+  .replace(/ú/g, 'u')
+  .replace(/ū/g, 'u')
+  .replace(/ù/g, 'u')
+  .replace(/û/g, 'u')
+  .replace(/ü/g, 'u')
+  .replace(/ú/g, 'u');
 }
