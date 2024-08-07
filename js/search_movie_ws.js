@@ -108,9 +108,9 @@ $(document).ready(function() {
 
 
 
-<button class="copy" onclick="copyTextById('peli_${id}_1', this)"><i class="fa-regular fa-clipboard"></i>‎ Copiar</button>
+<button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i>‎ Copiar</button>
 
-<div class="contenedor border" id="peli_${id}_1">
+<div class="contenedor border" id="peli_${id}_2">
 
 
 
