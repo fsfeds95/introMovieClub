@@ -15,63 +15,64 @@ const LANG_ES = 'language=es-MX';
 const LANG_EN = 'language=en-US';
 
 $(document).ready(function() {
-   $("#searchButton").click(function() {
-    var searchQuery = $("#searchInput").val();
-    searchMovies(searchQuery);
-   });
-   $("#searchInput").on("keypress", function(event) {
-    if (event.key === "Enter") {
-     var searchQuery = $("#searchInput").val();
-     searchMovies(searchQuery);
+ $("#searchButton").click(function() {
+  var searchQuery = $("#searchInput").val();
+  searchMovies(searchQuery);
+ });
+ $("#searchInput").on("keypress", function(event) {
+  if (event.key === "Enter") {
+   var searchQuery = $("#searchInput").val();
+   searchMovies(searchQuery);
+  }
+ });
+
+
+
+ function searchMovies(query) {
+  if (query == "") {
+   $("#results").html("<p>Ingrese un título de película para buscar.</p>");
+  } else {
+   $.getJSON(
+    BASE_URL + "/search/movie?" + API_KEY + "&query=" +
+    query +
+    "&" + LANG_ES,
+    function(data) {
+     var movies = data.results;
+
+     if (movies.length === 0) {
+      $("#results").html("<p>No se encontraron películas con ese título.</p>");
+     } else {
+      displayMovies(movies);
+     }
     }
-   });
+   );
+  }
+ }
 
+ function displayMovies(movies) {
+  var resultsHtml = "";
 
+  movies.forEach(function(movie) {
+   var id = movie.id;
 
-   function searchMovies(query) {
-    if (query == "") {
-     $("#results").html("<p>Ingrese un título de película para buscar.</p>");
-    } else {
-     $.getJSON(
-      BASE_URL + "/search/movie?" + API_KEY + "&query=" +
-      query +
-      "&" + LANG_ES,
-      function(data) {
-       var movies = data.results;
+   var title = movie.title;
 
-       if (movies.length === 0) {
-        $("#results").html("<p>No se encontraron películas con ese título.</p>");
-       } else {
-        displayMovies(movies);
-       }
-      }
-     );
-    }
-   }
+   var originalTitle = movie.original_title;
 
-   function displayMovies(movies) {
-    var resultsHtml = "";
+   var tagline = movie.tagline;
 
-    movies.forEach(function(movie) {
-       var id = movie.id;
+   var releaseYear = movie.release_date.split("-")[0];
 
-       var title = movie.title;
+   var posterPath = movie.poster_path;
 
-       var originalTitle = movie.original_title;
+   var backdropPath = movie.backdrop_path;
 
-       var tagline = movie.tagline;
+   var language = movie.original_language;
 
-       var releaseYear = movie.release_date.split("-")[0];
+   var overview = movie.overview;
 
-       var posterPath = movie.poster_path;
+   var duration = movie.runtime;
 
-       var backdropPath = movie.backdrop_path;
-
-       var langCode = movie.original_language;
-
-       var overview = movie.overview;
-
-       var duration = movie.runtime;
 
    resultsHtml += `<div class="movie-card">
 <div class="movie-card__header" style="background-image: url(${IMG_300+getBackdropMovie(id)})">
@@ -96,8 +97,15 @@ $(document).ready(function() {
   <div class="movie-card__poster" data-src="${IMG_300+getPosterMovie(id)}"></div>
   <div class="d">
 
+
+
 <button class="copy" onclick="copyTextById('peli_${id}_1', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
 <div class="contenedor border" id="peli_${id}_1">${videoTitle(title)} (${releaseYear}) [LAT] 480p</div>
+
+
+
+
+
 
 <button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i>‎ Copiar</button>
 
