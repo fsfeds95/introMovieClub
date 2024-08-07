@@ -208,61 +208,61 @@ $(document).ready(function() {
  // Funcion: Traducir los generos
  function getGenres(genreIds) {
   var genres = {
-   28: "#Accion",
+   28: "Accion",
 
-   12: "#Aventura",
+   12: "Aventura",
 
-   16: "#Animacion",
+   16: "Animacion",
 
-   35: "#Comedia",
+   35: "Comedia",
 
-   80: "#Crimen",
+   80: "Crimen",
 
-   99: "#Documental",
+   99: "Documental",
 
-   18: "#Drama",
+   18: "Drama",
 
-   10751: "#Familiar",
+   10751: "Familiar",
 
-   14: "#Fantasia",
+   14: "Fantasia",
 
-   36: "#Historia",
+   36: "Historia",
 
-   27: "#Terror",
+   27: "Terror",
 
-   10402: "#Musica",
+   10402: "Musica",
 
-   9648: "#Misterio",
+   9648: "Misterio",
 
-   10749: "#Romance",
+   10749: "Romance",
 
-   878: "#Ciencia_ficcion",
+   878: "Ciencia‎ Ficcion",
 
-   10770: "#Película_de_la_television",
+   10770: "Película‎ de‎ la‎ Television",
 
-   53: "#Suspenso",
+   53: "Suspenso",
 
-   10752: "#Belica",
+   10752: "Belica",
 
-   37: "#Oeste",
+   37: "Oeste",
 
-   10759: "Accion_y_Aventura",
+   10759: "Accion‎ y‎ Aventura",
 
-   10762: "#Infantil",
+   10762: "Infantil",
 
-   10763: "#Noticias",
+   10763: "Noticias",
 
-   10764: "#Realidad",
+   10764: "Realidad",
 
-   10765: "#Ciencia_Ficcion_y_Fantasia",
+   10765: "Ciencia‎ Ficcion‎ y‎ Fantasia",
 
-   10766: "#Serial",
+   10766: "Serial",
 
-   10767: "#Conversacion",
+   10767: "Conversacion",
 
-   10768: "#Politico",
+   10768: "Politico",
 
-   10769: "#Opcion_Interactiva"
+   10769: "Opcion‎ Interactiva"
   };
 
   var genreList = [];
@@ -324,7 +324,7 @@ function showMovieCredits(movieId) {
     return actor.name;
    });
 
-   movieCredits = actorNames.join(",‎ ");
+   movieCredits = actorNames.join(", ");
    // Dividir los nombres de los actores
 
   },
@@ -354,20 +354,9 @@ function getPosterMovie(movieId) {
 
    var posterPath = posters.find(function(poster) {
     return (
-     backdrop.iso_639_1 === "en" ||
-     backdrop.iso_639_1 === "es" ||
-     backdrop.iso_639_1 === "ca" ||
-     backdrop.iso_639_1 === "ja" ||
-     backdrop.iso_639_1 === "br" ||
-     backdrop.iso_639_1 === "fr" ||
-     backdrop.iso_639_1 === "de" ||
-     backdrop.iso_639_1 === "it" ||
-     backdrop.iso_639_1 === "ko" ||
-     backdrop.iso_639_1 === "ru" ||
-     backdrop.iso_639_1 === "zh" ||
-     backdrop.iso_639_1 === "pt" ||
-     backdrop.iso_639_1 === "nl" ||
-     backdrop.iso_639_1 === "null"
+     poster.iso_639_1 === "en"
+     // ||poster.iso_639_1 === "en"
+     //|| poster.iso_639_1 === "null"
     );
    });
 
