@@ -111,7 +111,7 @@ $(document).ready(function() {
 
 <div class="lang"><b>⟨🗣️⟩‎ Idioma‎ Original:‎ ${getLanguage(langCode)}</b></div>
 
-<div class="audio"><b>⟨🔊⟩‎ Audio:‎ Audio‎ [SUB]</b></div>
+<div class="audio"><b>⟨🔊⟩‎ Audio:‎ 🇲🇽 Latino</b></div>
 
 <div class="duration"><b>⟨⏳⟩‎ Duración:‎ ${getDurationMovie(id)}</b></div>
 
