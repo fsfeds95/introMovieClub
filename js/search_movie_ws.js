@@ -73,6 +73,7 @@ $(document).ready(function() {
 
    var duration = movie.runtime;
 
+
    resultsHtml += `<div class="movie-card">
 <div class="movie-card__header" style="background-image: url(${IMG_300+getBackdropMovie(id)})">
   <span class="movie-card_genre">ID:‎ ${id}</span>
@@ -95,10 +96,21 @@ $(document).ready(function() {
 <div class="movie-card_content">
   <div class="movie-card__poster" data-src="${IMG_300+getPosterMovie(id)}"></div>
   <div class="d">
-      
-<button class="copy" onclick="copyTextById('peli_${id}', this)"><i class="fa-regular fa-clipboard"></i>‎ Copiar</button>
 
-<div class="contenedor border" id="peli_${id}">
+
+
+<button class="copy" onclick="copyTextById('peli_${id}_1', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
+<div class="contenedor border" id="peli_${id}_1">${videoTitle(title)} (${releaseYear}) [LAT] 480p</div>
+
+
+
+
+
+
+
+<button class="copy" onclick="copyTextById('peli_${id}_1', this)"><i class="fa-regular fa-clipboard"></i>‎ Copiar</button>
+
+<div class="contenedor border" id="peli_${id}_1">
 
 
 
@@ -446,4 +458,71 @@ function getDurationMovie(movieId) {
  });
 
  return movieDuration;
+}
+
+function videoTitle(frase) {
+ return frase
+  .replace(/\*/g, '')
+  .replace(/-/g, '')
+  .replace(/\$/g, '')
+  .replace(/¡/g, '')
+  .replace(/!/g, '')
+  .replace(/,/g, '')
+  .replace(/\?/g, '')
+  .replace(/¿/g, '')
+  .replace(/%/g, '')
+  .replace(/&/g, '')
+  .replace(/\'/g, '')
+  .replace(/:/g, '')
+
+  .replace(/ñ/g, 'n')
+  .replace(/ń/g, 'n')
+
+  .replace(/ć/g, 'c')
+  .replace(/ç/g, 'c')
+  .replace(/č/g, 'c')
+
+  .replace(/á/g, 'a')
+  .replace(/æ/g, 'a')
+  .replace(/ā/g, 'a')
+  .replace(/â/g, 'a')
+  .replace(/ã/g, 'a')
+  .replace(/å/g, 'a')
+  .replace(/ą/g, 'a')
+  .replace(/ä/g, 'a')
+  .replace(/à/g, 'a')
+
+  .replace(/é/g, 'e')
+  .replace(/ė/g, 'e')
+  .replace(/ê/g, 'e')
+  .replace(/ę/g, 'e')
+  .replace(/ē/g, 'e')
+  .replace(/è/g, 'e')
+  .replace(/é/g, 'e')
+  .replace(/ë/g, 'e')
+
+  .replace(/í/g, 'i')
+  .replace(/ī/g, 'i')
+  .replace(/î/g, 'i')
+  .replace(/į/g, 'i')
+  .replace(/ì/g, 'i')
+  .replace(/ï/g, 'i')
+  .replace(/í/g, 'i')
+
+  .replace(/ó/g, 'o')
+  .replace(/õ/g, 'o')
+  .replace(/ō/g, 'o')
+  .replace(/œ/g, 'o')
+  .replace(/ø/g, 'o')
+  .replace(/õ/g, 'o')
+  .replace(/ô/g, 'o')
+  .replace(/ö/g, 'o')
+  .replace(/ò/g, 'o')
+
+  .replace(/ú/g, 'u')
+  .replace(/ū/g, 'u')
+  .replace(/ù/g, 'u')
+  .replace(/û/g, 'u')
+  .replace(/ü/g, 'u')
+  .replace(/ú/g, 'u');
 }
