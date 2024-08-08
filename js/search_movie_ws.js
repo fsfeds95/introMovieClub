@@ -452,6 +452,7 @@ function videoTitle(frase) {
   .replace(/&/g, '')
   .replace(/\'/g, '')
   .replace(/:/g, '')
+  .replace(/ /g, '_')
 
   .replace(/ñ/g, 'n')
   .replace(/ń/g, 'n')
