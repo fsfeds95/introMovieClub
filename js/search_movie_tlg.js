@@ -510,5 +510,6 @@ function videoTitle(frase) {
   .replace(/ù/g, 'u')
   .replace(/û/g, 'u')
   .replace(/ü/g, 'u')
-  .replace(/ú/g, 'u');
+  .replace(/ú/g, 'u')
+  .replace(/ /g, '_');
 }
