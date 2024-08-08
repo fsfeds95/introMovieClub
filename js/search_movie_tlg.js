@@ -101,7 +101,7 @@ $(document).ready(function() {
 <div class="contenedor border" id="peli_${id}">
 
 
-<div class="initial"><b>⟨🔠⟩‎ #${title.substring(1, 0)}</b></div>
+<div class="initial"><b>⟨🔠⟩‎ #${title.substring(1, 0)} </b></div>
 
 <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
