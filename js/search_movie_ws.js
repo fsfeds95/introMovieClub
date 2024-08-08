@@ -114,7 +114,7 @@ $(document).ready(function() {
 
 <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
-<div class="year"><b>⟨🎟⟩‎ Estreno:‎ #Año${releaseYear}</b></div>
+<div class="year"><b>⟨🎟⟩‎ Estreno:‎ ${releaseYear}</b></div>
 
 <div class="lang"><b>⟨🗣️⟩‎ Idioma‎ Original:‎ ${getLanguage(langCode)}</b></div>
 
