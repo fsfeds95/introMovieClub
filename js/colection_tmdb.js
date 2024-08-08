@@ -113,30 +113,25 @@ $(document).ready(function() {
     
     <div class="d">
 
-      <button class="copy" onclick="copyTextById('peli_${idCollection}', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
-      
-      <div class="contenedor border" id="peli_${idCollection}">
-        <div class="titulo_es">
-          <b>
-            🍿‎ *Colección: ${title}*
-          </b>
-        </div>
+<button class="copy" onclick="copyTextById('peli_${idCollection}', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
+
+
+<div class="contenedor border" id="peli_${idCollection}">
+
+
+<div class="titulo_es">⟨🍿⟩‎ Colección: ${title}</div>
         
-        <div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
-        
-        <div class="Sinopsis">
-          <code>
-           <b>*Sinopsis*</b>‎ |️‎ ${overview}
-          </code>
-        </div><div>‎ </div>
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
-        <div class="titulosCollection">
-         <b>*Peliculas*</b>&nbsp;|️‎ ${movieTitles}
-        </div><div>‎ </div>
+<div class="Sinopsis">⟨📝⟩ Sinopsis:‎ ${overview}</div>
 
-        <div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
+<div class="titulosCollection">⟨🍿⟩ Peliculas:‎ ${movieTitles}</div>
 
-        <div class="descarga"><b>*Ver️‎ /️‎ Descargar*</b>‎ |&nbsp;</div>
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+
+<div class="descarga">⟨🔗⟩ Ver️‎ /️‎ Descargar:&nbsp;</div>
+
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
 
       </div>
@@ -187,7 +182,7 @@ $(document).ready(function() {
    const moviesList = data.parts.filter(movie => movie.release_date).sort(function(a, b) {
     return parseInt(a.release_date.slice(0, 4)) - parseInt(b.release_date.slice(0, 4));
    });
-   const formattedTitles = moviesList.map(movie => `️</br>${movie.title} (<b>*${movie.release_date.slice(0, 4)}*</b>)`).join(',️');
+   const formattedTitles = moviesList.map(movie => `️</br>⟨▪️⟩ ${movie.title} (${movie.release_date.slice(0, 4)})`).join('');
 
    return formattedTitles;
   } catch (error) {
