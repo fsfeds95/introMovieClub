@@ -67,62 +67,55 @@ $(document).ready(function() {
 
    var backdropPath = movie.backdrop_path;
 
-   var language = movie.original_language;
+   var langCode = movie.original_language;
 
    var overview = movie.overview;
 
    var duration = movie.runtime;
 
-
    resultsHtml += `<div class="movie-card">
-<div class="movie-card__header" style="background-image: url(${IMG_300+getBackdropMovie(id)})">
-  <span class="movie-card_genre">ID:‎ ${id}</span>
-  <span class="movie-card_genre">
-    <a href="https://watermark-astropeliculas-final.onrender.com/p?url=${IMG_185+getPosterMovie(id)}" target="_blank">
-      Poster
-    </a>
-  </span>
-  <span class="movie-card_genre">
-    <a href="https://watermark-astropeliculas-final.onrender.com/b?url=${IMG_ORI+getBackdropMovie(id)}" target="_blank">
-      Backdrop
-    </a>
-  </span>
-  <span class="movie-card_genre">
-    <a href="https://www.themoviedb.org/movie/${id}/" target="_blank">
-      Información
-    </a>
-  </span>
-</div>
-<div class="movie-card_content">
-  <div class="movie-card__poster" data-src="${IMG_300+getPosterMovie(id)}"></div>
-  <div class="d">
+   <div class="movie-card__header" style="background-image: url(${IMG_300+getBackdropMovie(id)})">
+     <span class="movie-card_genre">ID:‎ ${id}</span>
+     <span class="movie-card_genre">
+       <a href="https://watermark-astropeliculas-final.onrender.com/p?url=${IMG_185+getPosterMovie(id)}" target="_blank">
+         Poster
+       </a>
+     </span>
+     <span class="movie-card_genre">
+       <a href="https://watermark-astropeliculas-final.onrender.com/b?url=${IMG_ORI+getBackdropMovie(id)}" target="_blank">
+         Backdrop
+       </a>
+     </span>
+     <span class="movie-card_genre">
+       <a href="https://www.themoviedb.org/movie/${id}/" target="_blank">
+         Información
+       </a>
+     </span>
+   </div>
+   <div class="movie-card_content">
+     <div class="movie-card__poster" data-src="${IMG_300+getPosterMovie(id)}"></div>
+     <div class="d">
+      
+<button class="copy" onclick="copyTextById('peli_${id}', this)"><i class="fa-regular fa-clipboard"></i>‎ Copiar</button>
 
-
-
-<button class="copy" onclick="copyTextById('peli_${id}_1', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
-<div class="contenedor border" id="peli_${id}_1">${videoTitle(title)} (${releaseYear}) [LAT] 480p</div>
-
-
-
-
-
-
-<button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i>‎ Copiar</button>
-
-<div class="contenedor border" id="peli_${id}_2">
+<div class="contenedor border" id="peli_${id}">
 
 
 <div class="initial"><b>⟨🔠⟩‎ #${title.substring(1, 0)}</b></div>
+
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
 <div class="title_es"><b>⟨🍿⟩‎ ${title}</b></div>
 
 <div class="title_or"><b>⟨🎥⟩‎ ${originalTitle}</b></div>
 
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+
 <div class="year"><b>⟨🎟⟩‎ Estreno:‎ #Año${releaseYear}</b></div>
 
 <div class="lang"><b>⟨🗣️⟩‎ Idioma‎ Original:‎ ${getLanguage(langCode)}</b></div>
 
-<div class="audio"><b>⟨🔊⟩‎ Audio:‎ 🇲🇽 Latino</b></div>
+<div class="audio"><b>⟨🔊⟩‎ Audio:‎ Audio‎ [SUB]</b></div>
 
 <div class="duration"><b>⟨⏳⟩‎ Duración:‎ ${getDurationMovie(id)}</b></div>
 
@@ -141,6 +134,8 @@ $(document).ready(function() {
 <div class=""><b>‎ </b></div>
 
 <div class="view_download"><b>⟨🔗⟩‎ Ver/Descargar:&nbsp;</b></div>
+
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
 </div>
 </div>
@@ -236,9 +231,9 @@ $(document).ready(function() {
 
    10749: "Romance",
 
-   878: "Ciencia‎ Ficcion",
+   878: "Ciencia_Ficcion",
 
-   10770: "Película‎ de‎ la‎ Television",
+   10770: "Película_de_la_Television",
 
    53: "Suspenso",
 
@@ -246,7 +241,7 @@ $(document).ready(function() {
 
    37: "Oeste",
 
-   10759: "Accion‎ y‎ Aventura",
+   10759: "Accion_y_Aventura",
 
    10762: "Infantil",
 
@@ -254,7 +249,7 @@ $(document).ready(function() {
 
    10764: "Realidad",
 
-   10765: "Ciencia‎ Ficcion‎ y‎ Fantasia",
+   10765: "Ciencia_Ficcion_y_Fantasia",
 
    10766: "Serial",
 
@@ -262,7 +257,7 @@ $(document).ready(function() {
 
    10768: "Politico",
 
-   10769: "Opcion‎ Interactiva"
+   10769: "Opcion_Interactiva"
   };
 
   var genreList = [];
