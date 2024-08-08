@@ -113,7 +113,7 @@ $(document).ready(function() {
 
 <div class="year"><b>⟨🎟⟩‎ Estreno:‎ #Año${releaseYear}</b></div>
 
-<div class="quality"><b>⟨📺⟩‎ Calidad:‎‎ HD</b></div><div>‎ </div>
+<div class="quality"><b>⟨📺⟩‎ Calidad:‎‎ HD</b></div>
 
 <div class="lang"><b>⟨🗣️⟩‎ Idioma‎ Original:‎ ${getLanguage(langCode)}</b></div>
 
