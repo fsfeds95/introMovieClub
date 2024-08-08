@@ -113,6 +113,8 @@ $(document).ready(function() {
 
 <div class="year"><b>⟨🎟⟩‎ Estreno:‎ #Año${releaseYear}</b></div>
 
+<div class="quality"><b>⟨📺⟩‎ Calidad:‎‎ HD</b></div><div>‎ </div>
+
 <div class="lang"><b>⟨🗣️⟩‎ Idioma‎ Original:‎ ${getLanguage(langCode)}</b></div>
 
 <div class="audio"><b>⟨🔊⟩‎ Audio:‎ 🇲🇽‎ Latino</b></div>
@@ -121,7 +123,7 @@ $(document).ready(function() {
 
 <div class="genre"><b>⟨🎭⟩‎ Género:‎ ${getGenres(movie.genre_ids)}</b></div>
 
-<div class="titulo_es"><b>⟨👤⟩‎ Reparto:‎ ${showMovieCredits(id)}</b></div>
+<div class="credits"><b>⟨👤⟩‎ Reparto:‎ ${showMovieCredits(id)}</b></div>
 
 <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
@@ -203,61 +205,61 @@ $(document).ready(function() {
  // Funcion: Traducir los generos
  function getGenres(genreIds) {
   var genres = {
-   28: "Accion",
+   28: "#Accion",
 
-   12: "Aventura",
+   12: "#Aventura",
 
-   16: "Animacion",
+   16: "#Animacion",
 
-   35: "Comedia",
+   35: "#Comedia",
 
-   80: "Crimen",
+   80: "#Crimen",
 
-   99: "Documental",
+   99: "#Documental",
 
-   18: "Drama",
+   18: "#Drama",
 
-   10751: "Familiar",
+   10751: "#Familiar",
 
-   14: "Fantasia",
+   14: "#Fantasia",
 
-   36: "Historia",
+   36: "#Historia",
 
-   27: "Terror",
+   27: "#Terror",
 
-   10402: "Musica",
+   10402: "#Musica",
 
-   9648: "Misterio",
+   9648: "#Misterio",
 
-   10749: "Romance",
+   10749: "#Romance",
 
-   878: "Ciencia_Ficcion",
+   878: "#Ciencia_Ficcion",
 
-   10770: "Película_de_la_Television",
+   10770: "#Película_de_la_Television",
 
-   53: "Suspenso",
+   53: "#Suspenso",
 
-   10752: "Belica",
+   10752: "#Belica",
 
-   37: "Oeste",
+   37: "#Oeste",
 
-   10759: "Accion_y_Aventura",
+   10759: "#Accion_y_Aventura",
 
-   10762: "Infantil",
+   10762: "#Infantil",
 
-   10763: "Noticias",
+   10763: "#Noticias",
 
-   10764: "Realidad",
+   10764: "#Realidad",
 
-   10765: "Ciencia_Ficcion_y_Fantasia",
+   10765: "#Ciencia_Ficcion_y_Fantasia",
 
-   10766: "Serial",
+   10766: "#Serial",
 
-   10767: "Conversacion",
+   10767: "#Conversacion",
 
-   10768: "Politico",
+   10768: "#Politico",
 
-   10769: "Opcion_Interactiva"
+   10769: "#Opcion_Interactiva"
   };
 
   var genreList = [];
