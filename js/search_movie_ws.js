@@ -115,50 +115,35 @@ $(document).ready(function() {
 
 
 
-<div class="titulo_es"><b>🍿‎ *${title}*‎ _(${releaseYear})_</b></div>
+<div class="title_es"><b>⟨🍿⟩‎ ${title}</b></div>
 
+<div class="title_or"><b>⟨🎥⟩‎ ${originalTitle}</b></div>
 
-<div class="titulo_en"><b>📽‎ <i>_*${originalTitle}*_</i></b></div>
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
+<div class="year"><b>⟨🎟⟩‎ Estreno:‎ #Año${releaseYear}</b></div>
 
+<div class="quality"><b>⟨📺⟩‎ Calidad:‎‎ HD</b></div>
 
+<div class="lang"><b>⟨🗣️⟩‎ Idioma‎ Original:‎ ${getLanguage(langCode)}</b></div>
 
-<div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
+<div class="audio"><b>⟨🔊⟩‎ Audio:‎ 🇲🇽‎ Latino</b></div>
 
+<div class="duration"><b>⟨⏳⟩‎ Duración:‎ ${getDurationMovie(id)}</b></div>
 
+<div class="genre"><b>⟨🎭⟩‎ Género:‎ ${getGenres(movie.genre_ids)}</b></div>
 
+<div class="credits"><b>⟨👤⟩‎ Reparto:‎ ${showMovieCredits(id)}</b></div>
 
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
-<div>⏳‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ <b>*Duración*</b>‎ |‎ ${getDurationMovie(id)}
-</div><div>‎ </div>
+<div class="trailer"><b>⟨🎞️⟩‎ Trailer:‎ <a href="https://youtu.be/${getTrailerKey(id)}">https://youtu.be/${getTrailerKey(id)}</a></b></div>
 
-<div class="genero"><b>🎭‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Género*‎ |</b>‎ _${getGenres(movie.genre_ids)}_</div><div>‎ </div>
+<div class=""><b>‎ </b></div>
 
+<div class="view_download"><b>⟨🔗⟩‎ Ver/Descargar:&nbsp;</b></div>
 
-<div><b>👤‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Reparto*‎ |</b>‎ _${showMovieCredits(id)}_</div><div>‎ </div>
-
-
-<div class="calidad"><b>📺‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Calidad*‎ |‎ *HD*</b></div><div>‎ </div>
-
-
-<div class="idioma"><b>🗣‎ *Idioma Original*‎ |‎ *${getLanguage(language)}*</b></div><div>‎ </div>
-
-
-<div class="audio"><b>🎧‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Audio*‎ |‎ 🇲🇽‎ *Latino*</b></div><div>‎ </div>
-
-
-
-
-<div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
-
-
-
-
-<div class="trailer">
-🎞️‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ <b>*Trailer*‎ |‎ <a href="https://youtu.be/${getTrailerKey(id)}">https://youtu.be/${getTrailerKey(id)}</a></b></div><div>‎ </div>
-
-
-<div class="descarga">🔗‎ <b>*Ver / Descargar*‎ |&nbsp;</div>
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
 </div>
 </div>
