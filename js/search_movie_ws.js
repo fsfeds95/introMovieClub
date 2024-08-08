@@ -74,10 +74,10 @@ $(document).ready(function() {
    var duration = movie.runtime;
 
    resultsHtml += `<div class="movie-card">
-   <div class="movie-card__header" style="background-image: url(${IMG_300+getBackdropMovie(id)})">
+   <div class="movie-card__header" style="background-image: url(${IMG_500+getBackdropMovie(id)})">
      <span class="movie-card_genre">ID:‎ ${id}</span>
      <span class="movie-card_genre">
-       <a href="https://watermark-astropeliculas-final.onrender.com/p?url=${IMG_185+getPosterMovie(id)}" target="_blank">
+       <a href="https://watermark-astropeliculas-final.onrender.com/p?url=${IMG_ORI+getPosterMovie(id)}" target="_blank">
          Poster
        </a>
      </span>
