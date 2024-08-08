@@ -95,10 +95,17 @@ $(document).ready(function() {
    <div class="movie-card_content">
      <div class="movie-card__poster" data-src="${IMG_300+getPosterMovie(id)}"></div>
      <div class="d">
-      
-<button class="copy" onclick="copyTextById('peli_${id}', this)"><i class="fa-regular fa-clipboard"></i>‎ Copiar</button>
 
-<div class="contenedor border" id="peli_${id}">
+
+
+
+<button class="copy" onclick="copyTextById('peli_${id}_1', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
+<div class="contenedor border" id="peli_${id}_1">${videoTitle(title)}_(${releaseYear})_480p_[dual-lat].mp4</div>
+
+
+<button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i>‎ Copiar</button>
+
+<div class="contenedor border" id="peli_${id}_2">
 
 
 <div class="title_es"><b>⟨🍿⟩‎ ${title}</b></div>
