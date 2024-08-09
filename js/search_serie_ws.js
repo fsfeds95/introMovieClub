@@ -53,14 +53,14 @@ function displaySeriesList(series) {
 
   var popPosterFat = IMG_ORI + getPosterSerie(id, lang);
   var popBackdropFat = IMG_ORI + getBackdropSerie(id, lang);
-  var popPosterFit = IMG_92 + getPosterSerie(id, lang);
-  var popBackdropFit = IMG_92 + getBackdropSerie(id, lang);
+  var popPosterFit = IMG_500 + getPosterSerie(id, lang);
+  var popBackdropFit = IMG_500 + getBackdropSerie(id, lang);
   var esGenre = getGenres(genre);
 
   resultsHtml += `
 <div class="movie-card">
  <div class="movie-card__header" style="background-image: url(${popBackdropFit})">
-  <span class="movie-card_genre">ID:‎ ${id}</span>
+  <span class="movie-card_genre">ID: ${id}</span>
   <span class="movie-card_genre">
    <a href="https://watermark-astropeliculas-final.onrender.com/p?url=${popPosterFat}" target="_blank">
     Poster
@@ -81,68 +81,84 @@ function displaySeriesList(series) {
   <img class="movie-card___poster" src="${popPosterFit}" alt="${title}">
   <div class="d">
 
-   <button class="copy" onclick="copyTextById('serie_${id}', this)"><i class="fa-regular fa-clipboard"></i>&nbsp;Copiar</button>
 
-   <div class="contenedor border" id="serie_${id}">
+   <button class="copy" onclick="copyTextById('serie_${id}_1', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
+   <div class="contenedor border" id="serie_${id}_1">${title} (${releaseYear}) - s00e00 - [480p].mp4</div>
 
+   <button class="copy" onclick="copyTextById('serie_${id}_2', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
 
-
-    <div>⚠️‎ *NUEVA‎ SERIE‎ EN‎ EL‎ CANAL*</div>
-    <div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
-
+   <div class="contenedor border" id="serie_${id}_2">
 
 
 
-    <div class="titulo_es">🍿‎ *${title}*‎ (${releaseYear})</div>
+    <div>⚠️ *NUEVA SERIE EN EL CANAL*</div>
 
-
-    <div class="titulo_en">📽‎ _*${originalTitle}*_</div>
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
 
 
 
-    <div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
+    <div class="titulo_es">⟨🍿⟩
+     ${title} (${releaseYear})</div>
+
+
+    <div class="titulo_en">⟨📽⟩
+     ${originalTitle}</div>
+
+
+
+
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
 
 
 
 
-    <div class="temporadas">📼‎ ‎ *Temporada/as*‎ |‎ ${getSeasonCount(id)}</div>
-    <div>‎ </div>
+    <div class="temporadas">⟨📼⟩
+     Temporada/as: ${getSeasonCount(id)}</div>
+    <div> </div>
 
 
-    <div class="genero">🎭‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Género*‎ |‎ ${esGenre}</div>
-    <div>‎ </div>
+    <div class="genero">⟨🎭⟩
+     Género: ${esGenre}</div>
+    <div> </div>
 
 
-    <div class="calidad">📺‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Calidad*‎ |‎ HD</div>
-    <div>‎ </div>
+    <div class="calidad">⟨📺⟩
+     Calidad: HD</div>
+    <div> </div>
 
 
-    <div class="idioma">🗣‎ *Idioma Original*‎ |‎ ${originalLanguage}</div>
-    <div>‎ </div>
+    <div class="idioma">⟨🗣⟩
+     Idioma Original: ${originalLanguage}</div>
+    <div> </div>
 
 
-    <div class="audio">🎧‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Audio*‎ |‎ 🇲🇽‎ Latino</div>
-    <div>‎ </div>
-    
-    
-     <div class="Sinopsis">📝‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Sinopsis*‎ |‎ &#96;&#96;&#96;${overview}&#96;&#96;&#96;</div>
+    <div class="audio">⟨🎧⟩
+     Audio: 🇲🇽
+     Latino</div>
+    <div> </div>
+
+
+    <div class="Sinopsis">⟨📝⟩
+     Sinopsis: &#96;&#96;&#96;${overview}&#96;&#96;&#96;</div>
 
 
 
 
-    <div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
+
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
 
 
 
-    <div class="trailer">
-     🎞️‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ *Trailer*‎ |‎ <a href="https://youtu.be/${getTrailerKey(id, lang)}">${getTrailerKey(id, lang)}</a></div>
-    <div>‎ </div>
+    <div class="trailer">⟨🎞️⟩
+     Intro de la serie: <a href="https://youtu.be/${getTrailerKey(id, lang)}">${getTrailerKey(id, lang)}</a></div>
+    <div> </div>
 
 
-    <div class="descarga">🔗‎ *Ver / Descargar*‎ |&nbsp;</div>
+    <div class="descarga">⟨🔗⟩
+     Ver / Descargar:&nbsp;</div>
 
    </div>
   </div>
@@ -357,7 +373,7 @@ function getTrailerKey(serieId, languageCode) {
    var videos = data.results.filter(function(video) {
     return (
      video.site === "YouTube" &&
-     video.type === "Trailer" &&
+     video.type === "Opening Credits" &&
      video.iso_639_1 === languageCode
     );
    });
