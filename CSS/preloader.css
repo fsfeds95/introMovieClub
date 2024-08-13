@@ -10,7 +10,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: var(--blanco);
+  background-color: var(--gris2);
   z-index:999;
   transition: all 1s 1s ease-out;
   opacity:1;
