@@ -20,7 +20,7 @@
   z-index:-1;
 }
 .loader__text {
-  color: var(--negro);
+  color: var(--blanco);
   text-transform: uppercase;
   letter-spacing: 1px;
   font-family: Anton, sans-serif;
@@ -31,14 +31,14 @@
   width: 56px;
   height: 70px;
   top: calc(25vh - 70px);
-  background: var(--negro);
+  background: var(--blanco);
   z-index: -1;
 }
 .loader__filmstrip:before, .loader__filmstrip:after {
   content: "";
   position: absolute;
   height: 200%;
-  border-left: 5px dashed var(--blanco);
+  border-left: 5px dashed var(--gris2);
   -webkit-animation: roll .9s infinite;
           animation: roll .9s infinite;
 }
