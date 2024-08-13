@@ -18,6 +18,7 @@
  --blanco2:rgba(255, 255, 255, .75);
  --negro: #252525;
  --gris: #454545;
+--gris2: #808080;
  
   --font-size: 1rem;
 }
@@ -29,7 +30,7 @@ body {
 }
 
 body {
- background-color: var(--blanco);
+ background-color: var(--gris2);
 }
 
 #header_2 {
