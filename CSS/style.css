@@ -15,12 +15,13 @@
 
 :root {
  --blanco: #FFFFFF;
- --blanco2:rgba(255, 255, 255, .75);
+ --blanco2: rgba(255, 255, 255, .75);
  --negro: #252525;
  --gris: #454545;
---gris2: #808080;
- 
-  --font-size: 1rem;
+ --gris2: #CCCCCC;
+ --gris3: #808080;
+
+ --font-size: 1rem;
 }
 
 html,
@@ -30,7 +31,7 @@ body {
 }
 
 body {
- background-color: var(--gris2);
+ background-color: black;
 }
 
 #header_2 {
@@ -40,9 +41,11 @@ body {
  justify-content: space-between;
  background-color: var(--negro);
 }
+
 #header_2 #text {
-  margin: 0 1em;
+ margin: 0 1em;
 }
+
 #searchInput {
  background-color: transparent;
  border: 2px solid var(--gris);
@@ -72,8 +75,8 @@ body {
 
 #searchButton:hover,
 #sesrchbutton:active {
-  background:  var(--negro);
-  color:  var(--gris);
+ background: var(--negro);
+ color: var(--gris);
 }
 
 #searchInput::placeholder {
@@ -102,11 +105,12 @@ main {
 }
 
 #results {
-  padding: .5em;
+ padding: .5em;
 }
 
 .movie-card,
 .trailer_link {
+ background-color: var(--gris2);
  position: relative;
  display: flex;
  flex-direction: column;
@@ -121,6 +125,8 @@ main {
  justify-content: center;
  align-items: stretch;
  margin-top: 1em;
+
+ border: 1px solid black;
 }
 
 .movie-card__header {
@@ -134,6 +140,9 @@ main {
  background-size: cover;
  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
   0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+
+ -webkit-mask-image: linear-gradient(#CCCCCC 75%, transparent);
+ mask-image: linear-gradient(#CCCCCC 75%, transparent);
 }
 
 .movie-card_genre {
@@ -148,19 +157,18 @@ main {
   0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
-.movie-card_genre + .movie-card_genre {
+.movie-card_genre+.movie-card_genre {
  margin-left: 8px;
 }
 
 .movie-card_content {
- background-color: #CCCCCC;
  padding: 16px;
  box-sizing: inherit;
  font-size: 0.875rem;
  font-weight: 400;
  line-height: 1.25;
- -webkit-box-shadow: 0 0 .5em 0 #000000;
- box-shadow: 0 0 .5em 0 #000000;
+ /*-webkit-box-shadow:inset 0px -0.5em .5em -0.25em #000000;
+ box-shadow:inset 0px -0.5em .5em -0.25em #000000;*/
 }
 
 .movie-card_content p {
@@ -179,18 +187,19 @@ main {
  padding: 1em;
  width: 100%;
  overflow: scroll;
- margin-bottom: 5px;
+ margin-bottom: 0px;
 }
 
 .movie-card_content div.border {
- border: 1px solid var(--negro);
-  
-  -webkit-border-radius: 5px;
-  -webkit-border-top-right-radius: 0;
-  -moz-border-radius: 5px;
-  -moz-border-radius-topright: 0;
-  border-radius: 5px;
-  border-top-right-radius: 0;
+ background-color: var(--blanco);
+ /*border: 1px solid var(--negro);*/
+
+ -webkit-border-radius: 5px;
+ -webkit-border-top-right-radius: 0;
+ -moz-border-radius: 5px;
+ -moz-border-radius-topright: 0;
+ border-radius: 5px;
+ border-top-right-radius: 0;
 }
 
 .movie-card__poster {
@@ -206,9 +215,11 @@ main {
 
  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
   0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
-  
-  opacity: 0; /* Inicialmente ocultamos la imagen */
-  transition: opacity 1.5s ease; /* Agregamos una transición suave de 0.3 segundos */
+
+ opacity: 0;
+ /* Inicialmente ocultamos la imagen */
+ transition: opacity .3s ease;
+ /* Agregamos una transición suave de 0.3 segundos */
 }
 
 .movie-card___poster {
@@ -224,9 +235,11 @@ main {
 
  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
   0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
-  
-  opacity: 1; /* Inicialmente ocultamos la imagen */
-  transition: opacity 1.5s ease; /* Agregamos una transición suave de 0.3 segundos */
+
+ opacity: 1;
+ /* Inicialmente ocultamos la imagen */
+ transition: opacity 1.5s ease;
+ /* Agregamos una transición suave de 0.3 segundos */
 }
 
 .movie-card__title {
@@ -258,7 +271,7 @@ main {
  transition: box-shadow 180ms ease-out;
 }
 
-.movie-card__button + .movie-card__button {
+.movie-card__button+.movie-card__button {
  margin-left: 8px;
 }
 
@@ -304,15 +317,18 @@ main {
   height: 300px;
   width: 170px;
   margin-top: -332px;
-  
-  opacity: 0; /* Inicialmente ocultamos la imagen */
-  transition: opacity 1.5s ease; /* Agregamos una transición suave de 0.3 segundos */
+
+  opacity: 0;
+  /* Inicialmente ocultamos la imagen */
+  transition: opacity 1.5s ease;
+  /* Agregamos una transición suave de 0.3 segundos */
  }
+
  .movie-card___poster {
   height: 300px;
   width: 170px;
   margin-top: -332px;
- 
+
   opacity: 1;
   /* Inicialmente ocultamos la imagen */
   transition: opacity 1.5s ease;
@@ -332,28 +348,30 @@ main {
   font-size: 1rem;
   text-align: center;
  }
- 
-  #header_2 #text{
-    margin-bottom: 1em;
-  }
- #searchInput{
-   width: 100%;
-   text-align: center;
-   margin-right: 0;
+
+ #header_2 #text {
+  margin-bottom: 1em;
  }
- #searchButton{
-   margin-top: 1em;
-   width: 75%;
+
+ #searchInput {
+  width: 100%;
+  text-align: center;
+  margin-right: 0;
+ }
+
+ #searchButton {
+  margin-top: 1em;
+  width: 75%;
  }
 }
 
 .vote_average {
-  color:#000000;
-  border: 1px solid black;
-  padding-left:5px;
-  padding-right:5px;
-  
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+ color: #000000;
+ border: 1px solid black;
+ padding-left: 5px;
+ padding-right: 5px;
+
+ -webkit-border-radius: 5px;
+ -moz-border-radius: 5px;
+ border-radius: 5px;
 }
