@@ -5,6 +5,12 @@ var ano = today.getFullYear();
 const API_KEY = 'api_key=fd7402172ca9f36816c7691becaf455f';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
+// Resolución de imagenes
+const IMG_ORI = 'https://image.tmdb.org/t/p/original';
+const IMG_500 = 'https://image.tmdb.org/t/p/w500';
+const IMG_300 = 'https://image.tmdb.org/t/p/w300';
+const IMG_185 = 'https://image.tmdb.org/t/p/w185';
+const IMG_92 = 'https://image.tmdb.org/t/p/w92';
 
 const LANG_ES = '&language=es-MX';
 const LANG_EN = '&language=en-US';
@@ -82,22 +88,23 @@ const genres = [
 
 getMovies(API_URL);
 
-function getMovies(url) {
+async function getMovies(url) {
+ try {
+  const res = await fetch(url);
+  const data = await res.json();
+  console.log(data.results);
+  showMovies(data.results);
+ } catch (error) {
+  console.log(error);
+ }
+}
 
- fetch(url).then(res => res.json()).then(data => {
-  //console.log(data)
-  console.log(data.results)
-  showMovies(data.results)
- })
-
-};
-
-function showMovies(data) {
+async function showMovies(data) {
  main.innerHTML = '';
 
- data.forEach(movie => {
+ for (const movie of data) {
   const { key, site, type, title, original_language, release_dates, original_title, backdrop_path, poster_path, release_date, vote_average, overview, id, genre_ids, runtime, runTime } = movie;
-  const genreIdToName = (id) => genres.find(g => g.id === id).name
+  const genreIdToName = (id) => genres.find(g => g.id === id).name;
   var replaceTitle = { ":": "", " ": "_", "-": "_", "¡": "", "!": "", ",": "", "¿": "" };
   var replaceLang = {
    "en": "🇺🇸 Ingles",
@@ -109,11 +116,12 @@ function showMovies(data) {
    "ko": "🇰🇷 / 🇰🇵 Coreano",
    "pt": "🇵🇹 / 🇧🇷 Portugués"
   };
+
   const moviesEL = document.createElement('div');
   moviesEL.classList.add('movie');
   moviesEL.innerHTML = `
     <div class="movie-card">
-      <div class="movie-card__header" style="background-image: url(${IMG_URL+backdrop_path})">
+      <div class="movie-card__header" style="background-image: url(${IMG_ORI + await getBackdropMovie(id)})">
         <span class="movie-card_genre">
           <a href="https://www.themoviedb.org/movie/${id}/" target="_blank">
             Toda la información
@@ -121,10 +129,8 @@ function showMovies(data) {
         </span>
       </div>
       <div class="movie-card_content">
-        <a href="${IMG_URL+poster_path}">
-          <div class="movie-card__poster" data-src="${IMG_URL+poster_path}">
-          </div>
-        </a>
+       <div class="movie-card__poster" data-src="${IMG_300 + await getPosterMovie(id)}">
+       </div>
         <div class="d">
         <div class="contenedor border">
           <div class="titulo_es">
@@ -140,34 +146,35 @@ function showMovies(data) {
           <div>&nbsp;</div>
           <div class="idioma"><b>🗣        Idioma Original |</b>  ${original_language.replace(/en|fr|it|de|ja|es|ko/g,function(match) {return replaceLang[match];})} </div>
           <div>&nbsp;</div>
-<div><b>👤 Reparto |</b> ${showMovieCredits(id)}</div>
+<div><b>👤 Reparto |</b> ${await showMovieCredits(id)}</div>
 <div>&nbsp;</div>
-<div><b>📣 Director |</b> ${showMovieDirectors(id)}</div>
+<div><b>📣 Director |</b> ${await showMovieDirectors(id)}</div>
 <div>&nbsp;</div>
-<div><b>🎬 Productores |</b> ${showMovieProducers(id)}</div>
+<div><b>🎬 Productores |</b> ${await showMovieProducers(id)}</div>
 <div>&nbsp;</div>
-<div><b>✍ Escritores y Gionistas |</b> ${showMovieWriters(id)}</div>
+<div><b>✍ Escritores y Gionistas |</b> ${await showMovieWriters(id)}</div>
 <div>&nbsp;</div>
           <div class="Sinopsis"><b>📝                   Sinopsis | </b> <code> ${overview} </code></div>
 <div>&nbsp;</div>
 
-<div><b>Duración |</b> ${getDurationMovie(id)}</div>
+<div><b>Duración |</b> ${await getDurationMovie(id)}</div>
 
         </div>
       </div>
     </div>
-  </div>`
+  </div>`;
 
   main.appendChild(moviesEL);
- })
+ }
 
  // Seleccionar todos los elementos con la clase 'movie-card__poster'
  const lazyImages = document.querySelectorAll('.movie-card__poster');
 
  // Opciones de configuración del IntersectionObserver
  const lazyImageOptions = {
-  rootMargin: '0px', // Margen alrededor del viewport (0px indica que el margen es cero)
-  threshold: 0.1 // Umbral de visibilidad (0.1 significa que el 10% del elemento debe ser visible)
+  rootMargin: '0px',
+  threshold: 0.01,
+  delay: 500 // Retraso en milisegundos antes de activar el lazyimage
  };
 
  // Crear una instancia de IntersectionObserver con una función de devolución de llamada
@@ -186,6 +193,9 @@ function showMovies(data) {
  lazyImages.forEach(lazyImage => {
   lazyImageObserver.observe(lazyImage);
  });
+
+
+
 }
 
 // ...
@@ -209,7 +219,7 @@ function getColor(vote) {
 
 
 //-----------------------------------------
-//-----------------------------------------
+//----------------------------------------
 //-----------------------------------------
 //-----------------------------------------
 
@@ -218,197 +228,212 @@ function getColor(vote) {
 
 
 // Función: Obtener la duración de la película.
-function getDurationMovie(movieId) {
- var movieDuration = '';
-
- $.ajax({
-  url: `${BASE_URL}/movie/${movieId}?${API_KEY}&${LANG_ES}`,
-  async: false,
-  success: function(response) {
-   var duracion = response.runtime;
-   var horas = Math.floor(duracion / 60);
-   var minutos = duracion % 60;
-
-   movieDuration = `${horas}h ${minutos}m`;
-  },
-  error: function(error) {
-   console.log(error);
-   // Algo no salió como esperábamos, mi sensual gamer.
-  }
- });
-
- return movieDuration;
+async function getDurationMovie(movieId) {
+ try {
+  const res = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}?${API_KEY}&${LANG_ES}`,
+   async: false
+  });
+  const duracion = res.runtime;
+  const horas = Math.floor(duracion / 60);
+  const minutos = duracion % 60;
+  return `${horas}h ${minutos}m`;
+ } catch (error) {
+  console.log(error);
+  return "Duración no disponible";
+ }
 }
 
 // Funcion actores ------------------------
-function showMovieCredits(movieId) {
- var movieCredits = '';
+async function showMovieCredits(movieId) {
+ try {
+  const res = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
+   async: false
+  });
 
- $.ajax({
-  url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
-  async: false,
-  success: function(response) {
+  // Filtrar los actores más relevantes
+  const relevantActors = res.cast.filter(function(actor) {
+   return actor.order <= 5;
+  });
 
-   // Filtrar los actores más relevantes
-   var relevantActors = response.cast.filter(function(actor) {
-    return actor.order <= 5;
-    // Puedes ajustar el numero de relevancia según tus preferencias, si quieres que aparezcan "3 actores" tienes que colocar como numero "2"
-   });
+  // Obtener solo los nombres de los actores y unirlos en un string
+  const actorNames = relevantActors.map(function(actor) {
+   return actor.name;
+  });
 
-   // Obtener solo los nombres de los actores y unirlos en un string
-   var actorNames = relevantActors.map(function(actor) {
-    return actor.name;
-   });
-
-   movieCredits = actorNames.join(", ");
-   // Dividir los nombres de los actores
-
-  },
-  error: function(error) {
-   console.log(error);
-   // Algo no salió como esperábamos.
-  }
- });
-
- return movieCredits;
+  return actorNames.join(", ");
+ } catch (error) {
+  console.log(error);
+  return "Reparto no disponible";
+ }
 }
 
 // Funcion directores ---------------------
-function showMovieDirectors(movieId) {
- var movieDirector = '';
+async function showMovieDirectors(movieId) {
+ try {
+  const res = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_EN}`,
+   async: false
+  });
 
- $.ajax({
-  url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_EN}`,
-  async: false,
-  success: function(response) {
+  // Obtener los directores de la película
+  const directors = res.crew.filter(function(crewMember) {
+   return crewMember.job === "Director";
+  });
 
-   // Obtener los directores de la película
-   var directors = response.crew.filter(function(crewMember) {
-    return crewMember.job === "Director";
-   });
-
-   if (directors.length > 0) {
-    movieDirector = directors[0].name; // Obtener el nombre del primer director
-   } else {
-    movieDirector = "El director es un misterio.";
-   }
-
-  },
-  error: function(error) {
-   console.log(error);
-   // Algo no salió como esperábamos.
+  if (directors.length > 0) {
+   return directors[0].name; // Obtener el nombre del primer director
+  } else {
+   return "El director es un misterio.";
   }
- });
-
- return movieDirector;
+ } catch (error) {
+  console.log(error);
+  return "Director no disponible";
+ }
 }
 
 // Funcion Productores --------------------
-function showMovieProducers(movieId) {
- var movieProducers = '';
+async function showMovieProducers(movieId) {
+ try {
+  const res = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
+   async: false
+  });
 
- $.ajax({
-  url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
-  async: false,
-  success: function(response) {
+  // Filtrar los productores más relevantes
+  const relevantProducers = res.crew.filter(function(crewMember) {
+   return crewMember.job === "Producer";
+  });
 
-   // Filtrar los productores más relevantes
-   var relevantProducers = response.crew.filter(function(crewMember) {
-    return crewMember.job === "Producer";
+  // Filtrar los productores ejecutivos si no hay productores regulares
+  if (relevantProducers.length === 0) {
+   relevantProducers = res.crew.filter(function(crewMember) {
+    return crewMember.job === "Executive Producer";
    });
-
-   // Filtrar los productores ejecutivos si no hay productores regulares
-   if (relevantProducers.length === 0) {
-    relevantProducers = response.crew.filter(function(crewMember) {
-     return crewMember.job === "Executive Producer";
-    });
-   }
-
-   // Obtener los nombres y los cargos de los productores
-   var producerInfo = relevantProducers.map(function(producer) {
-    var jobTitle = producer.job === "Executive Producer" ? "<i>Productor Ejecutivo</i>" : "<i>Productor</i>";
-    return `${producer.name} (${jobTitle})`;
-   });
-
-   if (producerInfo.length > 0) {
-    movieProducers = producerInfo.join(", ");
-    // Dividir los nombres y los cargos de los productores
-   } else {
-    movieProducers = "Productores no encontrados.";
-   }
-
-  },
-  error: function(error) {
-   console.log(error);
-   // Algo no salió como esperábamos.
   }
- });
 
- return movieProducers;
+  // Obtener los nombres y los cargos de los productores
+  const producerInfo = relevantProducers.map(function(producer) {
+   const jobTitle = producer.job === "Executive Producer" ? "<i>Productor Ejecutivo</i>" : "<i>Productor</i>";
+   return `${producer.name} (${jobTitle})`;
+  });
+
+  if (producerInfo.length > 0) {
+   return producerInfo.join(", ");
+  } else {
+   return "Productores no encontrados.";
+  }
+ } catch (error) {
+  console.log(error);
+  return "Productores no disponibles";
+ }
 }
 
 // Funcion escritores ---------------------
-function showMovieWriters(movieId) {
- var movieWriters = '';
+async function showMovieWriters(movieId) {
+ try {
+  const res = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
+   async: false
+  });
 
- $.ajax({
-  url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
-  async: false,
-  success: function(response) {
+  // Obtener los escritores de la película
+  const writers = res.crew.filter(function(crewMember) {
+   return crewMember.job === "Writer";
+  });
 
-   // Obtener los escritores de la película
-   var writers = response.crew.filter(function(crewMember) {
-    return crewMember.job === "Writer";
+  if (writers.length > 0) {
+   const uniqueWriters = Array.from(new Set(writers.map(writer => writer.name)));
+   const regularWriters = [];
+   const storyAndScreenplayWriters = [];
+
+   uniqueWriters.forEach(function(writer) {
+    const jobTitles = writers.filter(function(w) {
+     return w.name === writer;
+    }).map(function(w) {
+     return w.job === "Screenplay" ? "Guión" : "Historia";
+    }).join(" y ");
+
+    if (jobTitles.includes("Historia") && jobTitles.includes("Guión")) {
+     storyAndScreenplayWriters.push(`${writer} (${jobTitles})`);
+    } else {
+     regularWriters.push(`${writer} (${jobTitles})`);
+    }
    });
 
-   if (writers.length > 0) {
-    var uniqueWriters = Array.from(new Set(writers.map(writer => writer.name)));
-    var regularWriters = [];
-    var storyAndScreenplayWriters = [];
+   return storyAndScreenplayWriters.concat(regularWriters).join(", ");
+  } else {
+   const storyWriters = res.crew.filter(function(crewMember) {
+    return crewMember.job === "Story";
+   });
 
-    uniqueWriters.forEach(function(writer) {
-     var jobTitles = writers.filter(function(w) {
-      return w.name === writer;
-     }).map(function(w) {
-      return w.job === "Screenplay" ? "Guión" : "Historia";
-     }).join(" y ");
+   const screenplayWriters = res.crew.filter(function(crewMember) {
+    return crewMember.job === "Screenplay";
+   });
 
-     if (jobTitles.includes("Historia") && jobTitles.includes("Guión")) {
-      storyAndScreenplayWriters.push(`${writer} (${jobTitles})`);
-     } else {
-      regularWriters.push(`${writer} (${jobTitles})`);
-     }
-    });
-
-    movieWriters = storyAndScreenplayWriters.concat(regularWriters).join(", ");
-    // Obtener los nombres de los escritores únicos y sus títulos en español, separados por coma
-   } else {
-    var storyWriters = response.crew.filter(function(crewMember) {
-     return crewMember.job === "Story";
-    });
-
-    var screenplayWriters = response.crew.filter(function(crewMember) {
-     return crewMember.job === "Screenplay";
-    });
-
-    var uniqueWriters = Array.from(new Set(storyWriters.concat(screenplayWriters).map(writer => writer.name)));
-    movieWriters = uniqueWriters.map(function(writer) {
-     var jobTitles = storyWriters.concat(screenplayWriters).filter(function(w) {
-      return w.name === writer;
-     }).map(function(w) {
-      return w.job === "Screenplay" ? "Guión" : "Historia";
-     }).join(" y ");
-     return `${writer} (${jobTitles})`;
-    }).join(", ");
-    // Si no hay escritores regulares, mostramos los escritores de "Historia y Guion" con sus títulos en español
-   }
-
-  },
-  error: function(error) {
-   console.log(error);
-   // Algo no salió como esperábamos.
+   const uniqueWriters = Array.from(new Set(storyWriters.concat(screenplayWriters).map(writer => writer.name)));
+   return uniqueWriters.map(function(writer) {
+    const jobTitles = storyWriters.concat(screenplayWriters).filter(function(w) {
+     return w.name === writer;
+    }).map(function(w) {
+     return w.job === "Screenplay" ? "Guión" : "Historia";
+    }).join(" y ");
+    return `${writer} (${jobTitles})`;
+   }).join(", ");
   }
- });
+ } catch (error) {
+  console.log(error);
+  return "Escritores no disponibles";
+ }
+}
 
- return movieWriters;
+// Función Poster -------------------------
+async function getPosterMovie(movieId) {
+ try {
+  const response = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/images?${API_KEY}&include_image_language=en&${LANG_ES}`,
+  });
+
+  // Ordenar los posters por popularidad de forma descendente
+  const posters = response.posters.sort((a, b) => b.popularity - a.popularity);
+
+  // Buscar el poster en inglés
+  const posterPath = posters.find(poster => poster.iso_639_1 === "en");
+
+  if (posterPath) {
+   return posterPath.file_path;
+  } else {
+   return '';
+  }
+ } catch (error) {
+  console.log('Ay, mi amor, algo salió mal:', error);
+  return '';
+ }
+}
+
+// Función Backdrop -----------------------
+async function getBackdropMovie(movieId) {
+ try {
+  const response = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/images?${API_KEY}&include_image_language=en&${LANG_ES}`,
+  });
+
+  // Ordenar los backdrops por popularidad de forma descendente
+  const backdrops = response.backdrops.sort((a, b) => b.popularity - a.popularity);
+
+  // Buscar el backdrop en los idiomas preferidos
+  const backdropPath = backdrops.find(backdrop => (
+   backdrop.iso_639_1 === "en"
+  ));
+
+  if (backdropPath) {
+   return backdropPath.file_path;
+  } else {
+   return '';
+  }
+ } catch (error) {
+  console.log('Ay, mi amor, algo salió mal:', error);
+  return '';
+ }
 }
