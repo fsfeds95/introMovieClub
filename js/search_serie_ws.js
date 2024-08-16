@@ -62,12 +62,12 @@ function displaySeriesList(series) {
  <div class="movie-card__header" style="background-image: url(${popBackdropFit})">
   <span class="movie-card_genre">ID: ${id}</span>
   <span class="movie-card_genre">
-   <a href="https://watermark-astropeliculas-final.onrender.com/p?url=${popPosterFat}" target="_blank">
+   <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/p?url=${popPosterFat}" target="_blank">
     Poster
    </a>
   </span>
   <span class="movie-card_genre">
-   <a href="https://watermark-astropeliculas-final.onrender.com/b?url=${popBackdropFat}" target="_blank">
+   <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/bSeries?b=${popBackdropFat}&p=${popPosterFat}" target="_blank">
     Backdrop
    </a>
   </span>
