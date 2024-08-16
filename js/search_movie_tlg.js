@@ -77,7 +77,7 @@ $(document).ready(function() {
    <div class="movie-card__header" style="background-image: url(${IMG_300+getBackdropMovie(id)})">
      <span class="movie-card_genre">ID:&nbsp;${id}</span>
      <span class="movie-card_genre">
-       <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/p?url=${IMG_185+getPosterMovie(id)}" target="_blank">
+       <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/p?url=${IMG_ORI+getPosterMovie(id)}" target="_blank">
          Poster
        </a>
      </span>
