@@ -67,7 +67,7 @@ function displaySeriesList(series) {
    </a>
   </span>
   <span class="movie-card_genre">
-   <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/bSeries?b=${popBackdropFat}&p=${popPosterFat}" target="_blank">
+   <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/b?url=${popBackdropFat}" target="_blank">
     Backdrop
    </a>
   </span>
