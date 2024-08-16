@@ -12,6 +12,8 @@ const API_KEY = 'api_key=74dc824830c7f93dc61b03e324070886';
 const LANG_ES = 'language=es-MX';
 const LANG_EN = 'language=en-US';
 
+const TEXTRANK_API = 'https://api.textrank.com';
+
 $(document).ready(function() {
  $("#searchButton").click(function() {
   var searchQuery = $("#searchInput").val();
@@ -27,7 +29,7 @@ $(document).ready(function() {
     const response = await fetch(BASE_URL + '/search/collection?' + API_KEY + '&query=' + searchQuery + '&' + LANG_ES);
 
 
-//https://api.themoviedb.org/3/search/collection?api_key=74dc824830c7f93dc61b03e324070886&query=the purge&language=es
+    //https://api.themoviedb.org/3/search/collection?api_key=74dc824830c7f93dc61b03e324070886&query=the purge&language=es
 
 
     const data = await response.json();
@@ -89,12 +91,12 @@ $(document).ready(function() {
       ID: ${idCollection}
     </span>
     <span class="movie-card_genre">
-      <a href="https://watermark-astropeliculas-final.onrender.com/p?url=https://image.tmdb.org/t/p/original${posterPath}" target="_blank">
+      <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/p?url=https://image.tmdb.org/t/p/original${posterPath}" target="_blank">
         Poster
       </a>
     </span>
     <span class="movie-card_genre">
-      <a href="https://watermark-astropeliculas-final.onrender.com/b?url=${getBackdrop}" target="_blank">
+      <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/b?url=${getBackdrop}" target="_blank">
         Backdrop
       </a>
     </span>
@@ -108,7 +110,7 @@ $(document).ready(function() {
   
   
   <div class="movie-card_content">
-    <div class="movie-card__poster" style="background-image: url(https://image.tmdb.org/t/p/w500${posterPath})">
+    <div class="movie-card___poster" style="background-image: url(https://image.tmdb.org/t/p/w500${posterPath})">
     </div>
     
     <div class="d">
@@ -119,17 +121,26 @@ $(document).ready(function() {
 <div class="contenedor border" id="peli_${idCollection}">
 
 
-<div class="titulo_es">⟨🍿⟩‎ Colección: ${title}</div>
+
+<div>⚠️ *NUEVA COLECCIÓN EN EL CANAL*</div>
+
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+
+<div class="titulo_es">⟨📦⟩ Colección: ${title}</div>
         
 <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
-<div class="Sinopsis">⟨📝⟩ Sinopsis:‎ ${overview}</div>
+<div class="titulosCollection">⟨🍿⟩ Peliculas: ${totalMovies + movieTitles}</div>
 
-<div class="titulosCollection">⟨🍿⟩ Peliculas:‎ ${movieTitles}</div>
+<div class="separador"><b>&nbsp;</b></div>
+
+<div class="ganancias">⟨💰⟩ Ganancias Totales: ${totalRevenue}</div>
+
+<div class="Sinopsis">⟨📝⟩ Sinopsis: ${overview}</div>
 
 <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
-<div class="descarga">⟨🔗⟩ Ver️‎ /️‎ Descargar:&nbsp;</div>
+<div class="descarga">⟨🔗⟩ Ver️ /️ Descargar:&nbsp;</div>
 
 <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
@@ -182,7 +193,7 @@ $(document).ready(function() {
    const moviesList = data.parts.filter(movie => movie.release_date).sort(function(a, b) {
     return parseInt(a.release_date.slice(0, 4)) - parseInt(b.release_date.slice(0, 4));
    });
-   const formattedTitles = moviesList.map(movie => `️</br> ‎ ‎ ‎ ‎ ‎ ‎⟨▪️⟩ ${movie.title} (${movie.release_date.slice(0, 4)})`).join('');
+   const formattedTitles = moviesList.map(movie => `️</br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⟨▪️⟩ ${movie.title} (${movie.release_date.slice(0, 4)})`).join('');
 
    return formattedTitles;
   } catch (error) {
