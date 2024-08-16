@@ -74,15 +74,15 @@ $(document).ready(function() {
    var duration = movie.runtime;
 
    resultsHtml += `<div class="movie-card">
-   <div class="movie-card__header" style="background-image: url(${IMG_500+getBackdropMovie(id)})">
-     <span class="movie-card_genre">ID:‎ ${id}</span>
+   <div class="movie-card__header" style="background-image: url(${IMG_300+getBackdropMovie(id)})">
+     <span class="movie-card_genre">ID: ${id}</span>
      <span class="movie-card_genre">
-       <a href="https://watermark-astropeliculas-final.onrender.com/p?url=${IMG_ORI+getPosterMovie(id)}" target="_blank">
+       <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/p?url=${IMG_185+getPosterMovie(id)}" target="_blank">
          Poster
        </a>
      </span>
      <span class="movie-card_genre">
-       <a href="https://watermark-astropeliculas-final.onrender.com/b?url=${IMG_ORI+getBackdropMovie(id)}" target="_blank">
+       <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/b?url=${IMG_ORI+getBackdropMovie(id)}" target="_blank">
          Backdrop
        </a>
      </span>
@@ -103,38 +103,34 @@ $(document).ready(function() {
 <div class="contenedor border" id="peli_${id}_1">${videoTitle(title)}_(${releaseYear})_480p_[dual-lat].mp4</div>
 
 
-<button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i>‎ Copiar</button>
+<button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
 
 <div class="contenedor border" id="peli_${id}_2">
 
 
-<div class="title_es"><b>⟨🍿⟩‎ ${title}</b></div>
+<div class="title_es"><b>⟨🍿⟩ ${title} (${releaseYear})</b></div>
 
-<div class="title_or"><b>⟨🎥⟩‎ ${originalTitle}</b></div>
-
-<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-
-<div class="year"><b>⟨🎟⟩‎ Estreno:‎ ${releaseYear}</b></div>
-
-<div class="lang"><b>⟨🗣️⟩‎ Idioma‎ Original:‎ ${getLanguage(langCode)}</b></div>
-
-<div class="audio"><b>⟨🔊⟩‎ Audio:‎ 🇲🇽‎ Latino</b></div>
-
-<div class="quality"><b>⟨📺⟩‎ Calidad:‎‎ HD</b></div>
-
-<div class="duration"><b>⟨⏳⟩‎ Duración:‎ ${getDurationMovie(id)}</b></div>
-
-<div class="genre"><b>⟨🎭⟩‎ Género:‎ ${getGenres(movie.genre_ids)}</b></div>
-
-<div class="credits"><b>⟨👤⟩‎ Reparto:‎ ${showMovieCredits(id)}</b></div>
+<div class="title_or"><b>⟨🎥⟩ ${originalTitle}</b></div>
 
 <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
-<div class="trailer"><b>⟨🎞️⟩‎ Trailer:‎ <a href="https://youtu.be/${getTrailerKey(id)}">https://youtu.be/${getTrailerKey(id)}</a></b></div>
+<div class="lang"><b>⟨🗣️⟩ Idioma Original: ${getLanguage(langCode)}</b></div>
 
-<div class=""><b>‎ </b></div>
+<div class="audio"><b>⟨🔊⟩ Audio: 🇲🇽 Dual-Latino</b></div>
 
-<div class="view_download"><b>⟨🔗⟩‎ Ver/Descargar:&nbsp;</b></div>
+<div class="quality"><b>⟨📺⟩ Calidad: HD</b></div>
+
+<div class="duration"><b>⟨⏳⟩ Duración: ${getDurationMovie(id)}</b></div>
+
+<div class="genre"><b>⟨🎭⟩ Género: ${getGenres(movie.genre_ids)}</b></div>
+
+<div class="credits"><b>⟨👤⟩ Reparto: ${showMovieCredits(id)}</b></div>
+
+<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+
+<div class="trailer"><b>⟨🎞️⟩ Trailer: <a href="https://youtu.be/${getTrailerKey(id)}">https://youtu.be/${getTrailerKey(id)}</a></b></div>
+
+<div class="view_download"><b>⟨🔗⟩ Ver/Descargar:&nbsp;</b></div>
 
 <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
@@ -173,6 +169,10 @@ $(document).ready(function() {
    lazyImageObserver.observe(lazyImage);
   });
  }
+
+
+//====================== FUNCIONES ======================\\
+  //====================== INICIO ======================\\
 
  // Funcion: Obtener key del trailer de youtube
  function getTrailerKey(movieId) {
@@ -269,31 +269,33 @@ $(document).ready(function() {
    }
   });
 
-  return genreList.join(",‎ ");
+  return genreList.join(",&nbsp;");
  }
 
  // Función: Traducir el lenguaje
  function getLanguage(languageCode) {
   var languages = {
-   en: "🇺🇸‎ Ingles",
+   en: "🇺🇸&nbsp;Ingles",
 
-   ca: "🇪🇸‎ Catalan",
+   ca: "🇪🇸&nbsp;Catalan",
 
-   es: "🇲🇽‎ /‎ 🇪🇸‎ Español",
+   es: "🇲🇽&nbsp;/&nbsp;🇪🇸&nbsp;Español",
 
-   fr: "🇫🇷‎ Frances",
+   fr: "🇫🇷&nbsp;Frances",
 
-   de: "🇩🇪‎ Aleman",
+   de: "🇩🇪&nbsp;Aleman",
 
-   it: "🇮🇹‎ Italiano",
+   it: "🇮🇹&nbsp;Italiano",
 
-   ja: "🇯🇵‎ Japones",
+   ja: "🇯🇵&nbsp;Japones",
 
-   ko: "🇰🇷‎ /‎ 🇰🇵‎ Coreano",
+   ko: "🇰🇷&nbsp;/&nbsp;🇰🇵&nbsp;Coreano",
 
-   ru: "🇷🇺‎ Ruso",
+   ru: "🇷🇺&nbsp;Ruso",
 
-   zh: "🇨🇳‎ Chino"
+   zh: "🇨🇳&nbsp;Chino",
+
+   pl: "🇵🇱&nbsp;Polaco"
   };
 
   return languages[languageCode] || languageCode;
@@ -414,7 +416,6 @@ function getBackdropMovie(movieId) {
  return backdrop_URL;
 }
 
-
 // Función: Obtener la duración de la película.
 function getDurationMovie(movieId) {
  var movieDuration = '';
@@ -502,6 +503,8 @@ function videoTitle(frase) {
   .replace(/ù/g, 'u')
   .replace(/û/g, 'u')
   .replace(/ü/g, 'u')
-  .replace(/ú/g, 'u')
-  .replace(/ /g, '_');
+  .replace(/ú/g, 'u');
 }
+
+  //====================== FINAL ======================\\
+//====================== FUNCIONES ======================\\
