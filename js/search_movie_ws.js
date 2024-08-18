@@ -70,7 +70,7 @@ async function searchMoviesAsync(query) {
  </div>
  
  `);
- 
+
  if (query === "") {
   $("#results").html("<p>Ingrese un título de película para buscar.</p>");
  } else {
@@ -106,10 +106,11 @@ async function displayMoviesAsync(movies) {
   const overview = movie.overview;
   const duration = movie.runtime;
 
-  const popPosterFat = `${IMG_ORI}${await getPosterMovieAsync(id)}`;
-  const popBackdropFat = `${IMG_ORI}${await getBackdropMovieAsync(id)}`;
-  const popPosterFit = `${IMG_300}${await getPosterMovieAsync(id)}`;
-  const popBackdropFit = `${IMG_300}${await getBackdropMovieAsync(id)}`;
+  const popPosterFat = await getPosterMovieAsync(id, IMG_ORI);
+  const popBackdropFat = await getBackdropMovieAsync(id, IMG_ORI);
+  const popPosterFit = await getPosterMovieAsync(id, IMG_185);
+  const popBackdropFit = await getBackdropMovieAsync(id, IMG_500);
+  
   const langComplete = await getLanguageAsync(langCode);
   const durationTime = await getDurationMovieAsync(id);
   const genreEs = await getGenresAsync(movie.genre_ids);
@@ -274,7 +275,7 @@ async function showMovieCreditsAsync(movieId) {
  }
 }
 
-async function getPosterMovieAsync(movieId) {
+async function getPosterMovieAsync(movieId, size) {
  try {
   const response = await $.ajax({
    url: `${BASE_URL}/movie/${movieId}/images?${API_KEY}&include_image_language=es,en,null&${LANG_ES}`,
@@ -284,7 +285,7 @@ async function getPosterMovieAsync(movieId) {
   posters.sort((a, b) => b.popularity - a.popularity);
   const posterPath = posters.find(poster => ["en", "es", "null"].includes(poster.iso_639_1));
   if (posterPath) {
-   return 'https://image.tmdb.org/t/p/original' + posterPath.file_path;
+   return size + posterPath.file_path;
   } else {
    return 'https://dummyimage.com/720x1080/CCCCCC/000000.jpg&text=No+Image';
   }
@@ -294,7 +295,7 @@ async function getPosterMovieAsync(movieId) {
  }
 }
 
-async function getBackdropMovieAsync(movieId) {
+async function getBackdropMovieAsync(movieId, size) {
  try {
   const response = await $.ajax({
    url: `${BASE_URL}/movie/${movieId}/images?${API_KEY}&include_image_language=es,en,null&${LANG_ES}`,
@@ -304,7 +305,7 @@ async function getBackdropMovieAsync(movieId) {
   backdrops.sort((a, b) => b.popularity - a.popularity);
   const backdropPath = backdrops.find(backdrop => ["en", "es", "null"].includes(backdrop.iso_639_1));
   if (backdropPath) {
-   return 'https://image.tmdb.org/t/p/original' + backdropPath.file_path;
+   return size + backdropPath.file_path;
   } else {
    return 'https://dummyimage.com/1080x720/CCCCCC/000000.jpg&text=No+Image';
   }
