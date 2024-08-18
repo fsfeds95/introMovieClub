@@ -282,14 +282,16 @@ async function getPosterMovieAsync(movieId) {
   });
   const posters = response.posters;
   posters.sort((a, b) => b.popularity - a.popularity);
-  const posterPath = posters.find(poster => poster.iso_639_1 === "en");
+  const posterPath = posters.find(poster => ["en", "es", "null"].includes(poster.iso_639_1));
   if (posterPath) {
-   return posterPath.file_path;
+   return 'https://image.tmdb.org/t/p/original' + posterPath.file_path;
+  } else {
+   return 'https://dummyimage.com/720x1080/CCCCCC/000000.jpg&text=No+Image';
   }
  } catch (error) {
   console.log('Ay, mi amor, algo salió mal:', error);
+  return '';
  }
- return "";
 }
 
 async function getBackdropMovieAsync(movieId) {
@@ -300,14 +302,16 @@ async function getBackdropMovieAsync(movieId) {
   });
   const backdrops = response.backdrops;
   backdrops.sort((a, b) => b.popularity - a.popularity);
-  const backdropPath = backdrops.find(backdrop => ["en", "es", "ca", "ja", "br", "fr", "de", "it", "ko", "ru", "zh", "pt", "nl", "null"].includes(backdrop.iso_639_1));
+  const backdropPath = backdrops.find(backdrop => ["en", "es", "null"].includes(backdrop.iso_639_1));
   if (backdropPath) {
-   return backdropPath.file_path;
+   return 'https://image.tmdb.org/t/p/original' + backdropPath.file_path;
+  } else {
+   return 'https://dummyimage.com/1080x720/CCCCCC/000000.jpg&text=No+Image';
   }
  } catch (error) {
   console.log('Ay, mi amor, algo salió mal:', error);
+  return '';
  }
- return "";
 }
 
 async function getDurationMovieAsync(movieId) {
