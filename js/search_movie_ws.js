@@ -132,7 +132,8 @@ async function displayMovies(movies) {
   const durationTime = await getDurationMovie(id);
   const genreEs = await getGenres(movie.genre_ids);
   const actors = await getActorsMovie(id);
-  const ytKey = await getTrailerKeyYt(id);
+  const trailerLink = await getTrailer(id);
+  const trailerEmbed = await getTrailer(id);
   const titleRemplace = await getVideoTitle(title);
 
    resultsHtml += `
@@ -181,13 +182,15 @@ async function displayMovies(movies) {
     <div class="genre"><b>⟨🎭⟩ Género: ${genreEs}</b></div>
     <div class="credits"><b>⟨👤⟩ Reparto: ${actors}</b></div>
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-    <div class="trailer"><b>⟨🎞️⟩ Trailer: <a href="https://youtu.be/${ytKey}">https://youtu.be/${ytKey}</a></b></div>
+    <div class="trailer"><b>⟨🎞️⟩ Trailer: 
+    ${trailerLink}</b></div>
     <div class="view_download"><b>⟨🔗⟩ Ver/Descargar:&nbsp;</b></div>
    </div>
 
-   <button class="copy" onclick="copyTextById('peli_${id}_3', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
    <div class="contenedor border" id="peli_${id}_3">
-    ${BASE_URL}/movie/${id}/images?${API_KEY}&include_image_language=null
+
+<iframe class="youtube-video" src="${trailerEmbed}" title="Tráiler de ${title} en YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
    </div>
 
   </div>
@@ -229,21 +232,50 @@ async function displayMovies(movies) {
  });
 }
 
- // Funcion: Obtener key del trailer de youtube.
-async function getTrailerKeyYt(movieId) {
+// Función: Obtener la clave del tráiler de YouTube
+async function getTrailer(movieId) {
  try {
   const response = await $.ajax({
    url: `${BASE_URL}/movie/${movieId}/videos?${API_KEY}`,
    async: false
   });
-  const videos = response.results.filter(video => video.site === "YouTube" && video.type === "Trailer" && video.iso_639_1 === "en");
+
+  const videos = response.results.filter(video => {
+   return video.site === "YouTube" && video.type === "Trailer" && video.iso_639_1 === "en";
+  });
+
   if (videos.length > 0) {
-   return videos[0].key;
+   return 'https://youtu.be/' + videos[0].key;
+  } else {
+   return "Trailer no disponible";
   }
  } catch (error) {
-  console.log('Ay, mi amor, algo salió mal:', error);
+  console.log('¡Ay, mi amor! Algo salió mal:', error);
+  return "Trailer no disponible";
  }
- return "";
+}
+
+// Función: Obtener la clave del tráiler de YouTube
+async function getTrailerEmbed(movieId) {
+ try {
+  const response = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/videos?${API_KEY}`,
+   async: false
+  });
+
+  const videos = response.results.filter(video => {
+   return video.site === "YouTube" && video.type === "Trailer" && video.iso_639_1 === "en";
+  });
+
+  if (videos.length > 0) {
+   return 'https://www.youtube.com/embed/' + videos[0].key;
+  } else {
+   return "https://www.youtube.com/embed/ts8i-6AtDfc?si=5T4iKi8vI6SgX0Iw";
+  }
+ } catch (error) {
+  console.log('¡Ay, mi amor! Algo salió mal:', error);
+  return "https://www.youtube.com/embed/ts8i-6AtDfc?si=5T4iKi8vI6SgX0Iw";
+ }
 }
 
  // Funcion: Traducir los generos.
