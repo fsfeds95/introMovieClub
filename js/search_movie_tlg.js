@@ -15,440 +15,368 @@ const LANG_ES = 'language=es-MX';
 const LANG_EN = 'language=en-US';
 
 $(document).ready(function() {
- $("#searchButton").click(function() {
-  var searchQuery = $("#searchInput").val();
-  searchMovies(searchQuery);
+// Funcion: Busqueda con botón.
+ $("#searchButton").click(async function() {
+  const searchQuery = $("#searchInput").val();
+  await searchMovie(searchQuery);
  });
- $("#searchInput").on("keypress", function(event) {
+// Funcion: Busqueda con "Enter".
+ $("#searchInput").on("keypress", async function(event) {
   if (event.key === "Enter") {
-   var searchQuery = $("#searchInput").val();
-   searchMovies(searchQuery);
+   const searchQuery = $("#searchInput").val();
+   await searchMovie(searchQuery);
   }
  });
-
-
-
- function searchMovies(query) {
-  if (query == "") {
-   $("#results").html("<p>Ingrese un título de película para buscar.</p>");
-  } else {
-   $.getJSON(
-    BASE_URL + "/search/movie?" + API_KEY + "&query=" +
-    query +
-    "&" + LANG_ES,
-    function(data) {
-     var movies = data.results;
-
-     if (movies.length === 0) {
-      $("#results").html("<p>No se encontraron películas con ese título.</p>");
-     } else {
-      displayMovies(movies);
-     }
-    }
-   );
-  }
- }
-
- function displayMovies(movies) {
-  var resultsHtml = "";
-
-  movies.forEach(function(movie) {
-   var id = movie.id;
-
-   var title = movie.title;
-
-   var originalTitle = movie.original_title;
-
-   var tagline = movie.tagline;
-
-   var releaseYear = movie.release_date.split("-")[0];
-
-   var posterPath = movie.poster_path;
-
-   var backdropPath = movie.backdrop_path;
-
-   var langCode = movie.original_language;
-
-   var overview = movie.overview;
-
-   var duration = movie.runtime;
-
-   resultsHtml += `<div class="movie-card">
-   <div class="movie-card__header" style="background-image: url(${IMG_300+getBackdropMovie(id)})">
-     <span class="movie-card_genre">ID:&nbsp;${id}</span>
-     <span class="movie-card_genre">
-       <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/p?url=${IMG_ORI+getPosterMovie(id)}" target="_blank">
-         Poster
-       </a>
-     </span>
-     <span class="movie-card_genre">
-       <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/b?url=${IMG_ORI+getBackdropMovie(id)}" target="_blank">
-         Backdrop
-       </a>
-     </span>
-     <span class="movie-card_genre">
-       <a href="https://www.themoviedb.org/movie/${id}/" target="_blank">
-         Información
-       </a>
-     </span>
-   </div>
-   <div class="movie-card_content">
-     <div class="movie-card__poster" data-src="${IMG_300+getPosterMovie(id)}"></div>
-     <div class="d">
-
-
-
-
-<button class="copy" onclick="copyTextById('peli_${id}_1', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
-<div class="contenedor border" id="peli_${id}_1">${videoTitle(title)}_(${releaseYear})_480p_[dual-lat].mp4</div>
-
-
-<button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i>&nbsp;Copiar</button>
-
-<div class="contenedor border" id="peli_${id}_2">
-
-
-<div class="initial"><b>⟨🔠⟩&nbsp;#${title.substring(1, 0)}</b></div>
-
-<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-
-<div class="title_es"><b>⟨🍿⟩&nbsp;${title}</b></div>
-
-<div class="title_or"><b>⟨🎥⟩&nbsp;${originalTitle}</b></div>
-
-<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-
-<div class="year"><b>⟨🎟⟩&nbsp;Estreno:&nbsp;#Año${releaseYear}</b></div>
-
-<div class="lang"><b>⟨🗣️⟩&nbsp;Idioma&nbsp;Original:&nbsp;${getLanguage(langCode)}</b></div>
-
-<div class="audio"><b>⟨🔊⟩&nbsp;Audio:&nbsp;🇲🇽&nbsp;Latino</b></div>
-
-<div class="quality"><b>⟨📺⟩&nbsp;Calidad:&nbsp;HD</b></div>
-
-<div class="duration"><b>⟨⏳⟩&nbsp;Duración:&nbsp;${getDurationMovie(id)}</b></div>
-
-<div class="genre"><b>⟨🎭⟩&nbsp;Género:&nbsp;${getGenres(movie.genre_ids)}</b></div>
-
-<div class="credits"><b>⟨👤⟩&nbsp;Reparto:&nbsp;${showMovieCredits(id)}</b></div>
-
-<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-
-<div class="sinopsis"><b>⟨💭⟩&nbsp;Sinopsis:&nbsp;${overview}</b></div>
-
-<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-
-<div class="trailer"><b>⟨🎞️⟩&nbsp;Trailer:&nbsp;<a href="https://youtu.be/${getTrailerKey(id)}">https://youtu.be/${getTrailerKey(id)}</a></b></div>
-
-<div class=""><b>&nbsp;</b></div>
-
-<div class="view_download"><b>⟨🔗⟩&nbsp;Ver/Descargar:&nbsp;</b></div>
-
-<div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-
-</div>
-</div>
-</div>`;
-  });
-
-  $("#results").html(resultsHtml);
-
-  // Seleccionar todos los elementos con la clase 'movie-card__poster'
-  const lazyImages = document.querySelectorAll('.movie-card__poster');
-
-  // Opciones de configuración del IntersectionObserver
-  const lazyImageOptions = {
-   // Margen alrededor del viewport (0px indica que el margen es cero)
-   rootMargin: '0px',
-   // Umbral de visibilidad (0.1 significa que el 10% del elemento debe ser visible)
-   threshold: 1
-  };
-
-  // Crear una instancia de IntersectionObserver con una función de devolución de llamada
-  const lazyImageObserver = new IntersectionObserver((entries, observer) => {
-   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-     const lazyImage = entry.target;
-     lazyImage.style.opacity = 1; // Mostramos la imagen al establecer la opacidad en 1
-     lazyImage.style.backgroundImage = `url(${lazyImage.getAttribute('data-src')})`;
-     lazyImageObserver.unobserve(lazyImage);
-    }
-   });
-  }, lazyImageOptions);
-
-  // Observar cada elemento con la clase 'movie-card__poster'
-  lazyImages.forEach(lazyImage => {
-   lazyImageObserver.observe(lazyImage);
-  });
- }
-
- // Funcion: Obtener key del trailer de youtube
- function getTrailerKey(movieId) {
-  var trailerKey = "";
-
-  $.ajax({
-   url: `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=fd7402172ca9f36816c7691becaf455f`,
-
-   async: false,
-
-   success: function(data) {
-    var videos = data.results.filter(function(video) {
-     return (
-      video.site === "YouTube" &&
-      video.type === "Trailer" &&
-      video.iso_639_1 === "en"
-     );
-    });
-
-    if (videos.length > 0) {
-     trailerKey = videos[0].key;
-    }
-   }
-  });
-
-  return trailerKey;
- }
-
- // Funcion: Traducir los generos
- function getGenres(genreIds) {
-  var genres = {
-   28: "#Accion",
-
-   12: "#Aventura",
-
-   16: "#Animacion",
-
-   35: "#Comedia",
-
-   80: "#Crimen",
-
-   99: "#Documental",
-
-   18: "#Drama",
-
-   10751: "#Familiar",
-
-   14: "#Fantasia",
-
-   36: "#Historia",
-
-   27: "#Terror",
-
-   10402: "#Musica",
-
-   9648: "#Misterio",
-
-   10749: "#Romance",
-
-   878: "#Ciencia_Ficcion",
-
-   10770: "#Película_de_la_Television",
-
-   53: "#Suspenso",
-
-   10752: "#Belica",
-
-   37: "#Oeste",
-
-   10759: "#Accion_y_Aventura",
-
-   10762: "#Infantil",
-
-   10763: "#Noticias",
-
-   10764: "#Realidad",
-
-   10765: "#Ciencia_Ficcion_y_Fantasia",
-
-   10766: "#Serial",
-
-   10767: "#Conversacion",
-
-   10768: "#Politico",
-
-   10769: "#Opcion_Interactiva"
-  };
-
-  var genreList = [];
-
-  genreIds.forEach(function(genreId) {
-   if (genres[genreId]) {
-    genreList.push(genres[genreId]);
-   }
-  });
-
-  return genreList.join(",&nbsp;");
- }
-
- // Función: Traducir el lenguaje
- function getLanguage(languageCode) {
-  var languages = {
-   en: "🇺🇸&nbsp;Ingles",
-
-   ca: "🇪🇸&nbsp;Catalan",
-
-   es: "🇲🇽&nbsp;/&nbsp;🇪🇸&nbsp;Español",
-
-   fr: "🇫🇷&nbsp;Frances",
-
-   de: "🇩🇪&nbsp;Aleman",
-
-   it: "🇮🇹&nbsp;Italiano",
-
-   ja: "🇯🇵&nbsp;Japones",
-
-   ko: "🇰🇷&nbsp;/&nbsp;🇰🇵&nbsp;Coreano",
-
-   ru: "🇷🇺&nbsp;Ruso",
-
-   zh: "🇨🇳&nbsp;Chino",
-
-   pl: "🇵🇱&nbsp;Polaco"
-  };
-
-  return languages[languageCode] || languageCode;
- }
 });
 
-// Funcion: Obtener actores
-function showMovieCredits(movieId) {
- var movieCredits = '';
+// Funcion: Carga SKELETOR.
+async function searchMovie(query) {
+ $("#results").html(`
+ 
+ <div class="skeletonCont movie-card">
+  
+  <div class="skeletonImg movie-card__header">
 
- $.ajax({
-  url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
-  async: false,
-  success: function(response) {
+   <span class="movie-card_genre">ID: Loading</span>
+   <span class="movie-card_genre">Poster</span>
+   <span class="movie-card_genre">Backdrop</span>
+   <span class="movie-card_genre">Información</span>
 
-   // Filtrar los actores más relevantes
-   var relevantActors = response.cast.filter(function(actor) {
-    return actor.order <= 2;
-    // Puedes ajustar el numero de relevancia según tus preferencias, si quieres que aparezcan "3 actores" tienes que colocar como numero "2"
-   });
+  </div>
+  
+  <div class="skeletonCont movie-card_content">
+   <div class="skeletonImg movie-card___poster" data-src="https://dummyimage.com/720x1080/CCCCCC/000000.jpg&text=Loading"></div>
+   <div class="d">
+    <div class="contenedor border" id="peli_1">
+     <div class="skeletonTxt">
+      Loading_(Loading)_480p_[dual-lat].mp4
+     </div>
+    </div>
 
-   // Obtener solo los nombres de los actores y unirlos en un string
-   var actorNames = relevantActors.map(function(actor) {
-    return actor.name;
-   });
 
-   movieCredits = actorNames.join(", ");
-   // Dividir los nombres de los actores
 
-  },
-  error: function(error) {
-   console.log(error);
-   // Algo no salió como esperábamos.
-  }
- });
+    <div class="contenedor border" id="peli_2">
+     <div class="skeletonTxt title_es"><b>⟨🍿⟩ Loading (Loading)</b></div>
+     <div class="skeletonTxt title_or"><b>⟨🎥⟩ Loading</b></div>
+     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+     <div class="skeletonTxt lang"><b>⟨🗣️⟩ Idioma Original: Loading</b></div>
+     <div class="skeletonTxt audio"><b>⟨🔊⟩ Audio: Loading</b></div>
+     <div class="skeletonTxt quality"><b>⟨📺⟩ Calidad: Loading</b></div>
+     <div class="skeletonTxt duration"><b>⟨⏳⟩ Duración: Loading</b></div>
+     <div class="skeletonTxt genre"><b>⟨🎭⟩ Género: Loading</b></div>
+     <div class="skeletonTxt credits"><b>⟨👤⟩ Reparto: Loading</b></div>
+     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+     <div class="skeletonTxt sinopsis"><b>⟨💭⟩ Sinopsis: Loading</b></div>
+     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+     <div class="skeletonTxt trailer"><b>⟨🎞️⟩ Trailer: Loading</a></b></div>
+     <div class="skeletonTxt view_download"><b>⟨🔗⟩ Ver/Descargar: Loading</b></div>
+    </div>
 
- return movieCredits;
-}
+  </div>
 
-// Funcion: Obtener poster de pelicula
-function getPosterMovie(movieId) {
- var poster_URL = '';
+ </div>
 
- $.ajax({
-  url: `${BASE_URL}/movie/${movieId}/images?${API_KEY}&include_image_language=es,en,null&${LANG_ES}`,
-  async: false,
-  success: function(response) {
-   var posters = response.posters;
 
-   // Ordenar los posters por popularidad de forma descendente
-   posters.sort(function(a, b) {
-    return b.popularity - a.popularity;
-   });
+</div>
+ 
+ `);
 
-   var posterPath = posters.find(function(poster) {
-    return (
-     poster.iso_639_1 === "en"
-     // ||poster.iso_639_1 === "en"
-     //|| poster.iso_639_1 === "null"
-    );
-   });
+ if (query === "") {
+  $("#results").html("<p>Ingrese un título de película para buscar.</p>");
+ } else {
+  try {
+   const response = await $.getJSON(
+    `${BASE_URL}/search/movie?${API_KEY}&query=${query}&${LANG_ES}`
+   );
+   const movies = response.results;
 
-   if (posterPath) {
-    poster_URL = posterPath.file_path;
+   if (movies.length === 0) {
+    $("#results").html("<p>No se encontraron películas con ese título.</p>");
+   } else {
+    await displayMovies(movies);
    }
-  },
-  error: function(error) {
+  } catch (error) {
    console.log('Ay, mi amor, algo salió mal:', error);
   }
- });
-
- return poster_URL;
+ }
 }
 
-// Funcion: Obtener backdrop de pelicula
-function getBackdropMovie(movieId) {
- var backdrop_URL = '';
+// Funcion: Muestra la película buscada.
+async function displayMovies(movies) {
+ let resultsHtml = "";
 
- $.ajax({
-  url: `${BASE_URL}/movie/${movieId}/images?${API_KEY}&include_image_language=es,en,null&${LANG_ES}`,
-  async: false,
-  success: function(response) {
-   var backdrops = response.backdrops;
+ for (const movie of movies) {
+  const id = movie.id;
+  const title = movie.title;
+  const originalTitle = movie.original_title;
+  const tagline = movie.tagline;
+  const releaseYear = movie.release_date.split("-")[0];
+  const posterPath = movie.poster_path;
+  const backdropPath = movie.backdrop_path;
+  const langCode = movie.original_language;
+  const overview = movie.overview;
+  const duration = movie.runtime;
 
-   // Ordenar los backdrops por popularidad de forma descendente
-   backdrops.sort(function(a, b) {
-    return b.popularity - a.popularity;
-   });
+  // Imagenes Posters.
+  const popPosterFat = await getPosterMovie(id, IMG_ORI, langCode);
+  const popPosterFit = await getPosterMovie(id, IMG_185, langCode);
+  
+  // Imagenes Backdrops
+  const popBackdropFat = await getBackdropMovie(id, IMG_ORI);
+  const popBackdropFit = await getBackdropMovie(id, IMG_500);
 
-   var backdropPath = backdrops.find(function(backdrop) {
-    return (
-     backdrop.iso_639_1 === "en" ||
-     backdrop.iso_639_1 === "es" ||
-     backdrop.iso_639_1 === "ca" ||
-     backdrop.iso_639_1 === "ja" ||
-     backdrop.iso_639_1 === "br" ||
-     backdrop.iso_639_1 === "fr" ||
-     backdrop.iso_639_1 === "de" ||
-     backdrop.iso_639_1 === "it" ||
-     backdrop.iso_639_1 === "ko" ||
-     backdrop.iso_639_1 === "ru" ||
-     backdrop.iso_639_1 === "zh" ||
-     backdrop.iso_639_1 === "pt" ||
-     backdrop.iso_639_1 === "nl" ||
-     backdrop.iso_639_1 === "null"
-    );
-   });
+  const langComplete = await getLanguage(langCode);
+  const durationTime = await getDurationMovie(id);
+  const genreEs = await getGenres(movie.genre_ids);
+  const actors = await getActorsMovie(id);
+  const ytKey = await getTrailerKeyYt(id);
+  const titleRemplace = await getVideoTitle(title);
 
-   if (backdropPath) {
-    backdrop_URL = backdropPath.file_path;
+   resultsHtml += `
+
+<div class="movie-card">
+
+
+ <div class="movie-card__header" style="background-image: url(${popBackdropFit})">
+  <span class="movie-card_genre">ID: ${id}</span>
+  <span class="movie-card_genre">
+   <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/p?url=${popPosterFat}" target="_blank">
+    Poster
+   </a>
+  </span>
+  <span class="movie-card_genre">
+   <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/b?url=${popBackdropFat}" target="_blank">
+    Backdrop
+   </a>
+  </span>
+  <span class="movie-card_genre">
+   <a href="https://www.themoviedb.org/movie/${id}/" target="_blank">
+    Información
+   </a>
+  </span>
+ </div>
+
+
+ <div class="movie-card_content">
+
+  <div class="movie-card__poster" data-src="${popPosterFit}"></div>
+
+  <div class="d">
+
+   <button class="copy" onclick="copyTextById('peli_${id}_1', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
+   <div class="contenedor border" id="peli_${id}_1">${titleRemplace}_(${releaseYear})_480p_[dual-lat].mp4</div>
+
+   <button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
+   <div class="contenedor border" id="peli_${id}_2">
+    <div class="title_es"><b>⟨🍿⟩ ${title} (${releaseYear})</b></div>
+    <div class="title_or"><b>⟨🎥⟩ ${originalTitle}</b></div>
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+    <div class="lang"><b>⟨🗣️⟩ Idioma Original: ${langComplete}</b></div>
+    <div class="audio"><b>⟨🔊⟩ Audio: 🇲🇽 Dual-Latino</b></div>
+    <div class="quality"><b>⟨📺⟩ Calidad: HD</b></div>
+    <div class="duration"><b>⟨⏳⟩ Duración: ${durationTime}</b></div>
+    <div class="genre"><b>⟨🎭⟩ Género: ${genreEs}</b></div>
+    <div class="credits"><b>⟨👤⟩ Reparto: ${actors}</b></div>
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+    <div class="sinopsis"><b>⟨💭⟩ Sinopsis: ${overview}</b></div>
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+    <div class="trailer"><b>⟨🎞️⟩ Trailer: <a href="https://youtu.be/${ytKey}">https://youtu.be/${ytKey}</a></b></div>
+    <div class="view_download"><b>⟨🔗⟩ Ver/Descargar:&nbsp;</b></div>
+   </div>
+
+  </div>
+
+ </div>
+
+
+</div>
+
+   `;
+ }
+
+ $("#results").html(resultsHtml);
+ 
+// Seleccionar todos los elementos con la clase 'movie-card__poster'
+ const lazyImages = document.querySelectorAll('.movie-card__poster');
+ const lazyImageOptions = {
+// Margen alrededor del viewport (0px indica que el margen es cero)
+  rootMargin: '0px',
+// Umbral de visibilidad (0.5 significa que el 50% del elemento debe ser visible)
+  threshold: 0.5
+ };
+
+// Crear una instancia de IntersectionObserver con una función de devolución de llamada
+ const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+   if (entry.isIntersecting) {
+    const lazyImage = entry.target;
+ // Mostramos la imagen al establecer la opacidad en 1
+    lazyImage.style.opacity = 1;
+    lazyImage.style.backgroundImage = `url(${lazyImage.getAttribute('data-src')})`;
+    lazyImageObserver.unobserve(lazyImage);
    }
-  },
-  error: function(error) {
-   console.log('Ay, mi amor, algo salió mal:', error);
-  }
+  });
+ }, lazyImageOptions);
+// Observar cada elemento con la clase 'movie-card__poster'
+ lazyImages.forEach(lazyImage => {
+  lazyImageObserver.observe(lazyImage);
  });
-
- return backdrop_URL;
 }
 
+// Funcion: Obtener key del trailer de youtube.
+async function getTrailerKeyYt(movieId) {
+ try {
+  const response = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/videos?${API_KEY}`,
+   async: false
+  });
+  const videos = response.results.filter(video => video.site === "YouTube" && video.type === "Trailer" && video.iso_639_1 === "en");
+  if (videos.length > 0) {
+   return videos[0].key;
+  }
+ } catch (error) {
+  console.log('Ay, mi amor, algo salió mal:', error);
+ }
+ return "";
+}
+
+// Funcion: Traducir los generos.
+async function getGenres(genreIds) {
+ const genres = {
+  28: "#Accion",
+  12: "#Aventura",
+  16: "#Animacion",
+  35: "#Comedia",
+  80: "#Crimen",
+  99: "#Documental",
+  18: "#Drama",
+  10751: "#Familiar",
+  14: "#Fantasia",
+  36: "#Historia",
+  27: "#Terror",
+  10402: "#Musica",
+  9648: "#Misterio",
+  10749: "#Romance",
+  878: "#Ciencia_Ficcion",
+  10770: "#Película_de_la_Television",
+  53: "#Suspenso",
+  10752: "#Belica",
+  37: "#Oeste",
+  10759: "#Accion_y_Aventura",
+  10762: "#Infantil",
+  10763: "#Noticias",
+  10764: "#Realidad",
+  10765: "#Ciencia_Ficcion_y_Fantasia",
+  10766: "#Serial",
+  10767: "#Conversacion",
+  10768: "#Politico",
+  10769: "#Opcion_Interactiva"
+ };
+
+ const genreList = [];
+ for (const genreId of genreIds) {
+  if (genres[genreId]) {
+   genreList.push(genres[genreId]);
+  }
+ }
+ return genreList.join(", ");
+}
+
+// Función: Traducir el lenguaje.
+async function getLanguage(languageCode) {
+ const languages = {
+  en: "🇺🇸 #Ingles",
+  ca: "🇪🇸 #Catalan",
+  es: "🇲🇽 / 🇪🇸 #Español",
+  fr: "🇫🇷 #Frances",
+  de: "🇩🇪 #Aleman",
+  it: "🇮🇹 #Italiano",
+  ja: "🇯🇵 #Japones",
+  ko: "🇰🇷 / 🇰🇵 #Coreano",
+  ru: "🇷🇺 #Ruso",
+  zh: "🇨🇳 #Chino",
+  pl: "🇵🇱 #Polaco"
+ };
+ return languages[languageCode] || languageCode;
+}
+
+// Funcion: Obtener actores.
+async function getActorsMovie(movieId) {
+ try {
+  const response = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
+   async: false
+  });
+  const relevantActors = response.cast.filter(actor => actor.order <= 2);
+  const actorNames = relevantActors.map(actor => actor.name);
+  return actorNames.join(", ");
+ } catch (error) {
+  console.log('Ay, mi amor, algo salió mal:', error);
+  return "";
+ }
+}
+
+// Funcion: Obtener poster de pelicula.
+async function getPosterMovie(movieId, size, langCode) {
+ try {
+  const response = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/images?${API_KEY}&include_image_language=${langCode},es,en&${LANG_ES}`,
+   async: false
+  });
+  const posters = response.posters;
+  posters.sort((a, b) => b.popularity - a.popularity);
+  const posterPath = posters.find(poster => [langCode, "es", "en"].includes(poster.iso_639_1));
+  if (posterPath) {
+   return size + posterPath.file_path;
+  } else {
+   return 'https://dummyimage.com/720x1080/CCCCCC/000000.jpg&text=No+Image';
+  }
+ } catch (error) {
+  console.log('Ay, mi amor, algo salió mal:', error);
+  return '';
+ }
+}
+
+// Funcion: Obtener backdrop de pelicula.
+async function getBackdropMovie(movieId, size) {
+ try {
+  const response = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/images?${API_KEY}`,
+   async: false
+  });
+  const backdrops = response.backdrops;
+  backdrops.sort((a, b) => b.popularity - a.popularity);
+  const backdropPath = backdrops.find(backdrop => ["es", "en", "null"].includes(backdrop.iso_639_1));
+  if (backdropPath) {
+   return size + backdropPath.file_path;
+  } else {
+   return 'https://dummyimage.com/1080x720/CCCCCC/000000.jpg&text=No+Image';
+  }
+ } catch (error) {
+  console.log('Ay, mi amor, algo salió mal:', error);
+  return '';
+ }
+}
 
 // Función: Obtener la duración de la película.
-function getDurationMovie(movieId) {
- var movieDuration = '';
-
- $.ajax({
-  url: `${BASE_URL}/movie/${movieId}?${API_KEY}&${LANG_ES}`,
-  async: false,
-  success: function(response) {
-   var duracion = response.runtime;
-   var horas = Math.floor(duracion / 60);
-   var minutos = duracion % 60;
-
-   movieDuration = `${horas}h ${minutos}m`;
-  },
-  error: function(error) {
-   console.log(error);
-   // Algo no salió como esperábamos, mi sensual gamer.
-  }
- });
-
- return movieDuration;
+async function getDurationMovie(movieId) {
+ try {
+  const response = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}?${API_KEY}&${LANG_ES}`,
+   async: false
+  });
+  const duracion = response.runtime;
+  const horas = Math.floor(duracion / 60);
+  const minutos = duracion % 60;
+  return `${horas}h ${minutos}m`;
+ } catch (error) {
+  console.log(error);
+  return "";
+ }
 }
 
-function videoTitle(frase) {
+// Funcion: Remplazo de carácteres, letras en minúsculas.
+async function getVideoTitle(frase) {
  return frase
   .replace(/\*/g, '')
   .replace(/-/g, '')
@@ -462,7 +390,6 @@ function videoTitle(frase) {
   .replace(/&/g, '')
   .replace(/\'/g, '')
   .replace(/:/g, '')
-  .replace(/ /g, '_')
 
   .replace(/ñ/g, 'n')
   .replace(/ń/g, 'n')
@@ -513,5 +440,7 @@ function videoTitle(frase) {
   .replace(/ù/g, 'u')
   .replace(/û/g, 'u')
   .replace(/ü/g, 'u')
-  .replace(/ú/g, 'u');
+  .replace(/ú/g, 'u')
+  .replace(/ /g, '_')
+  .toLowerCase();
 }
