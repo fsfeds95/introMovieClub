@@ -270,11 +270,11 @@ async function getTrailerEmbed(movieId) {
   if (videos.length > 0) {
    return 'https://www.youtube.com/embed/' + videos[0].key;
   } else {
-   return "https://www.youtube.com/embed/ts8i-6AtDfc?si=5T4iKi8vI6SgX0Iw";
+   return "https://www.youtube.com/embed/oBIYvN8GaFw";
   }
  } catch (error) {
   console.log('¡Ay, mi amor! Algo salió mal:', error);
-  return "https://www.youtube.com/embed/ts8i-6AtDfc?si=5T4iKi8vI6SgX0Iw";
+  return "https://www.youtube.com/embed/oBIYvN8GaFw";
  }
 }
 
