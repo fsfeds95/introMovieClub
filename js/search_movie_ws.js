@@ -133,7 +133,7 @@ async function displayMovies(movies) {
   const genreEs = await getGenres(movie.genre_ids);
   const actors = await getActorsMovie(id);
   const trailerLink = await getTrailer(id);
-  const trailerEmbed = await getTrailer(id);
+  const trailerEmbed = await getTrailerEmbed(id);
   const titleRemplace = await getVideoTitle(title);
 
    resultsHtml += `
@@ -264,7 +264,7 @@ async function getTrailerEmbed(movieId) {
   });
 
   const videos = response.results.filter(video => {
-   return video.site === "YouTube" && video.type === "Trailer" && video.iso_639_1 === "en";
+   return video.site === "YouTube" && video.type === "Trailer" && (video.iso_639_1 === "es" || video.iso_639_1 === "en");
   });
 
   if (videos.length > 0) {
