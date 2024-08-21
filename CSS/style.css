@@ -390,11 +390,8 @@ main {
  background: -webkit-linear-gradient(90deg, rgba(156, 255, 0, 1) 0%, rgba(0, 112, 255, 1) 50%, rgba(255, 0, 196, 1) 100%);
  background: linear-gradient(90deg, rgba(156, 255, 0, 1) 0%, rgba(0, 112, 255, 1) 50%, rgba(255, 0, 196, 1) 100%);
  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9cff00", endColorstr="#ff00c4", GradientType=1);
-
-
-
  background-size: 200% 200%;
- animation: loading-shimmer 2.5s linear infinite alternate-reverse;
+ animation: skeletor 2.5s linear infinite alternate-reverse;
  border-radius: 999px;
 }
 
@@ -404,17 +401,13 @@ main {
  background: -webkit-linear-gradient(90deg, rgba(156, 255, 0, 1) 0%, rgba(0, 112, 255, 1) 50%, rgba(255, 0, 196, 1) 100%);
  background: linear-gradient(90deg, rgba(156, 255, 0, 1) 0%, rgba(0, 112, 255, 1) 50%, rgba(255, 0, 196, 1) 100%);
  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9cff00", endColorstr="#ff00c4", GradientType=1);
-
-
-
-
  background-size: 200% 200%;
- animation: loading-shimmer 2.5s linear infinite alternate-reverse;
+ animation: skeletor 2.5s linear infinite alternate-reverse;
 }
 
-@keyframes loading-shimmer {
+@keyframes skeletor {
  0% {
-  background-position: 0% 50%;
+  background-position: 0% 0%;
  }
 
  50% {
@@ -422,6 +415,11 @@ main {
  }
 
  100% {
-  background-position: 0% 50%;
+  background-position: 0% 0%;
  }
+}
+
+.youtube-video {
+ aspect-ratio: 16 / 9;
+ width: 100%;
 }
