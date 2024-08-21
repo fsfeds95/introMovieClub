@@ -129,7 +129,8 @@ async function displayMovies(movies) {
   const durationTime = await getDurationMovie(id);
   const genreEs = await getGenres(movie.genre_ids);
   const actors = await getActorsMovie(id);
-  const ytKey = await getTrailerKeyYt(id);
+  const trailerLink = await getTrailer(id);
+  const trailerEmbed = await getTrailerEmbed(id);
   const titleRemplace = await getVideoTitle(title);
 
    resultsHtml += `
@@ -180,8 +181,14 @@ async function displayMovies(movies) {
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
     <div class="sinopsis"><b>⟨💭⟩ Sinopsis: ${overview}</b></div>
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-    <div class="trailer"><b>⟨🎞️⟩ Trailer: <a href="https://youtu.be/${ytKey}">https://youtu.be/${ytKey}</a></b></div>
+    <div class="trailer"><b>⟨🎞️⟩ Trailer: ${trailerLink}</b></div>
     <div class="view_download"><b>⟨🔗⟩ Ver/Descargar:&nbsp;</b></div>
+   </div>
+
+   <div class="contenedor border" id="peli_${id}_3">
+
+<iframe class="youtube-video" src="${trailerEmbed}" title="Tráiler de ${title} en YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
    </div>
 
   </div>
@@ -223,54 +230,83 @@ async function displayMovies(movies) {
  });
 }
 
-// Funcion: Obtener key del trailer de youtube.
-async function getTrailerKeyYt(movieId) {
+// Función: Obtener la clave del tráiler de YouTube
+async function getTrailer(movieId) {
  try {
   const response = await $.ajax({
    url: `${BASE_URL}/movie/${movieId}/videos?${API_KEY}`,
    async: false
   });
-  const videos = response.results.filter(video => video.site === "YouTube" && video.type === "Trailer" && video.iso_639_1 === "en");
+
+  const videos = response.results.filter(video => {
+   return video.site === "YouTube" && video.type === "Trailer" && video.iso_639_1 === "en";
+  });
+
   if (videos.length > 0) {
-   return videos[0].key;
+   return 'https://youtu.be/' + videos[0].key;
+  } else {
+   return "Trailer no disponible";
   }
  } catch (error) {
-  console.log('Ay, mi amor, algo salió mal:', error);
+  console.log('¡Ay, mi amor! Algo salió mal:', error);
+  return "Trailer no disponible";
  }
- return "";
 }
 
-// Funcion: Traducir los generos.
+// Función: Obtener la clave del tráiler de YouTube
+async function getTrailerEmbed(movieId) {
+ try {
+  const response = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/videos?${API_KEY}`,
+   async: false
+  });
+
+  const videos = response.results.filter(video => {
+   return video.site === "YouTube" && video.type === "Trailer" && (video.iso_639_1 === "es" || video.iso_639_1 === "en");
+  });
+
+  if (videos.length > 0) {
+   return 'https://www.youtube.com/embed/' + videos[0].key;
+  } else {
+   return "https://www.youtube.com/embed/ts8i-6AtDfc?si=5T4iKi8vI6SgX0Iw";
+  }
+ } catch (error) {
+  console.log('¡Ay, mi amor! Algo salió mal:', error);
+  return "https://www.youtube.com/embed/ts8i-6AtDfc?si=5T4iKi8vI6SgX0Iw";
+ }
+}
+
+ // Funcion: Traducir los generos.
 async function getGenres(genreIds) {
  const genres = {
-  28: "#Accion",
-  12: "#Aventura",
-  16: "#Animacion",
-  35: "#Comedia",
-  80: "#Crimen",
-  99: "#Documental",
-  18: "#Drama",
-  10751: "#Familiar",
-  14: "#Fantasia",
-  36: "#Historia",
-  27: "#Terror",
-  10402: "#Musica",
-  9648: "#Misterio",
-  10749: "#Romance",
-  878: "#Ciencia_Ficcion",
-  10770: "#Película_de_la_Television",
-  53: "#Suspenso",
-  10752: "#Belica",
-  37: "#Oeste",
-  10759: "#Accion_y_Aventura",
-  10762: "#Infantil",
-  10763: "#Noticias",
-  10764: "#Realidad",
-  10765: "#Ciencia_Ficcion_y_Fantasia",
-  10766: "#Serial",
-  10767: "#Conversacion",
-  10768: "#Politico",
-  10769: "#Opcion_Interactiva"
+  28: "Accion",
+  12: "Aventura",
+  16: "Animacion",
+  35: "Comedia",
+  80: "Crimen",
+  99: "Documental",
+  18: "Drama",
+  10751: "Familiar",
+  14: "Fantasia",
+  36: "Historia",
+  27: "Terror",
+  10402: "Musica",
+  9648: "Misterio",
+  10749: "Romance",
+  878: "Ciencia Ficcion",
+  10770: "Película de la Television",
+  53: "Suspenso",
+  10752: "Belica",
+  37: "Oeste",
+  10759: "Accion y Aventura",
+  10762: "Infantil",
+  10763: "Noticias",
+  10764: "Realidad",
+  10765: "Ciencia Ficcion y Fantasia",
+  10766: "Serial",
+  10767: "Conversacion",
+  10768: "Politico",
+  10769: "Opcion Interactiva"
  };
 
  const genreList = [];
@@ -279,23 +315,23 @@ async function getGenres(genreIds) {
    genreList.push(genres[genreId]);
   }
  }
- return genreList.join(", ");
+ return genreList.join(",&nbsp;");
 }
 
-// Función: Traducir el lenguaje.
+ // Función: Traducir el lenguaje.
 async function getLanguage(languageCode) {
  const languages = {
-  en: "🇺🇸 #Ingles",
-  ca: "🇪🇸 #Catalan",
-  es: "🇲🇽 / 🇪🇸 #Español",
-  fr: "🇫🇷 #Frances",
-  de: "🇩🇪 #Aleman",
-  it: "🇮🇹 #Italiano",
-  ja: "🇯🇵 #Japones",
-  ko: "🇰🇷 / 🇰🇵 #Coreano",
-  ru: "🇷🇺 #Ruso",
-  zh: "🇨🇳 #Chino",
-  pl: "🇵🇱 #Polaco"
+  en: "🇺🇸&nbsp;Ingles",
+  ca: "🇪🇸&nbsp;Catalan",
+  es: "🇲🇽&nbsp;/&nbsp;🇪🇸&nbsp;Español",
+  fr: "🇫🇷&nbsp;Frances",
+  de: "🇩🇪&nbsp;Aleman",
+  it: "🇮🇹&nbsp;Italiano",
+  ja: "🇯🇵&nbsp;Japones",
+  ko: "🇰🇷&nbsp;/&nbsp;🇰🇵&nbsp;Coreano",
+  ru: "🇷🇺&nbsp;Ruso",
+  zh: "🇨🇳&nbsp;Chino",
+  pl: "🇵🇱&nbsp;Polaco"
  };
  return languages[languageCode] || languageCode;
 }
