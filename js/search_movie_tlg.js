@@ -224,10 +224,12 @@ async function displayMovies(movies) {
    }
   });
  }, lazyImageOptions);
+ 
 // Observar cada elemento con la clase 'movie-card__poster'
  lazyImages.forEach(lazyImage => {
   lazyImageObserver.observe(lazyImage);
  });
+ 
 }
 
 // Función: Obtener la clave del tráiler de YouTube
@@ -245,7 +247,7 @@ async function getTrailer(movieId) {
   if (videos.length > 0) {
    return 'https://youtu.be/' + videos[0].key;
   } else {
-   return "Trailer no disponible";
+   return "No Disponible";
   }
  } catch (error) {
   console.log('¡Ay, mi amor! Algo salió mal:', error);
@@ -253,7 +255,7 @@ async function getTrailer(movieId) {
  }
 }
 
-// Función: Obtener la clave del tráiler de YouTube
+// Función: Obtener el tráiler en video embed
 async function getTrailerEmbed(movieId) {
  try {
   const response = await $.ajax({
@@ -276,62 +278,64 @@ async function getTrailerEmbed(movieId) {
  }
 }
 
- // Funcion: Traducir los generos.
+// Funcion: Traducir los generos.
 async function getGenres(genreIds) {
- const genres = {
-  28: "Accion",
-  12: "Aventura",
-  16: "Animacion",
-  35: "Comedia",
-  80: "Crimen",
-  99: "Documental",
-  18: "Drama",
-  10751: "Familiar",
-  14: "Fantasia",
-  36: "Historia",
-  27: "Terror",
-  10402: "Musica",
-  9648: "Misterio",
-  10749: "Romance",
-  878: "Ciencia Ficcion",
-  10770: "Película de la Television",
-  53: "Suspenso",
-  10752: "Belica",
-  37: "Oeste",
-  10759: "Accion y Aventura",
-  10762: "Infantil",
-  10763: "Noticias",
-  10764: "Realidad",
-  10765: "Ciencia Ficcion y Fantasia",
-  10766: "Serial",
-  10767: "Conversacion",
-  10768: "Politico",
-  10769: "Opcion Interactiva"
+ var genres = {
+  28: "#Accion",
+  12: "#Aventura",
+  16: "#Animacion",
+  35: "#Comedia",
+  80: "#Crimen",
+  99: "#Documental",
+  18: "#Drama",
+  10751: "#Familiar",
+  14: "#Fantasia",
+  36: "#Historia",
+  27: "#Terror",
+  10402: "#Musica",
+  9648: "#Misterio",
+  10749: "#Romance",
+  878: "#Ciencia_Ficcion",
+  10770: "#Película_de_la_Television",
+  53: "#Suspenso",
+  10752: "#Belica",
+  37: "#Oeste",
+  10759: "#Accion_y_Aventura",
+  10762: "#Infantil",
+  10763: "#Noticias",
+  10764: "#Realidad",
+  10765: "#Ciencia_Ficcion_y_Fantasia",
+  10766: "#Serial",
+  10767: "#Conversacion",
+  10768: "#Politico",
+  10769: "#Opcion_Interactiva"
  };
 
- const genreList = [];
- for (const genreId of genreIds) {
+ var genreList = [];
+
+ genreIds.forEach(function(genreId) {
   if (genres[genreId]) {
    genreList.push(genres[genreId]);
   }
- }
- return genreList.join(",&nbsp;");
+ });
+
+ return genreList.join(", ");
 }
 
- // Función: Traducir el lenguaje.
+// Función: Traducir el lenguaje.
 async function getLanguage(languageCode) {
  const languages = {
-  en: "🇺🇸&nbsp;Ingles",
-  ca: "🇪🇸&nbsp;Catalan",
-  es: "🇲🇽&nbsp;/&nbsp;🇪🇸&nbsp;Español",
-  fr: "🇫🇷&nbsp;Frances",
-  de: "🇩🇪&nbsp;Aleman",
-  it: "🇮🇹&nbsp;Italiano",
-  ja: "🇯🇵&nbsp;Japones",
-  ko: "🇰🇷&nbsp;/&nbsp;🇰🇵&nbsp;Coreano",
-  ru: "🇷🇺&nbsp;Ruso",
-  zh: "🇨🇳&nbsp;Chino",
-  pl: "🇵🇱&nbsp;Polaco"
+  en : "🇺🇸 #Ingles",
+  ca : "🇪🇸 #Catalan",
+  fr : "🇫🇷 #Frances",
+  de : "🇩🇪 #Aleman",
+  it : "🇮🇹 #Italiano",
+  ja : "🇯🇵 #Japones",
+  ru : "🇷🇺 #Ruso",
+  zh : "🇨🇳 #Chino",
+  pl : "🇵🇱 #Polaco",
+  ko : "🇰🇷 / 🇰🇵 #Coreano",
+  es : "🇲🇽 / 🇪🇸 #Español",
  };
  return languages[languageCode] || languageCode;
 }
