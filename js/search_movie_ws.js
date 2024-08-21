@@ -247,7 +247,7 @@ async function getTrailer(movieId) {
   if (videos.length > 0) {
    return 'https://youtu.be/' + videos[0].key;
   } else {
-   return "Trailer no disponible";
+   return "No Disponible";
   }
  } catch (error) {
   console.log('¡Ay, mi amor! Algo salió mal:', error);
@@ -255,7 +255,7 @@ async function getTrailer(movieId) {
  }
 }
 
-// Función: Obtener la clave del tráiler de YouTube
+// Función: Obtener el tráiler en video embed
 async function getTrailerEmbed(movieId) {
  try {
   const response = await $.ajax({
