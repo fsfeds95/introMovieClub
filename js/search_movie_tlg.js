@@ -180,9 +180,10 @@ async function displayMovies(movies) {
     <div class="credits"><b>⟨👤⟩ Reparto: ${actors}</b></div>
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
     <div class="sinopsis"><b>⟨💭⟩ Sinopsis: ${overview}</b></div>
-    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-    <div class="trailer"><b>⟨🎞️⟩ Trailer: ${trailerLink}</b></div>
-    <div class="view_download"><b>⟨🔗⟩ Ver/Descargar:&nbsp;</b></div>
+    <div class="separador"><b>&nbsp;</b></div>
+    <div class="separador"><b>&nbsp;</b></div>
+    <div class="trailer"><b>⟨🎞️⟩ Trailer ⟨🎞️⟩ - ${trailerLink}</b></div>
+    <div class="view_download"><b>⟨🔗⟩ Ver/Descargar ⟨🔗⟩ -&nbsp;</b></div>
    </div>
 
    <div class="contenedor border" id="peli_${id}_3">
