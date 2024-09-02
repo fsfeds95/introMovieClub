@@ -15,12 +15,12 @@ const LANG_ES = 'language=es-MX';
 const LANG_EN = 'language=en-US';
 
 $(document).ready(function() {
-// Funcion: Busqueda con botón.
+ // Funcion: Busqueda con botón.
  $("#searchButton").click(async function() {
   const searchQuery = $("#searchInput").val();
   await searchMovie(searchQuery);
  });
-// Funcion: Busqueda con "Enter".
+ // Funcion: Busqueda con "Enter".
  $("#searchInput").on("keypress", async function(event) {
   if (event.key === "Enter") {
    const searchQuery = $("#searchInput").val();
@@ -120,7 +120,7 @@ async function displayMovies(movies) {
   // Imagenes Posters.
   const popPosterFat = await getPosterMovie(id, IMG_ORI, langCode);
   const popPosterFit = await getPosterMovie(id, IMG_185, langCode);
-  
+
   // Imagenes Backdrops
   const popBackdropFat = await getBackdropMovie(id, IMG_ORI);
   const popBackdropFit = await getBackdropMovie(id, IMG_500);
@@ -133,7 +133,7 @@ async function displayMovies(movies) {
   const trailerEmbed = await getTrailerEmbed(id);
   const titleRemplace = await getVideoTitle(title);
 
-   resultsHtml += `
+  resultsHtml += `
 
 <div class="movie-card">
 
@@ -169,21 +169,45 @@ async function displayMovies(movies) {
 
    <button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
    <div class="contenedor border" id="peli_${id}_2">
-    <div class="title_es"><b>⟨🍿⟩ ${title} (${releaseYear})</b></div>
-    <div class="title_or"><b>⟨🎥⟩ ${originalTitle}</b></div>
+
+<div class="initial"><b>⟨🔠⟩&nbsp;#${title.substring(1, 0)}</b></div>
+
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-    <div class="lang"><b>⟨🗣️⟩ Idioma Original: ${langComplete}</b></div>
-    <div class="audio"><b>⟨🔊⟩ Audio: 🇲🇽 Dual-Latino</b></div>
-    <div class="quality"><b>⟨📺⟩ Calidad: HD</b></div>
-    <div class="duration"><b>⟨⏳⟩ Duración: ${durationTime}</b></div>
-    <div class="genre"><b>⟨🎭⟩ Género: ${genreEs}</b></div>
-    <div class="credits"><b>⟨👤⟩ Reparto: ${actors}</b></div>
+
+
+<div class="title_es"><b>⟨🍿⟩ ${title} (${releaseYear})</b></div>
+
+<div class="title_or"><b>⟨🎥⟩ ${originalTitle}</b></div>
+
+
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-    <div class="sinopsis"><b>⟨💭⟩ Sinopsis: ${overview}</b></div>
+
+<div class="year"><b>⟨🎟⟩&nbsp;Estreno:&nbsp;#Año${releaseYear}</b></div>
+
+
+<div class="lang"><b>⟨🗣️⟩ Idioma Original: ${langComplete}</b></div>
+
+<div class="audio"><b>⟨🔊⟩ Audio: 🇲🇽 #Dual-Latino</b></div>
+
+<div class="quality"><b>⟨📺⟩ Calidad: #HD</b></div>
+
+<div class="duration"><b>⟨⏳⟩ Duración: ${durationTime}</b></div>
+
+<div class="genre"><b>⟨🎭⟩ Género: ${genreEs}</b></div>
+
+<div class="credits"><b>⟨👤⟩ Reparto: ${actors}</b></div>
+    
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+
+<div class="sinopsis"><b>⟨💭⟩ Sinopsis: ${overview}</b></div>
+    
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
     <div class="separador"><b>&nbsp;</b></div>
     <div class="separador"><b>&nbsp;</b></div>
-    <div class="trailer"><b>⟨🎞️⟩ Trailer ⟨🎞️⟩ - ${trailerLink}</b></div>
-    <div class="view_download"><b>⟨🔗⟩ Ver/Descargar ⟨🔗⟩ -&nbsp;</b></div>
+
+<div class="trailer"><b>⟨🎞️⟩ Trailer ⟨🎞️⟩ - ${trailerLink}</b></div>
+
+<div class="view_download"><b>⟨🔗⟩ Ver/Descargar ⟨🔗⟩ -&nbsp;</b></div>
    </div>
 
    <div class="contenedor border" id="peli_${id}_3">
@@ -203,34 +227,34 @@ async function displayMovies(movies) {
  }
 
  $("#results").html(resultsHtml);
- 
-// Seleccionar todos los elementos con la clase 'movie-card__poster'
+
+ // Seleccionar todos los elementos con la clase 'movie-card__poster'
  const lazyImages = document.querySelectorAll('.movie-card__poster');
  const lazyImageOptions = {
-// Margen alrededor del viewport (0px indica que el margen es cero)
+  // Margen alrededor del viewport (0px indica que el margen es cero)
   rootMargin: '0px',
-// Umbral de visibilidad (0.5 significa que el 50% del elemento debe ser visible)
+  // Umbral de visibilidad (0.5 significa que el 50% del elemento debe ser visible)
   threshold: 0.5
  };
 
-// Crear una instancia de IntersectionObserver con una función de devolución de llamada
+ // Crear una instancia de IntersectionObserver con una función de devolución de llamada
  const lazyImageObserver = new IntersectionObserver((entries, observer) => {
   entries.forEach(entry => {
    if (entry.isIntersecting) {
     const lazyImage = entry.target;
- // Mostramos la imagen al establecer la opacidad en 1
+    // Mostramos la imagen al establecer la opacidad en 1
     lazyImage.style.opacity = 1;
     lazyImage.style.backgroundImage = `url(${lazyImage.getAttribute('data-src')})`;
     lazyImageObserver.unobserve(lazyImage);
    }
   });
  }, lazyImageOptions);
- 
-// Observar cada elemento con la clase 'movie-card__poster'
+
+ // Observar cada elemento con la clase 'movie-card__poster'
  lazyImages.forEach(lazyImage => {
   lazyImageObserver.observe(lazyImage);
  });
- 
+
 }
 
 // Función: Obtener la clave del tráiler de YouTube
@@ -326,17 +350,17 @@ async function getGenres(genreIds) {
 // Función: Traducir el lenguaje.
 async function getLanguage(languageCode) {
  const languages = {
-  en : "🇺🇸 #Ingles",
-  ca : "🇪🇸 #Catalan",
-  fr : "🇫🇷 #Frances",
-  de : "🇩🇪 #Aleman",
-  it : "🇮🇹 #Italiano",
-  ja : "🇯🇵 #Japones",
-  ru : "🇷🇺 #Ruso",
-  zh : "🇨🇳 #Chino",
-  pl : "🇵🇱 #Polaco",
-  ko : "🇰🇷 / 🇰🇵 #Coreano",
-  es : "🇲🇽 / 🇪🇸 #Español",
+  en: "🇺🇸 #Ingles",
+  ca: "🇪🇸 #Catalan",
+  fr: "🇫🇷 #Frances",
+  de: "🇩🇪 #Aleman",
+  it: "🇮🇹 #Italiano",
+  ja: "🇯🇵 #Japones",
+  ru: "🇷🇺 #Ruso",
+  zh: "🇨🇳 #Chino",
+  pl: "🇵🇱 #Polaco",
+  ko: "🇰🇷 / 🇰🇵 #Coreano",
+  es: "🇲🇽 / 🇪🇸 #Español",
  };
  return languages[languageCode] || languageCode;
 }
