@@ -37,16 +37,11 @@ async function searchMovie(query) {
   
   <div class="skeletonImg movie-card__header">
    
-   <span class="skeletonTxt movie-card_genre">ID: Loading</span>
-   <span class="skeletonTxt movie-card_genre">
-     Poster
-   </span>
-   <span class="skeletonTxt movie-card_genre">
-     Backdrop
-   </span>
-   <span class="skeletonTxt movie-card_genre">
-     Información
-   </span>
+   <span class="movie-card_genre">ID: Loading</span>
+   <span class="movie-card_genre">Poster</span>
+   <span class="movie-card_genre">Backdrop</span>
+   <span class="movie-card_genre">Información</span>
+   
   </div>
   
   <div class="skeletonCont movie-card_content">
@@ -144,12 +139,12 @@ async function displayMovies(movies) {
  <div class="movie-card__header" style="background-image: url(${popBackdropFit})">
   <span class="movie-card_genre">ID: ${id}</span>
   <span class="movie-card_genre">
-   <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/p?url=${popPosterFat}" target="_blank">
+   <a href="https://wm-icc.onrender.com/p?url=${popPosterFat}" target="_blank">
     Poster
    </a>
   </span>
   <span class="movie-card_genre">
-   <a href="https://bfc30010-7323-4c16-9b06-e31ddf53c427.e1-us-cdp-2.choreoapps.dev/b?url=${popBackdropFat}" target="_blank">
+   <a href="https://wm-icc.onrender.com/b?url=${popBackdropFat}" target="_blank">
     Backdrop
    </a>
   </span>
@@ -189,7 +184,7 @@ async function displayMovies(movies) {
 
    <div class="contenedor border" id="peli_${id}_3">
 
-<iframe class="youtube-video" src="${trailerEmbed}" title="Tráiler de ${title} en YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe class="youtube-video" src="${trailerEmbed}" title="Tráiler de ${title} en YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
    </div>
 
