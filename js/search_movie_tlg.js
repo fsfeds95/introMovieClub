@@ -56,9 +56,22 @@ async function searchMovie(query) {
 
 
     <div class="contenedor border" id="peli_2">
-     <div class="skeletonTxt title_es"><b>⟨🍿⟩ Loading (Loading)</b></div>
-     <div class="skeletonTxt title_or"><b>⟨🎥⟩ Loading</b></div>
-     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+
+<div class="skeletonTxt initial"><b>⟨🔠⟩ Loading</b></div>
+
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+
+
+<div class="skeletonTxt title_es"><b>⟨🍿⟩ Loading</b></div>
+
+<div class="skeletonTxt title_or"><b>⟨🎥⟩ Loading</b></div>
+
+
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+
+<div class="skeletonTxt year"><b>⟨🎟⟩ Estreno: Loading</b></div>
+
+
      <div class="skeletonTxt lang"><b>⟨🗣️⟩ Idioma Original: Loading</b></div>
      <div class="skeletonTxt audio"><b>⟨🔊⟩ Audio: Loading</b></div>
      <div class="skeletonTxt quality"><b>⟨📺⟩ Calidad: Loading</b></div>
@@ -170,7 +183,7 @@ async function displayMovies(movies) {
    <button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
    <div class="contenedor border" id="peli_${id}_2">
 
-<div class="initial"><b>⟨🔠⟩&nbsp;#${title.substring(1, 0)}</b></div>
+<div class="initial"><b>⟨🔠⟩ #${title.substring(1, 0)}</b></div>
 
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
@@ -182,7 +195,7 @@ async function displayMovies(movies) {
 
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
-<div class="year"><b>⟨🎟⟩&nbsp;Estreno:&nbsp;#Año${releaseYear}</b></div>
+<div class="year"><b>⟨🎟⟩ Estreno: #Año${releaseYear}</b></div>
 
 
 <div class="lang"><b>⟨🗣️⟩ Idioma Original: ${langComplete}</b></div>
@@ -202,8 +215,8 @@ async function displayMovies(movies) {
 <div class="sinopsis"><b>⟨💭⟩ Sinopsis: ${overview}</b></div>
     
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-    <div class="separador"><b>&nbsp;</b></div>
-    <div class="separador"><b>&nbsp;</b></div>
+    <div class="separador"><b> </b></div>
+    <div class="separador"><b> </b></div>
 
 <div class="trailer"><b>⟨🎞️⟩ Trailer ⟨🎞️⟩ - ${trailerLink}</b></div>
 
