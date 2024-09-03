@@ -141,12 +141,12 @@ async function displayMovies(movies) {
  <div class="movie-card__header" style="background-image: url(${popBackdropFit})">
   <span class="movie-card_genre">ID: ${id}</span>
   <span class="movie-card_genre">
-   <a href="https://wm-icc.onrender.com/p?url=${popPosterFat}" target="_blank">
+   <a href="https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/p?url=${popPosterFat}" target="_blank">
     Poster
    </a>
   </span>
   <span class="movie-card_genre">
-   <a href="https://wm-icc.onrender.com/b?url=${popBackdropFat}" target="_blank">
+   <a href="https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/b?url=${popBackdropFat}" target="_blank">
     Backdrop
    </a>
   </span>
@@ -172,7 +172,7 @@ async function displayMovies(movies) {
 
 <div class="initial"><b>⟨🔠⟩&nbsp;#${title.substring(1, 0)}</b></div>
 
-    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
 
 <div class="title_es"><b>⟨🍿⟩ ${title} (${releaseYear})</b></div>
@@ -180,14 +180,14 @@ async function displayMovies(movies) {
 <div class="title_or"><b>⟨🎥⟩ ${originalTitle}</b></div>
 
 
-    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
 <div class="year"><b>⟨🎟⟩&nbsp;Estreno:&nbsp;#Año${releaseYear}</b></div>
 
 
 <div class="lang"><b>⟨🗣️⟩ Idioma Original: ${langComplete}</b></div>
 
-<div class="audio"><b>⟨🔊⟩ Audio: 🇲🇽 #DualLatino</b></div>
+<div class="audio"><b>⟨🔊⟩ Audio: 🇲🇽 #Dual-Latino</b></div>
 
 <div class="quality"><b>⟨📺⟩ Calidad: #HD</b></div>
 
@@ -197,23 +197,17 @@ async function displayMovies(movies) {
 
 <div class="credits"><b>⟨👤⟩ Reparto: ${actors}</b></div>
     
-    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
 <div class="sinopsis"><b>⟨💭⟩ Sinopsis: ${overview}</b></div>
     
-    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
+    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
     <div class="separador"><b>&nbsp;</b></div>
     <div class="separador"><b>&nbsp;</b></div>
 
 <div class="trailer"><b>⟨🎞️⟩ Trailer ⟨🎞️⟩ - ${trailerLink}</b></div>
 
 <div class="view_download"><b>⟨🔗⟩ Ver/Descargar ⟨🔗⟩ -&nbsp;</b></div>
-   </div>
-
-   <div class="contenedor border" id="peli_${id}_3">
-
-<iframe class="youtube-video" src="${trailerEmbed}" title="Tráiler de ${title} en YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
    </div>
 
   </div>
