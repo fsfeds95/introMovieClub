@@ -139,12 +139,12 @@ async function displayMovies(movies) {
  <div class="movie-card__header" style="background-image: url(${popBackdropFit})">
   <span class="movie-card_genre">ID: ${id}</span>
   <span class="movie-card_genre">
-   <a href="https://wm-icc.onrender.com/p?url=${popPosterFat}" target="_blank">
+   <a href="https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/p?url=${popPosterFat}" target="_blank">
     Poster
    </a>
   </span>
   <span class="movie-card_genre">
-   <a href="https://wm-icc.onrender.com/b?url=${popBackdropFat}" target="_blank">
+   <a href="https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/b?url=${popBackdropFat}" target="_blank">
     Backdrop
    </a>
   </span>
