@@ -215,8 +215,8 @@ async function displayMovies(movies) {
 <div class="sinopsis"><b>⟨💭⟩ Sinopsis: ${overview}</b></div>
     
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-    <div class="separador"><b> </b></div>
-    <div class="separador"><b> </b></div>
+    <div class="separador"><b>&nbsp;</b></div>
+    <div class="separador"><b>&nbsp;</b></div>
 
 <div class="trailer"><b>⟨🎞️⟩ Trailer ⟨🎞️⟩ - ${trailerLink}</b></div>
 
