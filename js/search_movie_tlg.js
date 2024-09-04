@@ -34,16 +34,12 @@ async function searchMovie(query) {
  $("#results").html(`
  
  <div class="skeletonCont movie-card">
-  
   <div class="skeletonImg movie-card__header">
-
    <span class="movie-card_genre">ID: Loading</span>
    <span class="movie-card_genre">Poster</span>
    <span class="movie-card_genre">Backdrop</span>
    <span class="movie-card_genre">Información</span>
-
   </div>
-  
   <div class="skeletonCont movie-card_content">
    <div class="skeletonImg movie-card___poster" data-src="https://dummyimage.com/720x1080/CCCCCC/000000.jpg&text=Loading"></div>
    <div class="d">
@@ -52,26 +48,13 @@ async function searchMovie(query) {
       Loading_(Loading)_480p_[dual-lat].mp4
      </div>
     </div>
-
-
-
     <div class="contenedor border" id="peli_2">
-
-<div class="skeletonTxt initial"><b>⟨🔠⟩ Loading</b></div>
-
+    <div class="skeletonTxt initial"><b>⟨🔠⟩ Loading</b></div>
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-
-
-<div class="skeletonTxt title_es"><b>⟨🍿⟩ Loading</b></div>
-
-<div class="skeletonTxt title_or"><b>⟨🎥⟩ Loading</b></div>
-
-
+    <div class="skeletonTxt title_es"><b>⟨🍿⟩ Loading</b></div>
+    <div class="skeletonTxt title_or"><b>⟨🎥⟩ Loading</b></div>
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
-
-<div class="skeletonTxt year"><b>⟨🎟⟩ Estreno: Loading</b></div>
-
-
+     <div class="skeletonTxt year"><b>⟨🎟⟩ Estreno: Loading</b></div>
      <div class="skeletonTxt lang"><b>⟨🗣️⟩ Idioma Original: Loading</b></div>
      <div class="skeletonTxt audio"><b>⟨🔊⟩ Audio: Loading</b></div>
      <div class="skeletonTxt quality"><b>⟨📺⟩ Calidad: Loading</b></div>
@@ -84,13 +67,9 @@ async function searchMovie(query) {
      <div class="skeletonTxt trailer"><b>⟨🎞️⟩ Trailer: Loading</a></b></div>
      <div class="skeletonTxt view_download"><b>⟨🔗⟩ Ver/Descargar: Loading</b></div>
     </div>
-
   </div>
-
  </div>
-
-
-</div>
+ </div>
  
  `);
 
@@ -183,6 +162,8 @@ async function displayMovies(movies) {
    <button class="copy" onclick="copyTextById('peli_${id}_2', this)"><i class="fa-regular fa-clipboard"></i> Copiar</button>
    <div class="contenedor border" id="peli_${id}_2">
 
+
+
 <div class="initial"><b>⟨🔠⟩ #${title.substring(1, 0)}</b></div>
 
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
@@ -194,6 +175,8 @@ async function displayMovies(movies) {
 
 
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+
+<div class="type"><b>⟨⭐⟩ Tipo : #Pelicula</b></div>
 
 <div class="year"><b>⟨🎟⟩ Estreno: #Año${releaseYear}</b></div>
 
@@ -209,11 +192,11 @@ async function displayMovies(movies) {
 <div class="genre"><b>⟨🎭⟩ Género: ${genreEs}</b></div>
 
 <div class="credits"><b>⟨👤⟩ Reparto: ${actors}</b></div>
-    
+
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
 
 <div class="sinopsis"><b>⟨💭⟩ Sinopsis: ${overview}</b></div>
-    
+
     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
     <div class="separador"><b>&nbsp;</b></div>
     <div class="separador"><b>&nbsp;</b></div>
@@ -379,9 +362,9 @@ async function getActorsMovie(movieId) {
    url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
    async: false
   });
-  const relevantActors = response.cast.filter(actor => actor.order <= 2);
-  const actorNames = relevantActors.map(actor => actor.name);
-  return actorNames.join(", ");
+  const relevantActors = response.cast.filter(actor => actor.order <= 4);
+ const actorNames = relevantActors.map(actor => `#${actor.name.replace(/\s/g, '_')} (${actor.character})`);
+  return actorNames.join("</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
  } catch (error) {
   console.log('Ay, mi amor, algo salió mal:', error);
   return "";
