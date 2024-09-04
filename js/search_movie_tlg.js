@@ -166,7 +166,7 @@ async function displayMovies(movies) {
 
 <div class="initial"><b>⟨🔠⟩ #${title.substring(1, 0)}</b></div>
 
-    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
 
 
 <div class="title_es"><b>⟨🍿⟩ ${title} (${releaseYear})</b></div>
@@ -174,7 +174,7 @@ async function displayMovies(movies) {
 <div class="title_or"><b>⟨🎥⟩ ${originalTitle}</b></div>
 
 
-    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
 
 <div class="type"><b>⟨⭐⟩ Tipo : #Pelicula</b></div>
 
@@ -193,11 +193,11 @@ async function displayMovies(movies) {
 
 <div class="credits"><b>⟨👤⟩ Reparto: ${actors}</b></div>
 
-    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
 
 <div class="sinopsis"><b>⟨💭⟩ Sinopsis: ${overview}</b></div>
 
-    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
     <div class="separador"><b>&nbsp;</b></div>
     <div class="separador"><b>&nbsp;</b></div>
 
