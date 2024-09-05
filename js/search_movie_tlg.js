@@ -183,7 +183,7 @@ async function displayMovies(movies) {
 
 <div class="lang"><b>⟨🗣️⟩ Idioma Original: ${langComplete}</b></div>
 
-<div class="audio"><b>⟨🔊⟩ Audio: 🇲🇽 #Dual-Latino</b></div>
+<div class="audio"><b>⟨🔊⟩ Audio: 🇲🇽 #Dual_Latino</b></div>
 
 <div class="quality"><b>⟨📺⟩ Calidad: #HD</b></div>
 
