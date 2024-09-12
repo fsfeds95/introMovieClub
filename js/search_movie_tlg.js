@@ -36,8 +36,8 @@ async function searchMovie(query) {
  <div class="skeletonCont movie-card">
   <div class="skeletonImg movie-card__header">
    <span class="movie-card_genre">ID: Loading</span>
-   <span class="movie-card_genre">Poster</span>
    <span class="movie-card_genre">Backdrop</span>
+   <span class="movie-card_genre">Mas Images</span>
    <span class="movie-card_genre">Información</span>
   </div>
   <div class="skeletonCont movie-card_content">
@@ -134,13 +134,13 @@ async function displayMovies(movies) {
  <div class="movie-card__header" style="background-image: url(${popBackdropFit})">
   <span class="movie-card_genre">ID: ${id}</span>
   <span class="movie-card_genre">
-   <a href="https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/p?url=${popPosterFat}" target="_blank">
-    Poster
+   <a href="https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/b?url=${popBackdropFat}" target="_blank">
+    Backdrop
    </a>
   </span>
   <span class="movie-card_genre">
-   <a href="https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/b?url=${popBackdropFat}" target="_blank">
-    Backdrop
+   <a href="moreImage.html?idMovie=${id}">
+    Mas Images
    </a>
   </span>
   <span class="movie-card_genre">
@@ -399,6 +399,7 @@ async function getPosterMovie(movieId, size, langCode) {
 async function getBackdropMovie(movieId, size) {
  try {
   const response = await $.ajax({
+   //https://api.themoviedb.org/3/movie/1394/images?api_key=74dc824830c7f93dc61b03e324070886
    url: `${BASE_URL}/movie/${movieId}/images?${API_KEY}`,
    async: false
   });
