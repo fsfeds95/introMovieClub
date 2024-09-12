@@ -19,10 +19,12 @@ async function imageMoviePoster() {
     conImgElement.classList.add('conImg');
 
     const imgElement = document.createElement('img');
-    imgElement.src = 'https://image.tmdb.org/t/p/w500' + image.file_path;
+    imgElement.setAttribute('data-src', 'https://image.tmdb.org/t/p/w500' + image.file_path);
+    imgElement.classList.add('lazyimage'); // Clase para lazy loading
 
     const linkElement = document.createElement('a');
     linkElement.href = 'https://image.tmdb.org/t/p/original' + image.file_path;
+    linkElement.target = '_blank'; // Abrir en nueva ventana
     linkElement.innerText = 'Whatermark';
 
     conImgElement.appendChild(imgElement);
@@ -35,6 +37,7 @@ async function imageMoviePoster() {
   console.error('Error:', error);
  }
 }
+
 async function imageMovieBackdrop() {
  try {
   // Obtener la URL actual
@@ -56,10 +59,12 @@ async function imageMovieBackdrop() {
     conImgElement.classList.add('conImg');
 
     const imgElement = document.createElement('img');
-    imgElement.src = 'https://image.tmdb.org/t/p/w500' + image.file_path;
+    imgElement.setAttribute('data-src', 'https://image.tmdb.org/t/p/w500' + image.file_path);
+    imgElement.classList.add('lazyimage'); // Clase para lazy loading
 
     const linkElement = document.createElement('a');
     linkElement.href = 'https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/b?url=https://image.tmdb.org/t/p/original' + image.file_path;
+    linkElement.target = '_blank'; // Abrir en nueva ventana
     linkElement.innerText = 'Whatermark';
 
     conImgElement.appendChild(imgElement);
@@ -73,8 +78,38 @@ async function imageMovieBackdrop() {
  }
 }
 
-
-
 // Llamar a la función para que se ejecute
 imageMovieBackdrop();
 imageMoviePoster();
+
+// Lazy loading script
+document.addEventListener("DOMContentLoaded", function() {
+ const lazyImages = document.querySelectorAll('.lazyimage');
+
+ const options = {
+   root: null,
+   rootMargin: '0px',
+   threshold: 0.1
+ };
+
+ const lazyLoad = (image) => {
+   const src = image.getAttribute('data-src');
+   if (src) {
+     image.src = src;
+     image.classList.remove('lazyimage');
+   }
+ };
+
+ const observer = new IntersectionObserver((entries, observer) => {
+   entries.forEach(entry => {
+     if (entry.isIntersecting) {
+       lazyLoad(entry.target);
+       observer.unobserve(entry.target);
+     }
+   });
+ }, options);
+
+ lazyImages.forEach(image => {
+   observer.observe(image);
+ });
+});
