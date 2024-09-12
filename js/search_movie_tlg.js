@@ -202,7 +202,7 @@ async function displayMovies(movies) {
     <div class="separador"><b>&nbsp;</b></div>
     <div class="separador"><b>&nbsp;</b></div>
 
-<div class="popup"><b>⟨⚙️⟩ Cómo ver la película ⟨⚙️⟩ - popup: Para ver la película tienes que descargar la aplicación TeraBox, la puedes descargar directamente de la PlayStore o la AppStore.\n\nUna vez abierto el link se abrirá en la aplicación de TeraBox.</b></div>
+<div class="popup"><b>⟨⚙️⟩ Cómo ver la película ⟨⚙️⟩ - popup: Para ver la película tienes que descargar la aplicación TeraBox, la puedes descargar directamente de la PlayStore o la AppStore.&bsol;n&bsol;nUna vez abierto el link se abrirá en la aplicación de TeraBox.</b></div>
 
 <div class="trailer"><b>⟨🎞️⟩ Trailer ⟨🎞️⟩ - ${trailerLink}</b></div>
 
