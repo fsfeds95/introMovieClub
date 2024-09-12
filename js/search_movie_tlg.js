@@ -50,10 +50,10 @@ async function searchMovie(query) {
     </div>
     <div class="contenedor border" id="peli_2">
     <div class="skeletonTxt initial"><b>⟨🔠⟩ Loading</b></div>
-    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+     <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
     <div class="skeletonTxt title_es"><b>⟨🍿⟩ Loading</b></div>
     <div class="skeletonTxt title_or"><b>⟨🎥⟩ Loading</b></div>
-    <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+     <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
      <div class="skeletonTxt year"><b>⟨🎟⟩ Estreno: Loading</b></div>
      <div class="skeletonTxt lang"><b>⟨🗣️⟩ Idioma Original: Loading</b></div>
      <div class="skeletonTxt audio"><b>⟨🔊⟩ Audio: Loading</b></div>
@@ -61,9 +61,10 @@ async function searchMovie(query) {
      <div class="skeletonTxt duration"><b>⟨⏳⟩ Duración: Loading</b></div>
      <div class="skeletonTxt genre"><b>⟨🎭⟩ Género: Loading</b></div>
      <div class="skeletonTxt credits"><b>⟨👤⟩ Reparto: Loading</b></div>
-     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+      <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
      <div class="skeletonTxt sinopsis"><b>⟨💭⟩ Sinopsis: Loading</b></div>
-     <div class="separador"><b>➖➖➖➖➖➖➖➖➖➖</b></div>
+      <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
+     <div class="skeletonTxt popup"><b>⟨⚙️⟩ Cómo ver la película: Loading</b></div>
      <div class="skeletonTxt trailer"><b>⟨🎞️⟩ Trailer: Loading</a></b></div>
      <div class="skeletonTxt view_download"><b>⟨🔗⟩ Ver/Descargar: Loading</b></div>
     </div>
@@ -166,7 +167,7 @@ async function displayMovies(movies) {
 
 <div class="initial"><b>⟨🔠⟩ #${title.substring(1, 0)}</b></div>
 
-    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
+     <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
 
 
 <div class="title_es"><b>⟨🍿⟩ ${title} (${releaseYear})</b></div>
@@ -174,7 +175,7 @@ async function displayMovies(movies) {
 <div class="title_or"><b>⟨🎥⟩ ${originalTitle}</b></div>
 
 
-    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
+     <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
 
 <div class="type"><b>⟨⭐⟩ Tipo : #Pelicula</b></div>
 
@@ -183,7 +184,7 @@ async function displayMovies(movies) {
 
 <div class="lang"><b>⟨🗣️⟩ Idioma Original: ${langComplete}</b></div>
 
-<div class="audio"><b>⟨🔊⟩ Audio: 🇲🇽 #Dual_Latino</b></div>
+<div class="audio"><b>⟨🔊⟩ Audio: 🇲🇽 #Dual-Latino</b></div>
 
 <div class="quality"><b>⟨📺⟩ Calidad: #HD</b></div>
 
@@ -193,13 +194,15 @@ async function displayMovies(movies) {
 
 <div class="credits"><b>⟨👤⟩ Reparto: ${actors}</b></div>
 
-    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
+     <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
 
 <div class="sinopsis"><b>⟨💭⟩ Sinopsis: ${overview}</b></div>
 
-    <div class="separador"><b>➖➖➖➖➖➖➖</b></div>
+     <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
     <div class="separador"><b>&nbsp;</b></div>
     <div class="separador"><b>&nbsp;</b></div>
+
+<div class="popup"><b>⟨⚙️⟩ Cómo ver la película ⟨⚙️⟩ - popup: Para ver la película tienes que descargar la aplicación TeraBox, la puedes descargar directamente de la PlayStore o la AppStore.\n\nUna vez abierto el link se abrirá en la aplicación de TeraBox.</b></div>
 
 <div class="trailer"><b>⟨🎞️⟩ Trailer ⟨🎞️⟩ - ${trailerLink}</b></div>
 
