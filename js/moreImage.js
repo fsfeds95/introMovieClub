@@ -22,7 +22,7 @@ async function imageMoviePoster() {
     imgElement.src = 'https://image.tmdb.org/t/p/w500' + image.file_path;
 
     const linkElement = document.createElement('a');
-    linkElement.href = 'https://image.tmdb.org/t/p/original' + image.file_path;
+    linkElement.href = 'https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/p?url=https://image.tmdb.org/t/p/original' + image.file_path;
     linkElement.target = '_blank'; // Abrir en una nueva ventana 
     linkElement.innerText = 'Whatermark';
 
