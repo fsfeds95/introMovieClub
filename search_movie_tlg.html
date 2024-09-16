@@ -1,106 +1,112 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta property="og:image" content="https://i.ibb.co/rf8tXks/Xds.jpg">
  <title>🍿 ɪɴᴛʀᴏᴄɪɴᴇᴍᴀᴄʟᴜʙ 🍿 - BUSCADOR DE PELÍCULAS TELEGRAM</title>
+ <meta property="og:image" content="https://i.ibb.co/rf8tXks/Xds.jpg">
  <link rel="icon" type="image/x-icon" href="./favicon.ico">
  <link rel="stylesheet" href="./CSS/style.css">
  <link rel="stylesheet" href="./CSS/preloader.css">
  <link rel="stylesheet" href="./CSS/nav.css">
  <link rel="stylesheet" href="./CSS/copy.css">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" >
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
+
 <body>
-  <div class="loader-section">
-    <div class="loader__filmstrip"></div>
-    <p class="loader__text">loading</p>
-  </div>
-<!------------------------->
-<nav class="navbar dark-mode" role="navigation">
+ <div class="loader-section">
+  <div class="loader__filmstrip"></div>
+  <p class="loader__text">loading</p>
+ </div>
+ <!------------------------->
+ <nav class="navbar dark-mode" role="navigation">
   <div class="navbar_logo">
-    🍿 ɪɴᴛʀᴏᴄɪɴᴇᴍᴀᴄʟᴜʙ 🍿
+   🍿 ɪɴᴛʀᴏᴄɪɴᴇᴍᴀᴄʟᴜʙ 🍿
   </div>
   <ul class="navbar_links">
-    <li class="navbar_link uno">
-      <a href="index.html">
-        <i class="fa-solid fa-house"></i> Home
-      </a>
-    </li>
-    <li class="navbar_link dos">
-      <a href="search_movie_tlg.html">
-        <i class="fa-solid fa-magnifying-glass"></i> 
-        Movies TLG
-      </a>
-    </li>
-    <li class="navbar_link tres">
-      <a href="search_movie_ws.html">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        Movies WS
-      </a>
-    </li>
-    <li class="navbar_link cuatro">
-      <a href="search_serie_ws.html">
-        <i class="fa-solid fa-magnifying-glass"></i> 
-        Serie WS
-      </a>
-    </li>
-    <li class="navbar_link cinco">
-      <a href="colection.html">
-        <i class="fa-solid fa-magnifying-glass"></i> Collections WS
-      </a>
-    </li>
-    <li class="navbar_link seis">
-      <a href="colectionTitle.html">
-        <i class="fa-solid fa-magnifying-glass"></i> Collections Title WS
-      </a>
-    </li>
-    <li class="navbar_link siete">
-      <a href="random.html">
-        <i class="fa-solid fa-shuffle"></i>
-        Random Movies
-      </a>
-    </li>
-    <li class="navbar_link ocho">
-      <a href="popular.html">
-        <i class="fa-solid fa-star"></i>
-        Populars Movies
-      </a>
-    </li>
-    <li class="navbar_link nueve">
-      <a href="poster.html">
-        <i class="fa-regular fa-image"></i>
-        Posters
-      </a>
-    </li>
-    <li class="navbar_link diez">
-      <a href="backdrop.html">
-        <i class="fa-regular fa-image"></i>
-        Backdrops
-      </a>
-    </li>
+   <li class="navbar_link uno">
+    <a href="index.html">
+     <i class="fa-solid fa-house"></i> Home
+    </a>
+   </li>
+   <li class="navbar_link dos">
+    <a href="search_movie_tlg.html">
+     <i class="fa-solid fa-magnifying-glass"></i>
+     Movies TLG
+    </a>
+   </li>
+   <li class="navbar_link tres">
+    <a href="search_movie_ws.html">
+     <i class="fa-solid fa-magnifying-glass"></i>
+     Movies WS
+    </a>
+   </li>
+   <li class="navbar_link cuatro">
+    <a href="search_serie_ws.html">
+     <i class="fa-solid fa-magnifying-glass"></i>
+     Serie WS
+    </a>
+   </li>
+   <li class="navbar_link cinco">
+    <a href="colection.html">
+     <i class="fa-solid fa-magnifying-glass"></i> Collections WS
+    </a>
+   </li>
+   <li class="navbar_link seis">
+    <a href="colectionTitle.html">
+     <i class="fa-solid fa-magnifying-glass"></i> Collections Title WS
+    </a>
+   </li>
+   <li class="navbar_link siete">
+    <a href="random.html">
+     <i class="fa-solid fa-shuffle"></i>
+     Random Movies
+    </a>
+   </li>
+   <li class="navbar_link ocho">
+    <a href="popular.html">
+     <i class="fa-solid fa-star"></i>
+     Populars Movies
+    </a>
+   </li>
+   <li class="navbar_link nueve">
+    <a href="poster.html">
+     <i class="fa-regular fa-image"></i>
+     Posters
+    </a>
+   </li>
+   <li class="navbar_link diez">
+    <a href="backdrop.html">
+     <i class="fa-regular fa-image"></i>
+     Backdrops
+    </a>
+   </li>
   </ul>
   <button class="burger">
-    <span class="bar"></span>
+   <span class="bar"></span>
   </button>
-</nav>
-<!------------------------>
-  <header id="header_2">
-    <div id="text">
-        Buscador de peliculas para Telegram
-      </div>
-    <input type="text" id="searchInput" placeholder="Ingrese el título de la película">
-    <button type="button" id="searchButton">Buscar</button>
-  </header>
-  
-  <div id="results"></div>
+ </nav>
+ <!------------------------>
+ <header id="header_2">
+  <div id="text">
+   Buscador de peliculas para Telegram
+  </div>
+  <form id="searchForm">
+   <input type="text" id="movieQuery" placeholder="Ingrese el título de la película" value="lol">
+   <button type="submit">Buscar</button>
+  </form>
+ </header>
 
-  <div id="messageContainer" class="message-container"></div>
- 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script  src="./js/preloader.js"></script><script  src="./js/nav.js"></script>
-  <script  src="./js/copy.js"></script>
-  <script  src="./js/search_movie_tlg.js"></script>
+ <div id="results"></div>
+
+ <div id="messageContainer" class="message-container"></div>
+
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script src="./js/preloader.js"></script>
+ <script src="./js/nav.js"></script>
+ <script src="./js/copy.js"></script>
+ <script src="./js/search_movie_tlg.js"></script>
 </body>
+
 </html>
