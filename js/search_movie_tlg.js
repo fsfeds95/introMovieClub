@@ -14,22 +14,16 @@ const IMG_92 = 'https://image.tmdb.org/t/p/w92';
 const LANG_ES = 'language=es-MX';
 const LANG_EN = 'language=en-US';
 
-$(document).ready(function() {
- // Funcion: Busqueda con botón.
- $("#searchButton").click(async function() {
-  const searchQuery = $("#searchInput").val();
-  await searchMovie(searchQuery);
- });
- // Funcion: Busqueda con "Enter".
- $("#searchInput").on("keypress", async function(event) {
-  if (event.key === "Enter") {
-   const searchQuery = $("#searchInput").val();
-   await searchMovie(searchQuery);
-  }
- });
-});
 
-// Funcion: Carga SKELETOR.
+// Obtener la URL actual
+const currentUrl = window.location.href;
+
+// Crear un objeto URL a partir de la URL actual
+const url = new URL(currentUrl);
+
+// Obtener el valor del parámetro "movieQuery"
+const movieQuery = url.searchParams.get('movieQuery');
+
 async function searchMovie(query) {
  $("#results").html(`
  
@@ -93,6 +87,17 @@ async function searchMovie(query) {
   }
  }
 }
+
+// Obtener el formulario y el input de búsqueda
+const form = document.getElementById('searchForm');
+const input = document.getElementById('movieQuery');
+
+// Agregar un evento de escucha para el envío del formulario
+form.addEventListener('submit', (event) => {
+  event.preventDefault(); // Evitar que se recargue la página al enviar el formulario
+  searchMovie(input.value); // Llamar a la función searchMovie con el valor del input
+});
+
 
 // Funcion: Muestra la película buscada.
 async function displayMovies(movies) {
@@ -366,7 +371,7 @@ async function getActorsMovie(movieId) {
    async: false
   });
   const relevantActors = response.cast.filter(actor => actor.order <= 4);
- const actorNames = relevantActors.map(actor => `#${actor.name.replace(/\s/g, '_')} (${actor.character})`);
+  const actorNames = relevantActors.map(actor => `#${actor.name.replace(/\s/g, '_')} (${actor.character})`);
   return actorNames.join("</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
  } catch (error) {
   console.log('Ay, mi amor, algo salió mal:', error);
