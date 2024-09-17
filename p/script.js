@@ -98,7 +98,7 @@ form.addEventListener('submit', (event) => {
  event.preventDefault();
  
  // Llamar a la función searchMovie con el valor del input
- searchMovie(input.value);
+ searchMovie(movieQuery);
 });
 
 
