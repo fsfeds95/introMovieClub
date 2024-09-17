@@ -15,16 +15,8 @@ const LANG_ES = 'language=es-MX';
 const LANG_EN = 'language=en-US';
 
 
-// Obtener la URL actual
-const currentUrl = window.location.href;
-
-// Crear un objeto URL a partir de la URL actual
-const url = new URL(currentUrl);
-
-// Obtener el valor del parámetro "movieQuery"
-const movieQuery = url.searchParams.get('movieQuery');
-
-async function searchMovie(query) {
+async function searchMovie() {
+ const movieQuery = encodeURIComponent(new URLSearchParams(window.location.search).get('movieQuery'));
  $("#results").html(`
  
  <div class="skeletonCont movie-card">
@@ -68,12 +60,12 @@ async function searchMovie(query) {
  
  `);
 
- if (query === "") {
+ if (movieQuery === "") {
   $("#results").html("<p>Ingrese un título de película para buscar.</p>");
  } else {
   try {
    const response = await $.getJSON(
-    `${BASE_URL}/search/movie?${API_KEY}&query=${query}&${LANG_ES}`
+    `${BASE_URL}/search/movie?${API_KEY}&query=${movieQuery}&${LANG_ES}`
    );
    const movies = response.results;
 
@@ -88,15 +80,10 @@ async function searchMovie(query) {
  }
 }
 
-// Obtener el formulario y el input de búsqueda
-const form = document.getElementById('searchForm');
-const input = document.getElementById('movieQuery');
+if (window.location.search.includes('movieQuery')) {
+ searchMovie();
+}
 
-// Agregar un evento de escucha para el envío del formulario
-form.addEventListener('submit', (event) => {
-  event.preventDefault(); // Evitar que se recargue la página al enviar el formulario
-  searchMovie(input.value); // Llamar a la función searchMovie con el valor del input
-});
 
 
 // Funcion: Muestra la película buscada.
