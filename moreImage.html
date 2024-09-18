@@ -5,7 +5,7 @@
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta property="og:image" content="https://i.ibb.co/rf8tXks/Xds.jpg">
- <title>🍿 ɪɴᴛʀᴏᴄɪɴᴇᴍᴀᴄʟᴜʙ 🍿 - MAS IMAGENES</title>
+ <title>🍿 ɪɴᴛʀᴏᴄɪɴᴇᴍᴀᴄʟᴜʙ 🍿 - BUSCADOR DE PELÍCULAS TELEGRAM</title>
  <style>
   * {
    margin: 0;
@@ -15,16 +15,16 @@
   .content {
    display: flex;
    flex-wrap: wrap;
-   margin-bottom: .5em;
+   margin-bottom: 0.5em;
   }
 
   .conImg {
-   width: calc(50% - .5em);
+   position: relative;
+   width: calc(100% - 0.5em);
    height: auto;
    text-align: center;
-   padding: .5em;
-   margin: .25em;
-
+   padding: 0.5em;
+   margin: 0.25em;
    background: #454545;
    border-radius: 5px;
   }
@@ -32,9 +32,31 @@
   .conImg img {
    width: 100%;
   }
-  .conImg a {
+  
+  .conImg .whaterLink a {
    color: #ffffff;
    text-decoration: none;
+  }
+
+  .backdrop_1 {
+   width: 100%;
+   position: absolute;
+   display: block;
+   opacity: .12;
+   top: 12%;
+   left: 50%;
+   transform: translate(-50%, -12%);
+   z-index: 1;
+  }
+
+  .backdrop_2 {
+   position: absolute;
+   display: block;
+   opacity: .5;
+   top: 12%;
+   left: 50%;
+   transform: translate(-50%, -12%);
+   z-index: 2;
   }
  </style>
  <link rel="icon" type="image/x-icon" href="./favicon.ico">
@@ -50,75 +72,75 @@
   <div class="loader__filmstrip"></div>
   <p class="loader__text">loading</p>
  </div>
-<!------------------------->
-<nav class="navbar dark-mode" role="navigation">
+ <!------------------------->
+ <nav class="navbar dark-mode" role="navigation">
   <div class="navbar_logo">
-    🍿 ɪɴᴛʀᴏᴄɪɴᴇᴍᴀᴄʟᴜʙ 🍿
+   🍿 ɪɴᴛʀᴏᴄɪɴᴇᴍᴀᴄʟᴜʙ 🍿
   </div>
   <ul class="navbar_links">
-    <li class="navbar_link uno">
-      <a href="index.html">
-        <i class="fa-solid fa-house"></i> Home
-      </a>
-    </li>
-    <li class="navbar_link dos">
-      <a href="search_movie_tlg.html">
-        <i class="fa-solid fa-magnifying-glass"></i> 
-        Movies TLG
-      </a>
-    </li>
-    <li class="navbar_link tres">
-      <a href="search_movie_ws.html">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        Movies WS
-      </a>
-    </li>
-    <li class="navbar_link cuatro">
-      <a href="search_serie_ws.html">
-        <i class="fa-solid fa-magnifying-glass"></i> 
-        Serie WS
-      </a>
-    </li>
-    <li class="navbar_link cinco">
-      <a href="colection.html">
-        <i class="fa-solid fa-magnifying-glass"></i> Collections WS
-      </a>
-    </li>
-    <li class="navbar_link seis">
-      <a href="colectionTitle.html">
-        <i class="fa-solid fa-magnifying-glass"></i> Collections Title WS
-      </a>
-    </li>
-    <li class="navbar_link siete">
-      <a href="random.html">
-        <i class="fa-solid fa-shuffle"></i>
-        Random Movies
-      </a>
-    </li>
-    <li class="navbar_link ocho">
-      <a href="popular.html">
-        <i class="fa-solid fa-star"></i>
-        Populars Movies
-      </a>
-    </li>
-    <li class="navbar_link nueve">
-      <a href="poster.html">
-        <i class="fa-regular fa-image"></i>
-        Posters
-      </a>
-    </li>
-    <li class="navbar_link diez">
-      <a href="backdrop.html">
-        <i class="fa-regular fa-image"></i>
-        Backdrops
-      </a>
-    </li>
+   <li class="navbar_link uno">
+    <a href="index.html">
+     <i class="fa-solid fa-house"></i> Home
+    </a>
+   </li>
+   <li class="navbar_link dos">
+    <a href="search_movie_tlg.html">
+     <i class="fa-solid fa-magnifying-glass"></i>
+     Movies TLG
+    </a>
+   </li>
+   <li class="navbar_link tres">
+    <a href="search_movie_ws.html">
+     <i class="fa-solid fa-magnifying-glass"></i>
+     Movies WS
+    </a>
+   </li>
+   <li class="navbar_link cuatro">
+    <a href="search_serie_ws.html">
+     <i class="fa-solid fa-magnifying-glass"></i>
+     Serie WS
+    </a>
+   </li>
+   <li class="navbar_link cinco">
+    <a href="colection.html">
+     <i class="fa-solid fa-magnifying-glass"></i> Collections WS
+    </a>
+   </li>
+   <li class="navbar_link seis">
+    <a href="colectionTitle.html">
+     <i class="fa-solid fa-magnifying-glass"></i> Collections Title WS
+    </a>
+   </li>
+   <li class="navbar_link siete">
+    <a href="random.html">
+     <i class="fa-solid fa-shuffle"></i>
+     Random Movies
+    </a>
+   </li>
+   <li class="navbar_link ocho">
+    <a href="popular.html">
+     <i class="fa-solid fa-star"></i>
+     Populars Movies
+    </a>
+   </li>
+   <li class="navbar_link nueve">
+    <a href="poster.html">
+     <i class="fa-regular fa-image"></i>
+     Posters
+    </a>
+   </li>
+   <li class="navbar_link diez">
+    <a href="backdrop.html">
+     <i class="fa-regular fa-image"></i>
+     Backdrops
+    </a>
+   </li>
   </ul>
   <button class="burger">
-    <span class="bar"></span>
+   <span class="bar"></span>
   </button>
-</nav>
-<!------------------------>
+ </nav>
+ <!------------------------>
  <header id="header_2">
   <h1>Mas imagenes</h1>
  </header>
