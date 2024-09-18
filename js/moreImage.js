@@ -1,3 +1,19 @@
+// BASE
+const BASE_URL = 'https://api.themoviedb.org/3';
+// API key TMDB
+const API_KEY = 'api_key=74dc824830c7f93dc61b03e324070886';
+
+// Resolución de imagenes
+const IMG_ORI = 'https://image.tmdb.org/t/p/original';
+const IMG_500 = 'https://image.tmdb.org/t/p/w500';
+const IMG_300 = 'https://image.tmdb.org/t/p/w300';
+const IMG_185 = 'https://image.tmdb.org/t/p/w185';
+const IMG_92  = 'https://image.tmdb.org/t/p/w92';
+
+// Whatermark
+const whatermark = 'https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev'
+
+
 async function imageMoviePoster() {
  try {
   // Obtener la URL actual
@@ -9,33 +25,37 @@ async function imageMoviePoster() {
   // Obtener el valor del parámetro "idMovie"
   const idMovie = url.searchParams.get('idMovie');
 
-  const response = await fetch(`https://api.themoviedb.org/3/movie/${idMovie}/images?api_key=74dc824830c7f93dc61b03e324070886`);
+  const response = await fetch(`${BASE_URL}/movie/${idMovie}/images?${API_KEY}`);
   const data = await response.json();
   const gallery = document.getElementById('poster');
   const images = [...data.posters];
 
   images.forEach(image => {
-    const conImgElement = document.createElement('div');
-    conImgElement.classList.add('conImg');
+   const conImgElement = document.createElement('div');
+   conImgElement.classList.add('conImg');
 
-    const imgElement = document.createElement('img');
-    imgElement.src = 'https://image.tmdb.org/t/p/w500' + image.file_path;
+   const imgElement = document.createElement('img');
+   imgElement.src = whatermark + '/small_p?url=' + IMG_500 + image.file_path;
 
-    const linkElement = document.createElement('a');
-    linkElement.href = 'https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/p?url=https://image.tmdb.org/t/p/original' + image.file_path;
-    linkElement.target = '_blank'; // Abrir en una nueva ventana 
-    linkElement.innerText = 'Whatermark';
+   const linkElement = document.createElement('a');
+   linkElement.href = whatermark + '/p?url=' + IMG_ORI + image.file_path;
+   // Abrir en una nueva ventana
+   linkElement.target = '_blank';
+   linkElement.innerText = 'Whatermark';
 
-    conImgElement.appendChild(imgElement);
-    const divLink = document.createElement('div');
-    divLink.appendChild(linkElement);
-    conImgElement.appendChild(divLink);
-    gallery.appendChild(conImgElement);
+   conImgElement.appendChild(imgElement);
+   const divLink = document.createElement('div');
+   divLink.appendChild(linkElement);
+   conImgElement.appendChild(divLink);
+   gallery.appendChild(conImgElement);
   });
  } catch (error) {
   console.error('Error:', error);
  }
 }
+
+
+
 async function imageMovieBackdrop() {
  try {
   // Obtener la URL actual
@@ -47,36 +67,37 @@ async function imageMovieBackdrop() {
   // Obtener el valor del parámetro "idMovie"
   const idMovie = url.searchParams.get('idMovie');
 
-  const response = await fetch(`https://api.themoviedb.org/3/movie/${idMovie}/images?api_key=74dc824830c7f93dc61b03e324070886`);
+  const response = await fetch(`${BASE_URL}/movie/${idMovie}/images?${API_KEY}`);
   const data = await response.json();
   const gallery = document.getElementById('backdrop');
   const images = [...data.backdrops];
 
   images.forEach(image => {
-    const conImgElement = document.createElement('div');
-    conImgElement.classList.add('conImg');
+   const conImgElement = document.createElement('div');
+   conImgElement.classList.add('conImg');
 
-    const imgElement = document.createElement('img');
-    imgElement.src = 'https://image.tmdb.org/t/p/w500' + image.file_path;
+   const imgElement = document.createElement('img');
+   imgElement.src = whatermark + '/small_b?url=' + IMG_500 + image.file_path;
 
-    const linkElement = document.createElement('a');
-    linkElement.href = 'https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/b?url=https://image.tmdb.org/t/p/original' + image.file_path;
-    linkElement.target = '_blank'; // Abrir en una nueva ventana 
-    linkElement.innerText = 'Whatermark';
+   const linkElement = document.createElement('a');
+   linkElement.href = whatermark + '/b?url=' + IMG_ORI + image.file_path;
+   // Abrir en una nueva ventana
+   linkElement.target = '_blank';
+   linkElement.innerText = 'Whatermark';
 
-    conImgElement.appendChild(imgElement);
-    const divLink = document.createElement('div');
-    divLink.appendChild(linkElement);
-    conImgElement.appendChild(divLink);
-    gallery.appendChild(conImgElement);
+   conImgElement.appendChild(imgElement);
+   const divLink = document.createElement('div');
+   divLink.appendChild(linkElement);
+   conImgElement.appendChild(divLink);
+   gallery.appendChild(conImgElement);
   });
  } catch (error) {
   console.error('Error:', error);
  }
 }
 
-
-
-// Llamar a la función para que se ejecute
-imageMovieBackdrop();
-imageMoviePoster();
+if (window.location.search.includes('idMovie')) {
+ // Llamar a la función para que se ejecute
+ imageMovieBackdrop();
+ imageMoviePoster();
+}
