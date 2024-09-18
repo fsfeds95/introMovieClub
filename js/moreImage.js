@@ -35,7 +35,9 @@ async function imageMoviePoster() {
    resultsHtml += `
     <div class="conImg">
      <img src="${IMG_500}${image.file_path}" />
-     <div>
+     <img src="https://i.ibb.co/swfrQ53/Wtxt-poster.png" class="poster_1">
+     <img src="https://i.ibb.co/dKqwyKH/Wlogo-poster.png" class="poster_2">
+     <div class="whaterLink">
       <a href="${whatermark}/p?url=${IMG_ORI}${image.file_path}" target="_blank">Whatermark</a>
      </div>
     </div>
