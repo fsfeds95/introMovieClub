@@ -20,7 +20,7 @@
 
   .conImg {
    position: relative;
-   width: calc(100% - 0.5em);
+   width: calc(50% - 1em) !important;
    height: auto;
    text-align: center;
    padding: 0.5em;
@@ -32,30 +32,57 @@
   .conImg img {
    width: 100%;
   }
-  
+
   .conImg .whaterLink a {
    color: #ffffff;
    text-decoration: none;
   }
 
   .backdrop_1 {
-   width: 100%;
+   width: calc(100% - 1em) !important;
+   height: auto;
    position: absolute;
    display: block;
    opacity: .12;
-   top: 12%;
+   top: 20%;
    left: 50%;
-   transform: translate(-50%, -12%);
+   transform: translate(-50%, -20%);
    z-index: 1;
   }
 
   .backdrop_2 {
+   width: calc(100% - 1em) !important;
+   height: auto;
    position: absolute;
    display: block;
    opacity: .5;
-   top: 12%;
+   top: 20%;
    left: 50%;
-   transform: translate(-50%, -12%);
+   transform: translate(-50%, -20%);
+   z-index: 2;
+  }
+
+  .poster_1 {
+   width: calc(100% - 1em) !important;
+   height: auto;
+   position: absolute;
+   display: block;
+   opacity: .12;
+   top: 20%;
+   left: 50%;
+   transform: translate(-50%, -20%);
+   z-index: 1;
+  }
+
+  .poster_2 {
+   width: calc(100% - 1em) !important;
+   height: auto;
+   position: absolute;
+   display: block;
+   opacity: .5;
+   top: 20%;
+   left: 50%;
+   transform: translate(-50%, -20%);
    z-index: 2;
   }
  </style>
@@ -143,6 +170,7 @@
  <!------------------------>
  <header id="header_2">
   <h1>Mas imagenes</h1>
+  <a href="?idMovie=502356">?idMovie=502356</a>
  </header>
 
 
