@@ -10,6 +10,9 @@ const IMG_300 = 'https://image.tmdb.org/t/p/w300';
 const IMG_185 = 'https://image.tmdb.org/t/p/w185';
 const IMG_92 = 'https://image.tmdb.org/t/p/w92';
 
+// Whatermark
+const whatermark = 'https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev'
+
 // Lenguajes
 const LANG_ES = 'language=es-MX';
 const LANG_EN = 'language=en-US';
@@ -126,7 +129,7 @@ async function displayMovies(movies) {
  <div class="movie-card__header" style="background-image: url(${popBackdropFit})">
   <span class="movie-card_genre">ID: ${id}</span>
   <span class="movie-card_genre">
-   <a href="https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev/b?url=${popBackdropFat}" target="_blank">
+   <a href="${whatermark}/b?url=${popBackdropFat}" target="_blank">
     Backdrop
    </a>
   </span>
@@ -358,7 +361,7 @@ async function getActorsMovie(movieId) {
    async: false
   });
   const relevantActors = response.cast.filter(actor => actor.order <= 4);
-  const actorNames = relevantActors.map(actor => `#${actor.name.replace(/\s/g, '_')} (${actor.character})`);
+  const actorNames = relevantActors.map(actor => `#${actor.name.replace(/\s/g, '_')} (${actor.character.replace(' (voice)', '')})`);
   return actorNames.join("</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
  } catch (error) {
   console.log('Ay, mi amor, algo salió mal:', error);
