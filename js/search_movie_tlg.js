@@ -332,7 +332,7 @@ async function getGenres(genreIds) {
   }
  });
 
- return genreList.join(", ");
+ return genreList.join(" ");
 }
 
 // Función: Traducir el lenguaje.
@@ -351,22 +351,6 @@ async function getLanguage(languageCode) {
   es: "🇲🇽 / 🇪🇸 #Español",
  };
  return languages[languageCode] || languageCode;
-}
-
-// Funcion: Obtener actores.
-async function getActorsMovie(movieId) {
- try {
-  const response = await $.ajax({
-   url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
-   async: false
-  });
-  const relevantActors = response.cast.filter(actor => actor.order <= 4);
-  const actorNames = relevantActors.map(actor => `#${actor.name.replace(/\s/g, '_')} (${actor.character.replace(' (voice)', '')})`);
-  return actorNames.join("</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
- } catch (error) {
-  console.log('Ay, mi amor, algo salió mal:', error);
-  return "";
- }
 }
 
 // Funcion: Obtener poster de pelicula.
@@ -497,4 +481,22 @@ async function getVideoTitle(frase) {
   .replace(/ú/g, 'u')
   .replace(/ /g, '_')
   .toLowerCase();
+}
+
+
+
+// Funcion: Obtener actores.
+async function getActorsMovie(movieId) {
+ try {
+  const response = await $.ajax({
+   url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
+   async: false
+  });
+  const relevantActors = response.cast.filter(actor => actor.order <= 4);
+  const actorNames = relevantActors.map(actor => `#${actor.name.replace(/\s/g, '_').replace(/'/g, '').replace(/-/g, '')} (${actor.character.replace(' (voice)', '')})`);
+  return actorNames.join("</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+ } catch (error) {
+  console.log('Ay, mi amor, algo salió mal:', error);
+  return "";
+ }
 }
