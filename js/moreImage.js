@@ -91,3 +91,83 @@ if (window.location.search.includes('idMovie')) {
  imageMovieBackdrop();
  imageMoviePoster();
 }
+
+
+
+async function imageSeriePoster() {
+ try {
+  // Obtener la URL actual
+  const currentUrl = window.location.href;
+
+  // Crear un objeto URL a partir de la URL actual
+  const url = new URL(currentUrl);
+
+  // Obtener el valor del parámetro "idSerie"
+  const idSerie = url.searchParams.get('idSerie');
+
+  const response = await fetch(`${BASE_URL}/tv/${idSerie}/images?${API_KEY}`);
+  const data = await response.json();
+  const images = [...data.posters];
+
+  let resultsHtml = '';
+
+  images.forEach(image => {
+   resultsHtml += `
+    <div class="conImg">
+     <img src="${IMG_500}${image.file_path}" />
+     <img src="https://i.ibb.co/swfrQ53/Wtxt-poster.png" class="poster_1">
+     <img src="https://i.ibb.co/dKqwyKH/Wlogo-poster.png" class="poster_2">
+     <div class="whaterLink">
+      <a href="${whatermark}/p?url=${IMG_ORI}${image.file_path}" target="_blank">Whatermark</a>
+     </div>
+    </div>
+   `;
+  });
+
+  document.getElementById('poster').innerHTML = resultsHtml;
+ } catch (error) {
+  console.error('Error:', error);
+ }
+}
+
+async function imageSerieBackdrop() {
+ try {
+  // Obtener la URL actual
+  const currentUrl = window.location.href;
+
+  // Crear un objeto URL a partir de la URL actual
+  const url = new URL(currentUrl);
+
+  // Obtener el valor del parámetro "idSerie"
+  const idSerie = url.searchParams.get('idSerie');
+
+  const response = await fetch(`${BASE_URL}/tv/${idSerie}/images?${API_KEY}`);
+  const data = await response.json();
+  const images = [...data.backdrops];
+
+  let resultsHtml = '';
+
+  images.forEach(image => {
+   resultsHtml += `
+    <div class="conImg">
+     <img src="${IMG_500}${image.file_path}" />
+     <img src="https://i.ibb.co/JcpQ7cg/Wtxt-Backdrop.png" class="backdrop_1">
+     <img src="https://i.ibb.co/tZ506QQ/Wlogo-Backdrop-3.png" class="backdrop_2">
+     <div class="whaterLink">
+      <a href="${whatermark}/b?url=${IMG_ORI}${image.file_path}" target="_blank">Whatermark</a>
+     </div>
+    </div>
+   `;
+  });
+
+  document.getElementById('backdrop').innerHTML = resultsHtml;
+ } catch (error) {
+  console.error('Error:', error);
+ }
+}
+
+if (window.location.search.includes('idSerie')) {
+ // Llamar a la función para que se ejecute
+ imageSeriePoster();
+ imageSerieBackdrop();
+}
