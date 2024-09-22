@@ -44,7 +44,7 @@
 
  .navbar_links,
  .navbar_subLinks {
-  z-index: 2;
+  z-index: 9;
   overflow: hidden;
   display: flex;
   flex-direction: column;
