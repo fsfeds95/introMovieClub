@@ -19,21 +19,67 @@ const LANG_EN = 'language=en-US';
 
 // Hacer la llamada a la API de TheMovieDB
 async function searchSeries() {
- const serieQuery = encodeURIComponent(new URLSearchParams(window.location.search).get('serieQuery'));
- try {
-  const response = await fetch(`${BASE_URL}/search/tv?${API_KEY}&query=${serieQuery}&${LANG_ES}`);
-  const data = await response.json();
+  const serieQuery = encodeURIComponent(new URLSearchParams(window.location.search).get('serieQuery'));
+ $("#results").html(`
+ 
+ <div class="skeletonCont movie-card">
+  <div class="skeletonImg movie-card__header">
+   <span class="movie-card_genre">ID: Loading</span>
+   <span class="movie-card_genre">Backdrop</span>
+   <span class="movie-card_genre">Mas Images</span>
+   <span class="movie-card_genre">Información</span>
+  </div>
+  <div class="skeletonCont movie-card_content">
+   <div class="skeletonImg movie-card___poster" data-src="https://dummyimage.com/720x1080/CCCCCC/000000.jpg&text=Loading"></div>
+   <div class="d">
+    <div class="contenedor border" id="peli_1">
+     <div class="skeletonTxt">
+      Loading_(Loading)_480p_[dual-lat].mp4
+     </div>
+    </div>
+    <div class="contenedor border" id="peli_2">
+    <div class="skeletonTxt initial"><b>⟨🔠⟩ Loading</b></div>
+     <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
+    <div class="skeletonTxt title_es"><b>⟨🍿⟩ Loading</b></div>
+    <div class="skeletonTxt title_or"><b>⟨🎥⟩ Loading</b></div>
+     <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
+     <div class="skeletonTxt year"><b>⟨🎟⟩ Estreno: Loading</b></div>
+     <div class="skeletonTxt lang"><b>⟨🗣️⟩ Idioma Original: Loading</b></div>
+     <div class="skeletonTxt audio"><b>⟨🔊⟩ Audio: Loading</b></div>
+     <div class="skeletonTxt quality"><b>⟨📺⟩ Calidad: Loading</b></div>
+     <div class="skeletonTxt duration"><b>⟨⏳⟩ Duración: Loading</b></div>
+     <div class="skeletonTxt genre"><b>⟨🎭⟩ Género: Loading</b></div>
+     <div class="skeletonTxt credits"><b>⟨👤⟩ Reparto: Loading</b></div>
+      <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
+     <div class="skeletonTxt sinopsis"><b>⟨💭⟩ Sinopsis: Loading</b></div>
+      <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
+     <div class="skeletonTxt popup"><b>⟨⚙️⟩ Cómo ver la película: Loading</b></div>
+     <div class="skeletonTxt trailer"><b>⟨🎞️⟩ Trailer: Loading</a></b></div>
+     <div class="skeletonTxt view_download"><b>⟨🔗⟩ Ver/Descargar: Loading</b></div>
+    </div>
+  </div>
+ </div>
+ </div>
+ 
+ `);
 
-  // Verificar si hay resultados antes de mostrarlos
-  if (data.results && data.results.length > 0) {
-   displaySeriesList(data.results);
-  } else {
-   // Mostrar un mensaje si no hay resultados
-   const seriesContainer = document.getElementById('series-container');
-   seriesContainer.innerHTML = '<p>No se encontraron series.</p>';
+ if (serieQuery === "") {
+  $("#results").html("<p>Ingrese un título de película para buscar.</p>");
+ } else {
+  try {
+   const response = await $.getJSON(
+    `${BASE_URL}/search/tv?${API_KEY}&query=${serieQuery}&${LANG_ES}`
+   );
+   const series = response.results;
+
+   if (series.length === 0) {
+    $("#results").html("<p>No se encontraron películas con ese título.</p>");
+   } else {
+    await displaySeriesList(series);
+   }
+  } catch (error) {
+   console.log('Ay, mi amor, algo salió mal:', error);
   }
- } catch (error) {
-  console.error(error);
  }
 }
 
@@ -116,7 +162,7 @@ async function displaySeriesList(series) {
 <div class="initial"><b>⟨🔠⟩ #${title.substring(1, 0)}</b></div>
 
      <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
-    <div class="titulo_es">⟨🍿⟩ ${title} (${releaseYear})</div>
+    <div class="titulo_es">⟨🍿⟩ ${title} (${releaseYear})</div>un
     <div class="titulo_en">⟨📽⟩ ${originalTitle}</div>
     <div class="separador"><b>▬▬▬▬▬</b></div>
     <div class="type"><b>⟨⭐⟩ Tipo : #Serie</b></div>
