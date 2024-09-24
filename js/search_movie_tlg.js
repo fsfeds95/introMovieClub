@@ -17,7 +17,7 @@ const whatermark = 'https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.cho
 const LANG_ES = 'language=es-MX';
 const LANG_EN = 'language=en-US';
 
-
+// Funcion:
 async function searchMovie() {
  const movieQuery = encodeURIComponent(new URLSearchParams(window.location.search).get('movieQuery'));
  $("#results").html(`
@@ -86,8 +86,6 @@ async function searchMovie() {
 if (window.location.search.includes('movieQuery')) {
  searchMovie();
 }
-
-
 
 // Funcion: Muestra la película buscada.
 async function displayMovies(movies) {
@@ -245,7 +243,7 @@ async function displayMovies(movies) {
 
 }
 
-// Función: Obtener la clave del tráiler de YouTube
+// Funcion: Obtener la clave del tráiler de YouTube
 async function getTrailer(movieId) {
  try {
   const response = await $.ajax({
@@ -260,7 +258,7 @@ async function getTrailer(movieId) {
   if (videos.length > 0) {
    return 'https://youtu.be/' + videos[0].key;
   } else {
-   return "No Disponible";
+   return 'https//youtu.be/oBIYvN8GaFw';
   }
  } catch (error) {
   console.log('¡Ay, mi amor! Algo salió mal:', error);
@@ -268,7 +266,7 @@ async function getTrailer(movieId) {
  }
 }
 
-// Función: Obtener el tráiler en video embed
+// Funcion: Obtener el tráiler en video embed
 async function getTrailerEmbed(movieId) {
  try {
   const response = await $.ajax({
@@ -335,7 +333,7 @@ async function getGenres(genreIds) {
  return genreList.join(" ");
 }
 
-// Función: Traducir el lenguaje.
+// Funcion: Traducir el lenguaje.
 async function getLanguage(languageCode) {
  const languages = {
   en: "🇺🇸 #Ingles",
@@ -396,7 +394,7 @@ async function getBackdropMovie(movieId, size) {
  }
 }
 
-// Función: Obtener la duración de la película.
+// Funcion: Obtener la duración de la película.
 async function getDurationMovie(movieId) {
  try {
   const response = await $.ajax({
@@ -493,7 +491,7 @@ async function getActorsMovie(movieId) {
    async: false
   });
   const relevantActors = response.cast.filter(actor => actor.order <= 4);
-  const actorNames = relevantActors.map(actor => `#${actor.name.replace(/\s/g, '_').replace(/'/g, '').replace(/-/g, '')} (${actor.character.replace(' (voice)', '')})`);
+  const actorNames = relevantActors.map(actor => `#${actor.name.replace(/\s/g, '_').replace(/'/g, '').replace(/-/g, '')} (${actor.character.replace(' (voice)', '').replace(' (hiccups)', '').replace(' (uncredited)', '')})`);
   return actorNames.join("</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
  } catch (error) {
   console.log('Ay, mi amor, algo salió mal:', error);
