@@ -162,7 +162,7 @@ async function displaySeriesList(series) {
 <div class="initial"><b>⟨🔠⟩ #${title.substring(1, 0)}</b></div>
 
      <div class="separador"><b>▬▬▬▬▬▬▬▬▬</b></div>
-    <div class="titulo_es">⟨🍿⟩ ${title} (${releaseYear})</div>
+    <div class="titulo_es">⟨🍿⟩ ${title} (${releaseYear})</div>un
     <div class="titulo_en">⟨📽⟩ ${originalTitle}</div>
     <div class="separador"><b>▬▬▬▬▬</b></div>
     <div class="type"><b>⟨⭐⟩ Tipo : #Serie</b></div>
@@ -435,6 +435,6 @@ async function getActorsSerie(idSerie) {
  const data = await response.json();
 
  const relevantActors = data.cast.filter(actor => actor.order <= 4);
- const actorNames = relevantActors.map(actor => `#${actor.name.replace(/\s/g, '_')} (${actor.character})`);
+ const actorNames = relevantActors.map(actor => `#${actor.name.replace(/\s/g, '_').replace(/'/g, '').replace(/-/g, '').replace(/\./g, '')} (${actor.character.replace(' (voice)', '').replace(' (hiccups)', '').replace(' (uncredited)', '')})`);
  return actorNames.join("</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 }
