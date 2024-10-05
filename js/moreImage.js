@@ -13,6 +13,26 @@ const IMG_92 = 'https://image.tmdb.org/t/p/w92';
 // Whatermark
 const whatermark = 'https://095a2517-5733-4377-8631-a3e04ed221e8.e1-us-cdp-2.choreoapps.dev'
 
+// Lenguajes
+const LANG_ES = 'language=es-MX';
+const LANG_EN = 'language=en-US';
+
+async function movieTitle() {
+ try {
+  const currentUrl = window.location.href;
+  const url = new URL(currentUrl);
+  const idMovie = url.searchParams.get('idMovie');
+
+  const response = await fetch(`${BASE_URL}/movie/${idMovie}?${API_KEY}&${LANG_ES}`);
+  const data = await response.json();
+  
+  const resultsHtml = `<h3>${data.title}</h3>`;
+  
+  document.getElementById('titulo').innerHTML = resultsHtml;
+ } catch (error) {
+  console.error('Error:', error);
+ }
+}
 
 async function imageMoviePoster() {
  try {
@@ -88,11 +108,29 @@ async function imageMovieBackdrop() {
 
 if (window.location.search.includes('idMovie')) {
  // Llamar a la función para que se ejecute
+ movieTitle();
  imageMovieBackdrop();
  imageMoviePoster();
 }
 
 
+
+async function serieTitle() {
+ try {
+  const currentUrl = window.location.href;
+  const url = new URL(currentUrl);
+  const idMovie = url.searchParams.get('idMovie');
+
+  const response = await fetch(`${BASE_URL}/tv/${idMovie}?${API_KEY}&${LANG_ES}`);
+  const data = await response.json();
+  
+  const resultsHtml = `<h3>${data.title}</h3>`;
+  
+  document.getElementById('titulo').innerHTML = resultsHtml;
+ } catch (error) {
+  console.error('Error:', error);
+ }
+}
 
 async function imageSeriePoster() {
  try {
@@ -168,6 +206,7 @@ async function imageSerieBackdrop() {
 
 if (window.location.search.includes('idSerie')) {
  // Llamar a la función para que se ejecute
+ serieTitle();
  imageSeriePoster();
  imageSerieBackdrop();
 }
