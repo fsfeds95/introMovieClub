@@ -58,7 +58,7 @@ async function imageMoviePoster() {
      <img src="https://i.ibb.co/swfrQ53/Wtxt-poster.png" class="poster_1">
      <img src="https://i.ibb.co/dKqwyKH/Wlogo-poster.png" class="poster_2">
      <div class="whaterLink">
-      <a href="${whatermark}/p?url=${IMG_ORI}${image.file_path}" target="_blank">Whatermark</a>
+      <a href="${whatermark}/p?url=${IMG_ORI}${image.file_path}">Whatermark</a>
      </div>
     </div>
    `;
@@ -94,7 +94,7 @@ async function imageMovieBackdrop() {
      <img src="https://i.ibb.co/JcpQ7cg/Wtxt-Backdrop.png" class="backdrop_1">
      <img src="https://i.ibb.co/tZ506QQ/Wlogo-Backdrop-3.png" class="backdrop_2">
      <div class="whaterLink">
-      <a href="${whatermark}/b?url=${IMG_ORI}${image.file_path}" target="_blank">Whatermark</a>
+      <a href="${whatermark}/b?url=${IMG_ORI}${image.file_path}">Whatermark</a>
      </div>
     </div>
    `;
@@ -156,7 +156,7 @@ async function imageSeriePoster() {
      <img src="https://i.ibb.co/swfrQ53/Wtxt-poster.png" class="poster_1">
      <img src="https://i.ibb.co/dKqwyKH/Wlogo-poster.png" class="poster_2">
      <div class="whaterLink">
-      <a href="${whatermark}/p?url=${IMG_ORI}${image.file_path}" target="_blank">Whatermark</a>
+      <a href="${whatermark}/p?url=${IMG_ORI}${image.file_path}">Whatermark</a>
      </div>
     </div>
    `;
@@ -192,7 +192,7 @@ async function imageSerieBackdrop() {
      <img src="https://i.ibb.co/JcpQ7cg/Wtxt-Backdrop.png" class="backdrop_1">
      <img src="https://i.ibb.co/tZ506QQ/Wlogo-Backdrop-3.png" class="backdrop_2">
      <div class="whaterLink">
-      <a href="${whatermark}/b?url=${IMG_ORI}${image.file_path}" target="_blank">Whatermark</a>
+      <a href="${whatermark}/b?url=${IMG_ORI}${image.file_path}">Whatermark</a>
      </div>
     </div>
    `;
