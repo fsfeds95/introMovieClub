@@ -1,6 +1,6 @@
 //TMDB
 
-const years = ["1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023","2024","2025"];
+const years = ["1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027"];
 const random = Math.floor(Math.random() * years.length);
 
 
@@ -19,108 +19,141 @@ const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const anio = document.getElementById('years');
 const main = document.getElementById('main');
 
+// Load Font Awesome if not already loaded
+if (!document.querySelector('link[href*="font-awesome"]')) {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css';
+  link.crossOrigin = 'anonymous';
+  link.referrerPolicy = 'no-referrer';
+  document.head.appendChild(link);
+}
+
 
 
 
 
 const genres = [
-  {
-    "id": 28,
-    "name": "Acción"
-        },
-  {
-    "id": 12,
-    "name": "Aventura"
-        },
-  {
-    "id": 16,
-    "name": "Animación"
-        },
-  {
-    "id": 35,
-    "name": "Comedia"
-        },
-  {
-    "id": 80,
-    "name": "Crimen"
-        },
-  {
-    "id": 99,
-    "name": "Documental"
-        },
-  {
-    "id": 18,
-    "name": "Drama"
-        },
-  {
-    "id": 10751,
-    "name": "Familia"
-        },
-  {
-    "id": 14,
-    "name": "Fantasía"
-        },
-  {
-    "id": 36,
-    "name": "Historia"
-        },
-  {
-    "id": 27,
-    "name": "Terror"
-        },
-  {
-    "id": 10402,
-    "name": "Música"
-        },
-  {
-    "id": 9648,
-    "name": "Misterio"
-        },
-  {
-    "id": 10749,
-    "name": "Romance"
-        },
-  {
-    "id": 878,
-    "name": "Ciencia ficción"
-        },
-  {
-    "id": 10770,
-    "name": "Película de TV"
-        },
-  {
-    "id": 53,
-    "name": "Suspenso"
-        },
-  {
-    "id": 10752,
-    "name": "Bélica"
-        },
-  {
-    "id": 37,
-    "name": "Western"
-        }];
+{
+  "id": 28,
+  "name": "Acción"
+},
+{
+  "id": 12,
+  "name": "Aventura"
+},
+{
+  "id": 16,
+  "name": "Animación"
+},
+{
+  "id": 35,
+  "name": "Comedia"
+},
+{
+  "id": 80,
+  "name": "Crimen"
+},
+{
+  "id": 99,
+  "name": "Documental"
+},
+{
+  "id": 18,
+  "name": "Drama"
+},
+{
+  "id": 10751,
+  "name": "Familia"
+},
+{
+  "id": 14,
+  "name": "Fantasía"
+},
+{
+  "id": 36,
+  "name": "Historia"
+},
+{
+  "id": 27,
+  "name": "Terror"
+},
+{
+  "id": 10402,
+  "name": "Música"
+},
+{
+  "id": 9648,
+  "name": "Misterio"
+},
+{
+  "id": 10749,
+  "name": "Romance"
+},
+{
+  "id": 878,
+  "name": "Ciencia ficción"
+},
+{
+  "id": 10770,
+  "name": "Película de TV"
+},
+{
+  "id": 53,
+  "name": "Suspenso"
+},
+{
+  "id": 10752,
+  "name": "Bélica"
+},
+{
+  "id": 37,
+  "name": "Western"
+}];
+
+let isFavoritesView = false;
+let originalMovies = [];
 
 getMovies(API_URL);
 
 function getMovies(url) {
-
+  
   fetch(url).then(res => res.json()).then(data => {
     //console.log(data)
     console.log(data.results)
+    originalMovies = data.results;
     showMovies(data.results)
   })
-
+  
 };
+
+function getFavorites() {
+  return JSON.parse(localStorage.getItem('favorites')) || [];
+}
+
+function addFavorite(movie) {
+  let favorites = getFavorites();
+  if (!favorites.some(fav => fav.id === movie.id)) {
+    favorites.push(movie);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }
+}
+
+function removeFavorite(movieId) {
+  let favorites = getFavorites();
+  favorites = favorites.filter(fav => fav.id !== movieId);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+}
 
 function showMovies(data) {
   main.innerHTML = '';
-
+  
   data.forEach(movie => {
     const { key, site, type, title, original_language, release_dates, original_title, backdrop_path, poster_path, release_date, vote_average, overview, id, genre_ids } = movie;
     const genreIdToName = (id) => genres.find(g => g.id === id).name
     var replaceTitle = { ":": "", " ": "_", "-": "_", "¡": "", "!": "", ",": "", "¿": "" };
-    var replaceLang = { "en": "🇺🇸  Ingles", "fr": "🇫🇷  Frances", "it": "🇮🇹  Italiano", "de": "🇩🇪  Aleman", "ja": "🇯🇵  Japones", "es": "🇲🇽  Español", "ko": "🇰🇷 / 🇰🇵  Coreano" };
+    var replaceLang = { "en": '<i class="fa-solid fa-globe-americas"></i>  Ingles', "fr": '<i class="fa-solid fa-globe-europe"></i>  Frances', "it": '<i class="fa-solid fa-globe-europe"></i>  Italiano', "de": '<i class="fa-solid fa-globe-europe"></i>  Aleman', "ja": '<i class="fa-solid fa-globe-asia"></i>  Japones', "es": '<i class="fa-solid fa-globe-americas"></i>  Español', "ko": '<i class="fa-solid fa-globe-asia"></i>  Coreano' };
+    const isFavorite = getFavorites().some(fav => fav.id === movie.id);
     const moviesEL = document.createElement('div');
     moviesEL.classList.add('movie');
     moviesEL.innerHTML = `
@@ -139,256 +172,209 @@ function showMovies(data) {
             </a>
             <div class="d">
             <div class="contenedor border">
-              <div class="titulo_es">
-                <b>🍿  ${title} </b>
+              <div>
+              <button class="favorite-btn ${isFavorite ? 'favorited' : ''}" data-id="${id}">${isFavorite ? '<i class="fa-solid fa-heart"></i> Quitar de Favoritos' : '<i class="fa-regular fa-heart"></i>'}</button>
               </div>
-              <div class="titulo_en">📽 <i>${original_title}</i></div>
+              <div class="titulo_es">
+                <b><i class="fa-solid fa-film"></i>  ${title} </b>
+              </div>
+              <div class="titulo_en"><i class="fa-solid fa-video"></i> <i>${original_title}</i></div>
               <div class="separador">▬▬▬▬▬▬▬▬▬▬▬▬▬▬</div>
-              <div class="puntuacion"><b>🔝  Puntuación TMDB | </b> <span class="vote_average" style="background:${getColor(vote_average)};"><b>${vote_average}</b></span></div>
+              <div class="puntuacion"><b><i class="fa-solid fa-star"></i>  Puntuación TMDB | </b> <span class="vote_average" style="background:${getColor(vote_average)};"><b>${vote_average}</b></span></div>
               <div>&nbsp;</div>
-              <div class="genero"><b>🎭                      Género | </b>  ${genre_ids.map(id => `${genreIdToName(id)}`).join(', ')} </div>
+              <div class="genero"><b><i class="fa-solid fa-masks-theater"></i>                      Género | </b>  ${genre_ids.map(id => `${genreIdToName(id)}`).join(', ')} </div>
               <div>&nbsp;</div>
-              <div class="ano"><b>🗓                            Año | </b> <i>${release_date.substring(4,0)}</i></div>
+              <div class="ano"><b><i class="fa-solid fa-calendar"></i>                            Año | </b> <i>${release_date.substring(0,4)}</i></div>
               <div>&nbsp;</div>
-              <div class="idioma"><b>🗣        Idioma Original |</b>  ${original_language.replace(/en|fr|it|de|ja|es|ko/g,function(match) {return replaceLang[match];})} </div>
+              <div class="idioma"><b><i class="fa-solid fa-globe"></i>        Idioma Original |</b>  ${original_language.replace(/en|fr|it|de|ja|es|ko/g,function(match) {return replaceLang[match];})} </div>
               <div>&nbsp;</div>
-    <div><b>👤 Reparto |</b> ${showMovieCredits(id)}</div>
+    <div id="cast-${id}"><b><i class="fa-solid fa-user"></i> Reparto |</b> Cargando...</div>
     <div>&nbsp;</div>
-    <div><b>📣 Director |</b> ${showMovieDirectors(id)}</div>
+    <div id="director-${id}"><b><i class="fa-solid fa-bullhorn"></i> Director |</b> Cargando...</div>
     <div>&nbsp;</div>
-    <div><b>🎬 Productores |</b> ${showMovieProducers(id)}</div>
+    <div id="producers-${id}"><b><i class="fa-solid fa-clapperboard"></i> Productores |</b> Cargando...</div>
     <div>&nbsp;</div>
-    <div><b>✍ Escritores y Gionistas |</b> ${showMovieWriters(id)}</div>
+    <div id="writers-${id}"><b><i class="fa-solid fa-pen"></i> Escritores y Guionistas |</b> Cargando...</div>
     <div>&nbsp;</div>
-              <div class="Sinopsis"><b>📝                   Sinopsis | </b> <code> ${overview} </code></div>
+              <div class="Sinopsis"><b><i class="fa-solid fa-file-lines"></i>                   Sinopsis | </b> <code> ${overview} </code></div>
             </div>
           </div>
         </div>
       </div>`
-
+    
     main.appendChild(moviesEL);
-
-// Seleccionar todos los elementos con la clase 'movie-card__poster'
-const lazyImages = document.querySelectorAll('.movie-card__poster');
-
-// Opciones de configuración del IntersectionObserver
-const lazyImageOptions = {
-  rootMargin: '0px', // Margen alrededor del viewport (0px indica que el margen es cero)
-  threshold: 0.1 // Umbral de visibilidad (0.1 significa que el 10% del elemento debe ser visible)
-};
-
-// Crear una instancia de IntersectionObserver con una función de devolución de llamada
-const lazyImageObserver = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const lazyImage = entry.target;
-      lazyImage.style.opacity = 1; // Mostramos la imagen al establecer la opacidad en 1
-      lazyImage.style.backgroundImage = `url(${lazyImage.getAttribute('data-src')})`;
-      lazyImageObserver.unobserve(lazyImage);
-    }
-  });
-}, lazyImageOptions);
-
-// Observar cada elemento con la clase 'movie-card__poster'
-lazyImages.forEach(lazyImage => {
-  lazyImageObserver.observe(lazyImage);
-});
+    
+    const favBtn = moviesEL.querySelector('.favorite-btn');
+    favBtn.addEventListener('click', () => {
+      if (favBtn.classList.contains('favorited')) {
+        removeFavorite(movie.id);
+        favBtn.classList.remove('favorited');
+        favBtn.innerHTML = '<i class="fa-regular fa-heart"></i>';
+      } else {
+        addFavorite(movie);
+        favBtn.classList.add('favorited');
+        favBtn.innerHTML = '<i class="fa-solid fa-heart"></i>';
+      }
+      if (isFavoritesView) {
+        const favorites = getFavorites();
+        if (favorites.length === 0) {
+          main.innerHTML = '<h2 class="noMovie">Sin películas favoritas.</h2>';
+        } else {
+          showMovies(favorites);
+        }
+      }
+    });
+    
+    loadMovieDetails(id);
+    
+    // Seleccionar todos los elementos con la clase 'movie-card__poster'
+    const lazyImages = document.querySelectorAll('.movie-card__poster');
+    
+    // Opciones de configuración del IntersectionObserver
+    const lazyImageOptions = {
+      rootMargin: '0px', // Margen alrededor del viewport (0px indica que el margen es cero)
+      threshold: 0.1 // Umbral de visibilidad (0.1 significa que el 10% del elemento debe ser visible)
+    };
+    
+    // Crear una instancia de IntersectionObserver con una función de devolución de llamada
+    const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const lazyImage = entry.target;
+          lazyImage.style.opacity = 1; // Mostramos la imagen al establecer la opacidad en 1
+          lazyImage.style.backgroundImage = `url(${lazyImage.getAttribute('data-src')})`;
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, lazyImageOptions);
+    
+    // Observar cada elemento con la clase 'movie-card__poster'
+    lazyImages.forEach(lazyImage => {
+      lazyImageObserver.observe(lazyImage);
+    });
   })
 };
 
-document.getElementById("years").innerHTML = '<center>Peliculas randoms del año: '+years[random]+'</center>';
+document.getElementById("years").innerHTML = '<center>Peliculas randoms del año: ' + years[random] + '</center>';
+
+const showFavBtn = document.createElement('button');
+showFavBtn.textContent = 'Ver Favoritos';
+showFavBtn.style.margin = '10px';
+document.body.insertBefore(showFavBtn, main);
+
+const backBtn = document.createElement('button');
+backBtn.textContent = 'Volver a Películas Random';
+backBtn.style.margin = '10px';
+backBtn.style.display = 'none';
+document.body.insertBefore(backBtn, main);
+
+showFavBtn.addEventListener('click', () => {
+  const favorites = getFavorites();
+  if (favorites.length === 0) {
+    main.innerHTML = '<h2 class="noMovie">Sin películas favoritas.</h2>';
+  } else {
+    showMovies(favorites);
+  }
+  document.getElementById("years").innerHTML = '<center>Películas Favoritas</center>';
+  showFavBtn.style.display = 'none';
+  backBtn.style.display = 'inline';
+  isFavoritesView = true;
+});
+
+backBtn.addEventListener('click', () => {
+  showMovies(originalMovies);
+  document.getElementById("years").innerHTML = '<center>Peliculas randoms del año: ' + years[random] + '</center>';
+  backBtn.style.display = 'none';
+  showFavBtn.style.display = 'inline';
+  isFavoritesView = false;
+});
 
 function getColor(vote) {
   if (vote >= 10) {
     return '#63b800'
   } else if (vote >= 7.5) {
-     return '#c3d800'
+    return '#c3d800'
   } else if (vote >= 5) {
-     return '#fff457'
-   } else if (vote >= 2.5) {
-      return '#fffbb2'
-    } else {
+    return '#fff457'
+  } else if (vote >= 2.5) {
+    return '#fffbb2'
+  } else {
     return '#fffbf4'
   }
 }
 
-
-//-----------------------------------------
-//-----------------------------------------
-//-----------------------------------------
-//-----------------------------------------
-
-
-
-// Funcion actores ------------------------
-function showMovieCredits(movieId) {
-  var movieCredits = '';
-
-  $.ajax({
-    url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
-    async: false,
-    success: function(response) {
-
-      // Filtrar los actores más relevantes
-      var relevantActors = response.cast.filter(function(actor) {
-        return actor.order <= 5;
-        // Puedes ajustar el numero de relevancia según tus preferencias, si quieres que aparezcan "3 actores" tienes que colocar como numero "2"
-      });
-
-      // Obtener solo los nombres de los actores y unirlos en un string
-      var actorNames = relevantActors.map(function(actor) {
-        return actor.name;
-      });
-
-      movieCredits = actorNames.join(", ");
-      // Dividir los nombres de los actores
-
-    },
-    error: function(error) {
+function loadMovieDetails(movieId) {
+  const cacheKey = `credits-${movieId}`;
+  const cachedCredits = localStorage.getItem(cacheKey);
+  if (cachedCredits) {
+    const credits = JSON.parse(cachedCredits);
+    updateMovieDetails(movieId, credits);
+    return;
+  }
+  
+  fetch(`${BASE_URL}/movie/${movieId}/credits?${API_KEY}${LANG_ES}`)
+    .then(res => res.json())
+    .then(credits => {
+      localStorage.setItem(cacheKey, JSON.stringify(credits));
+      updateMovieDetails(movieId, credits);
+    })
+    .catch(error => {
       console.log(error);
-      // Algo no salió como esperábamos.
-    }
-  });
-
-  return movieCredits;
+      document.getElementById(`cast-${movieId}`).innerHTML = '<b><i class="fa-solid fa-user"></i> Reparto |</b> Error al cargar';
+      document.getElementById(`director-${movieId}`).innerHTML = '<b><i class="fa-solid fa-bullhorn"></i> Director |</b> Error al cargar';
+      document.getElementById(`producers-${movieId}`).innerHTML = '<b><i class="fa-solid fa-clapperboard"></i> Productores |</b> Error al cargar';
+      document.getElementById(`writers-${movieId}`).innerHTML = '<b><i class="fa-solid fa-pen"></i> Escritores y Guionistas |</b> Error al cargar';
+    });
 }
 
-// Funcion directores ---------------------
-function showMovieDirectors(movieId) {
-  var movieDirector = '';
-
-  $.ajax({
-    url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_EN}`,
-    async: false,
-    success: function(response) {
-
-      // Obtener los directores de la película
-      var directors = response.crew.filter(function(crewMember) {
-        return crewMember.job === "Director";
-      });
-
-      if (directors.length > 0) {
-        movieDirector = directors[0].name; // Obtener el nombre del primer director
+function updateMovieDetails(movieId, response) {
+  // Reparto
+  const relevantActors = response.cast.filter(actor => actor.order <= 5);
+  const actorNames = relevantActors.map(actor => actor.name).join(", ");
+  document.getElementById(`cast-${movieId}`).innerHTML = `<b><i class="fa-solid fa-user"></i> Reparto |</b> ${actorNames || "No disponible"}`;
+  
+  // Director (using the same credits, as names are consistent)
+  const directors = response.crew.filter(crewMember => crewMember.job === "Director");
+  const movieDirector = directors.length > 0 ? directors[0].name : "El director es un misterio.";
+  document.getElementById(`director-${movieId}`).innerHTML = `<b><i class="fa-solid fa-bullhorn"></i> Director |</b> ${movieDirector}`;
+  
+  // Productores
+  let relevantProducers = response.crew.filter(crewMember => crewMember.job === "Producer");
+  if (relevantProducers.length === 0) {
+    relevantProducers = response.crew.filter(crewMember => crewMember.job === "Executive Producer");
+  }
+  const producerInfo = relevantProducers.map(producer => {
+    const jobTitle = producer.job === "Executive Producer" ? "<i>Productor Ejecutivo</i>" : "<i>Productor</i>";
+    return `${producer.name} (${jobTitle})`;
+  }).join(", ");
+  document.getElementById(`producers-${movieId}`).innerHTML = `<b><i class="fa-solid fa-clapperboard"></i> Productores |</b> ${producerInfo || "Productores no encontrados."}`;
+  
+  // Escritores
+  let writers = response.crew.filter(crewMember => crewMember.job === "Writer");
+  let movieWriters = '';
+  if (writers.length > 0) {
+    const uniqueWriters = Array.from(new Set(writers.map(writer => writer.name)));
+    const regularWriters = [];
+    const storyAndScreenplayWriters = [];
+    
+    uniqueWriters.forEach(writer => {
+      const jobTitles = writers.filter(w => w.name === writer).map(w => w.job === "Screenplay" ? "Guión" : "Historia").join(" y ");
+      if (jobTitles.includes("Historia") && jobTitles.includes("Guión")) {
+        storyAndScreenplayWriters.push(`${writer} (${jobTitles})`);
       } else {
-        movieDirector = "El director es un misterio.";
+        regularWriters.push(`${writer} (${jobTitles})`);
       }
-
-    },
-    error: function(error) {
-      console.log(error);
-      // Algo no salió como esperábamos.
-    }
-  });
-
-  return movieDirector;
-}
-
-// Funcion Productores --------------------
-function showMovieProducers(movieId) {
-  var movieProducers = '';
-
-  $.ajax({
-    url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
-    async: false,
-    success: function(response) {
-
-      // Filtrar los productores más relevantes
-      var relevantProducers = response.crew.filter(function(crewMember) {
-        return crewMember.job === "Producer";
-      });
-
-      // Filtrar los productores ejecutivos si no hay productores regulares
-      if (relevantProducers.length === 0) {
-        relevantProducers = response.crew.filter(function(crewMember) {
-          return crewMember.job === "Executive Producer";
-        });
-      }
-
-      // Obtener los nombres y los cargos de los productores
-      var producerInfo = relevantProducers.map(function(producer) {
-        var jobTitle = producer.job === "Executive Producer" ? "<i>Productor Ejecutivo</i>" : "<i>Productor</i>";
-        return `${producer.name} (${jobTitle})`;
-      });
-
-      if (producerInfo.length > 0) {
-        movieProducers = producerInfo.join(", ");
-        // Dividir los nombres y los cargos de los productores
-      } else {
-        movieProducers = "Productores no encontrados.";
-      }
-
-    },
-    error: function(error) {
-      console.log(error);
-      // Algo no salió como esperábamos.
-    }
-  });
-
-  return movieProducers;
-}
-
-// Funcion escritores ---------------------
-function showMovieWriters(movieId) {
-  var movieWriters = '';
-
-  $.ajax({
-    url: `${BASE_URL}/movie/${movieId}/credits?${API_KEY}&${LANG_ES}`,
-    async: false,
-    success: function(response) {
-
-      // Obtener los escritores de la película
-      var writers = response.crew.filter(function(crewMember) {
-        return crewMember.job === "Writer";
-      });
-
-      if (writers.length > 0) {
-        var uniqueWriters = Array.from(new Set(writers.map(writer => writer.name)));
-        var regularWriters = [];
-        var storyAndScreenplayWriters = [];
-
-        uniqueWriters.forEach(function(writer) {
-          var jobTitles = writers.filter(function(w) {
-            return w.name === writer;
-          }).map(function(w) {
-            return w.job === "Screenplay" ? "Guión" : "Historia";
-          }).join(" y ");
-
-          if (jobTitles.includes("Historia") && jobTitles.includes("Guión")) {
-            storyAndScreenplayWriters.push(`${writer} (${jobTitles})`);
-          } else {
-            regularWriters.push(`${writer} (${jobTitles})`);
-          }
-        });
-
-        movieWriters = storyAndScreenplayWriters.concat(regularWriters).join(", ");
-        // Obtener los nombres de los escritores únicos y sus títulos en español, separados por coma
-      } else {
-        var storyWriters = response.crew.filter(function(crewMember) {
-          return crewMember.job === "Story";
-        });
-
-        var screenplayWriters = response.crew.filter(function(crewMember) {
-          return crewMember.job === "Screenplay";
-        });
-
-        var uniqueWriters = Array.from(new Set(storyWriters.concat(screenplayWriters).map(writer => writer.name)));
-        movieWriters = uniqueWriters.map(function(writer) {
-          var jobTitles = storyWriters.concat(screenplayWriters).filter(function(w) {
-            return w.name === writer;
-          }).map(function(w) {
-            return w.job === "Screenplay" ? "Guión" : "Historia";
-          }).join(" y ");
-          return `${writer} (${jobTitles})`;
-        }).join(", ");
-        // Si no hay escritores regulares, mostramos los escritores de "Historia y Guion" con sus títulos en español
-      }
-
-    },
-    error: function(error) {
-      console.log(error);
-      // Algo no salió como esperábamos.
-    }
-  });
-
-  return movieWriters;
+    });
+    
+    movieWriters = storyAndScreenplayWriters.concat(regularWriters).join(", ");
+  } else {
+    const storyWriters = response.crew.filter(crewMember => crewMember.job === "Story");
+    const screenplayWriters = response.crew.filter(crewMember => crewMember.job === "Screenplay");
+    const uniqueWriters = Array.from(new Set([...storyWriters, ...screenplayWriters].map(writer => writer.name)));
+    movieWriters = uniqueWriters.map(writer => {
+      const jobTitles = [...storyWriters, ...screenplayWriters].filter(w => w.name === writer).map(w => w.job === "Screenplay" ? "Guión" : "Historia").join(" y ");
+      return `${writer} (${jobTitles})`;
+    }).join(", ");
+  }
+  document.getElementById(`writers-${movieId}`).innerHTML = `<b><i class="fa-solid fa-pen"></i> Escritores y Guionistas |</b> ${movieWriters || "No encontrados"}`;
 }
