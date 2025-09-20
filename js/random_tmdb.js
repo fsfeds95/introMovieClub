@@ -172,7 +172,7 @@ function showMovies(data) {
             </a>
             <div class="d">
             <div class="contenedor border">
-              <div>
+              <div class="button_fav">
               <button class="favorite-btn ${isFavorite ? 'favorited' : ''}" data-id="${id}">${isFavorite ? '<i class="fa-solid fa-heart"></i> Quitar de Favoritos' : '<i class="fa-regular fa-heart"></i>'}</button>
               </div>
               <div class="titulo_es">
@@ -218,7 +218,7 @@ function showMovies(data) {
       if (isFavoritesView) {
         const favorites = getFavorites();
         if (favorites.length === 0) {
-          main.innerHTML = '<h2 class="noMovie">Sin películas favoritas.</h2>';
+          main.innerHTML = '<h2 class="noMovie" style="color:#FFFFFF;">Sin películas favoritas.</h2>';
         } else {
           showMovies(favorites);
         }
@@ -271,7 +271,7 @@ document.body.insertBefore(backBtn, main);
 showFavBtn.addEventListener('click', () => {
   const favorites = getFavorites();
   if (favorites.length === 0) {
-    main.innerHTML = '<h2 class="noMovie">Sin películas favoritas.</h2>';
+    main.innerHTML = '<h2 class="noMovie" style="color:#FFFFFF;">Sin películas favoritas.</h2>';
   } else {
     showMovies(favorites);
   }
